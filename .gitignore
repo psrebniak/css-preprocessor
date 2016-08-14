@@ -1,0 +1,8 @@
+cmake**
+CMake**
+Makefile
+!CMakeLists.txt
+build
+*.o
+*.swp
+.idea
