@@ -1,0 +1,8 @@
+a {}
+a#id {}
+a.class {}
+a.class.second.class {}
+a b {}
+a + b {}
+a ~ b {}
+a > b {}

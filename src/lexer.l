@@ -6,7 +6,7 @@
 
     #undef  YY_DECL
     #define YY_DECL int CSSP::Scanner::yylex( CSSP::Parser::semantic_type * const lval, CSSP::Parser::location_type *location )
-    #define yyterminate() return( token::END )
+    //#define yyterminate() return( token::END_OF_FILE )
     #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
 %}
 
@@ -15,41 +15,103 @@
 %option yyclass="CSSP::Scanner"
 %option noyywrap
 %option c++
+%option verbose
 
+DIGIT    [0-9]
+ID       [a-zA-Z0-9\-\_]
+TAG      [a-zA-Z]
+PROPERTY [a-zA-Z\-]
+MODIFIER [a-z]
+UNIT     ("px"|"em"|"rem"|"%")
 %%
 %{          /** Code executed at the beginning of yylex **/
             yylval = lval;
 %}
 
-[a-z]       {
-               return( token::LOWER );
-            }
 
-[A-Z]       {
-               return( token::UPPER );
-            }
 
-[a-zA-Z]+   {
-               /**
-                * Section 10.1.5.1 of the 3.0.2 Bison Manual says the 
-                * following should work:
-                * yylval.build( yytext );
-                * but it doesn't.
-                * ref: http://goo.gl/KLn0w2
-                */
-               yylval->build< std::string >( yytext );
-               return( token::WORD );
-            }
+{TAG}+          {
+                    yylval->build <std::string> (yytext);
+                    return token::TAG;
+                }
+"."{ID}+        {
+                    yylval->build <std::string> (yytext);
+                    return token::CLASS;
+                }
+"#"{ID}+        {
+                    yylval->build <std::string> (yytext);
+                    return token::ID;
+                }
+":"{TAG}+       {
+                    yylval->build <std::string> (yytext);
+                    return token::PSEUDO_CLASS;
+                }
+"::"{TAG}+      {
+                    yylval->build <std::string> (yytext);
+                    return token::PSEUDO_ELEMENT;
+                }
+"#{$"{ID}+"}"   {
+                    yylval->build <std::string> (yytext);
+                    return token::VARIABLE_NAME;
+                }
+"$"{ID}+        {
+                    yylval->build <std::string> (yytext);
+                    return token::VARIABLE_NAME;
+                }
+{PROPERTY}+     {
+                    yylval->build <std::string> (yytext);
+                    return token::PROPERTY_NAME;
+                }
+"!"{MODIFIER}+  {
+                    yylval->build <std::string> (yytext);
+                    return token::MODIFIER;
+                }
+{DIGIT}+{UNIT}   {
+                    yylval->build <std::string> (yytext);
+                    return token::UNIT_VALUE;
+                }
 
-\n          {
-               // Update line number
-               loc->lines();
-               return( token::NEWLINE );
-            }
+[\+\~\>]        {
+                        yylval->build <std::string> (yytext);
+                        return token::SELECTOR_SEPARATOR;
+                    }
 
-.           {
-               return( token::CHAR );
-            }
+[a-zA-Z]+     {
+                yylval->build< std::string >( yytext );
+                return( token::WORD );
+              }
+
+\n            {
+                // Update line number
+                loc->lines();
+                //return( token::NEW_LINE );
+              }
+
+\:            {
+                return token::COLON;
+              }
+
+\;            {
+                return token::SEMICOLON;
+              }
+
+\(            {
+                return token::LPAREN;
+              }
+
+\)            {
+                return token::RPAREN;
+              }
+
+\{            {
+                return token::LBRACKET;
+              }
+
+\}            {
+                return token::RBRACKET;
+              }
+" "+          ;
+.             {
+                return( token::CHAR );
+              }
 %%
-
-
