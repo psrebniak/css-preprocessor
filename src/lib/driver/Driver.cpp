@@ -12,33 +12,32 @@ CSSP::Driver::~Driver()
    parser = nullptr;
 }
 
-void CSSP::Driver::parse( const char * const filename )
+int CSSP::Driver::parse( const char * const filename )
 {
    assert( filename != nullptr );
    std::ifstream in_file( filename );
    if( ! in_file.good() )
    {
-       exit( EXIT_FAILURE );
+       return EXIT_FAILURE;
    }
-   parse_helper( in_file );
-   return;
+
+   return parse_helper( in_file );
 }
 
-void CSSP::Driver::parse( std::istream &stream )
+int CSSP::Driver::parse( std::istream &stream )
 {
    if( ! stream.good()  && stream.eof() )
    {
-       return;
+       return EXIT_FAILURE;
    }
-   //else
-   parse_helper( stream ); 
-   return;
+
+   return parse_helper( stream );
 }
 
 
-void CSSP::Driver::parse_helper( std::istream &stream )
+int CSSP::Driver::parse_helper( std::istream &stream )
 {
-   
+
    delete(scanner);
    try
    {
@@ -50,8 +49,8 @@ void CSSP::Driver::parse_helper( std::istream &stream )
          ba.what() << "), exiting!!\n";
       exit( EXIT_FAILURE );
    }
-   
-   delete(parser); 
+
+   delete(parser);
    try
    {
       parser = new CSSP::Parser( (*scanner) /* scanner */,
@@ -59,7 +58,7 @@ void CSSP::Driver::parse_helper( std::istream &stream )
    }
    catch( std::bad_alloc &ba )
    {
-      std::cerr << "Failed to allocate parser: (" << 
+      std::cerr << "Failed to allocate parser: (" <<
          ba.what() << "), exiting!!\n";
       exit( EXIT_FAILURE );
    }
@@ -67,49 +66,50 @@ void CSSP::Driver::parse_helper( std::istream &stream )
    if( parser->parse() != accept )
    {
       std::cerr << "Parse failed!!\n";
+      return EXIT_FAILURE;
    }
-   return;
+   return EXIT_SUCCESS;
 }
 
 void CSSP::Driver::add_upper()
-{ 
-   uppercase++; 
-   chars++; 
-   words++; 
+{
+   uppercase++;
+   chars++;
+   words++;
 }
 
 void CSSP::Driver::add_lower()
-{ 
-   lowercase++; 
-   chars++; 
-   words++; 
+{
+   lowercase++;
+   chars++;
+   words++;
 }
 
 void CSSP::Driver::add_word( const std::string &word )
 {
-   words++; 
+   words++;
    chars += word.length();
    for(const char &c : word ){
       if( islower( c ) )
-      { 
-         lowercase++; 
+      {
+         lowercase++;
       }
-      else if ( isupper( c ) ) 
-      { 
-         uppercase++; 
+      else if ( isupper( c ) )
+      {
+         uppercase++;
       }
    }
 }
 
 void CSSP::Driver::add_newline()
-{ 
-   lines++; 
-   chars++; 
+{
+   lines++;
+   chars++;
 }
 
 void CSSP::Driver::add_char()
-{ 
-   chars++; 
+{
+   chars++;
 }
 
 
