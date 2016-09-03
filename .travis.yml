@@ -5,7 +5,7 @@ services:
 
 env:
     matrix:
-      - OS=ubuntu DIST=xenial PACK=deb
+      - OS=ubuntu DIST=16 PACK=deb
 
 language: c++
 
@@ -20,4 +20,7 @@ addons:
       - flex
 
 script:
-  - mkdir build && cd build && cmake .. && cmake --build .
+  - mkdir build && cd build
+  - cmake ..
+  - cmake --build .
+  - ctest .
