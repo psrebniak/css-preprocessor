@@ -35,6 +35,7 @@
 %token NEW_LINE "\n"
 %token COLON ":"
 %token SEMICOLON ";"
+%token COMMA ","
 %token LPAREN "("
 %token RPAREN ")"
 %token LBRACKET "{"
@@ -84,6 +85,7 @@ node
 selector
     : selectorNode
     | selector SELECTOR_SEPARATOR selectorNode
+    | selector COMMA selectorNode
     | selector selectorNode
 
 selectorNode

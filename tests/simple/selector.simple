@@ -1,0 +1,14 @@
+a {}
+a#id {}
+a.class {}
+a.class.second.class {}
+a b {}
+a + b {}
+a ~ b {}
+a > b {}
+a, b {}
+a b {}
+a b c {}
+a:first-child {}
+a::after {}
+element#id.class:pseudoclass::pseudoelement ~ otherElement + #otherID > .otherClass last.div::after {}

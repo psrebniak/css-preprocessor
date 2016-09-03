@@ -6,3 +6,4 @@ build
 *.o
 *.swp
 .idea
+.env

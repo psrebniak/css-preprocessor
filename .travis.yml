@@ -1,18 +1,23 @@
-language: c++
-dist: trusty
 sudo: true
 
+services:
+  - docker
+
+env:
+    matrix:
+      - OS=ubuntu DIST=xenial PACK=deb
+
+language: c++
+
 compiler:
-    - gcc
+  - g++
 
 addons:
-    apt:
-        sources:
-            - kalakris-cmake
-        packages:
-            - cmake
-            - bison
-            - flex
+  apt:
+    packages:
+      - cmake
+      - bison
+      - flex
 
 script:
   - mkdir build && cd build && cmake .. && cmake --build .
