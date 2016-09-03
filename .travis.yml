@@ -1,17 +1,17 @@
 language: c++
-
-os: 
-  - linux
+dist: trusty
 
 compiler:
-  - gcc
+    - gcc
 
 addons:
-  apt:
-    packages:
-      - cmake 
-      - bison 
-      - flex
+    apt:
+        sources:
+            - kalakris-cmake
+        packages:
+            - cmake
+            - bison
+            - flex
 
 script:
-  - mkdir build && cd build && cmake .. && cmake --build . 
+  - mkdir build && cd build && cmake .. && cmake --build .
