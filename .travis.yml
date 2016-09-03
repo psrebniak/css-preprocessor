@@ -3,14 +3,20 @@ sudo: true
 services:
   - docker
 
+branches:
+  only:
+    - master
+    - dev
+
 env:
-    matrix:
-      - OS=ubuntu DIST=16 PACK=deb
+  matrix:
+    - OS=ubuntu DIST=16 PACK=deb
 
 language: c++
 
 compiler:
   - g++
+  - clang
 
 addons:
   apt:
