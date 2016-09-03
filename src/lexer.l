@@ -42,11 +42,11 @@ UNIT     ("px"|"em"|"rem"|"%")
                     yylval->build <std::string> (yytext);
                     return token::ID;
                 }
-":"{TAG}+       {
+":"{PROPERTY}+       {
                     yylval->build <std::string> (yytext);
                     return token::PSEUDO_CLASS;
                 }
-"::"{TAG}+      {
+"::"{PROPERTY}+      {
                     yylval->build <std::string> (yytext);
                     return token::PSEUDO_ELEMENT;
                 }
@@ -94,7 +94,9 @@ UNIT     ("px"|"em"|"rem"|"%")
 \;            {
                 return token::SEMICOLON;
               }
-
+\,            {
+                return token::COMMA;
+              }
 \(            {
                 return token::LPAREN;
               }
