@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
+find_package(BISON 3.0.4 REQUIRED)
+find_package(FLEX 2.6.0 REQUIRED)
 
 if(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     message(FATAL_ERROR "Do not run cmake in-source. Instead run\n$ mkdir build\n$ cd build\n$ cmake ..\n")
@@ -11,9 +13,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # Set Bison/Flex - generated content
-find_package(BISON 3.0.4 REQUIRED)
-find_package(FLEX 2.6.0 REQUIRED)
-
 set(GENERATED_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 file(MAKE_DIRECTORY ${GENERATED_OUTPUT_DIRECTORY})
 
@@ -39,7 +38,7 @@ enable_testing()
 
 FILE(GLOB TESTS_SIMPLE "${TEST_SOURCE_DIR}/simple/*.simple")
 FOREACH(TEST ${TESTS_SIMPLE})
-    get_filename_component(TESTNAME ${TEST} NAME_WE)
+    get_filename_component(TESTNAME ${TEST} NAME)
     add_test(
         NAME ${TESTNAME}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}

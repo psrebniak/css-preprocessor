@@ -1,17 +1,23 @@
+sudo: true
+
+services:
+  - docker
+
+env:
+    matrix:
+      - OS=ubuntu DIST=xenial PACK=deb
+
 language: c++
 
-os: 
-  - linux
-
 compiler:
-  - gcc
+  - g++
 
 addons:
   apt:
     packages:
-      - cmake 
-      - bison 
+      - cmake
+      - bison
       - flex
 
 script:
-  - mkdir build && cd build && cmake .. && cmake --build . 
+  - mkdir build && cd build && cmake .. && cmake --build .
