@@ -17,7 +17,10 @@
 %option c++
 %option verbose
 
+HEX      [0-9a-fA-F]
 DIGIT    [0-9]
+STRING   [a-zA-Z0-9\-\_]
+
 ID       [a-zA-Z0-9\-\_]
 TAG      [a-zA-Z]
 PROPERTY [a-zA-Z\-]
@@ -28,58 +31,32 @@ UNIT     ("px"|"em"|"rem"|"%")
             yylval = lval;
 %}
 
+{HEX}{6} {
+    yylval->build <std::string> (yytext);
+    return token::HEX;
+}
 
+{HEX}{3} {
+    yylval->build <std::string> (yytext);
+    return token::HEX;
+}
 
-{TAG}+          {
-                    yylval->build <std::string> (yytext);
-                    return token::TAG;
-                }
-"."{ID}+        {
-                    yylval->build <std::string> (yytext);
-                    return token::CLASS;
-                }
-"#"{ID}+        {
-                    yylval->build <std::string> (yytext);
-                    return token::ID;
-                }
-":"{PROPERTY}+       {
-                    yylval->build <std::string> (yytext);
-                    return token::PSEUDO_CLASS;
-                }
-"::"{PROPERTY}+      {
-                    yylval->build <std::string> (yytext);
-                    return token::PSEUDO_ELEMENT;
-                }
-"#{$"{ID}+"}"   {
-                    yylval->build <std::string> (yytext);
-                    return token::VARIABLE_NAME;
-                }
-"$"{ID}+        {
-                    yylval->build <std::string> (yytext);
-                    return token::VARIABLE_NAME;
-                }
-{PROPERTY}+     {
-                    yylval->build <std::string> (yytext);
-                    return token::PROPERTY_NAME;
-                }
-"!"{MODIFIER}+  {
-                    yylval->build <std::string> (yytext);
-                    return token::MODIFIER;
-                }
-{DIGIT}+{UNIT}   {
-                    yylval->build <std::string> (yytext);
-                    return token::UNIT_VALUE;
-                }
+{DIGIT}+ {
+    yylval->build <std::string> (yytext);
+    return token::NUMBER;
+}
+
+{STRING}+ {
+    yylval->build <std::string> (yytext);
+    return token::STRING;
+}
+
 
 [\+\~\>]        {
                         yylval->build <std::string> (yytext);
                         return token::SELECTOR_SEPARATOR;
                     }
 
-[a-zA-Z]+     {
-                yylval->build< std::string >( yytext );
-                return( token::WORD );
-              }
 
 \n            {
                 // Update line number

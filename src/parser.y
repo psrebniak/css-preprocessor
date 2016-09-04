@@ -31,40 +31,46 @@
 %define parse.assert
 %define parse.error verbose
 
+// TYPE TOKENS
+%token <std::string> HEX
+%token <std::string> STRING
+%token <std::string> NUMBER
+
 // typeless tokens
 %token END_OF_FILE
-%token NEW_LINE "\n"
-%token COLON ":"
-%token SEMICOLON ";"
-%token COMMA ","
-%token LPAREN "("
-%token RPAREN ")"
-%token LBRACKET "{"
-%token RBRACKET "}"
+%token NEW_LINE     "\n"
+%token SPACE        " "
+%token TAB          "\t"
 
-%token IMPORT
+%token TILDE        "~"
+%token BANG         "!"
+%token AT           "@"
+%token HASH         "#"
+%token DOLLAR       "$"
+%token PERCENT      "%"
+%token CARET        "^"
+%token AMP          "&"
+%token ASTERISK     "*"
+%token LPAREN       "("
+%token RPAREN       ")"
+%token MINUS        "-"
+%token UNDERSCORE   "_"
+%token PLUS         "+"
+%token EQUAL        "="
 
-// string tokens
-// <std::string> selector tokens
-%token <std::string> TAG;
-%token <std::string> CLASS;
-%token <std::string> ID;
-%token <std::string> PSEUDO_CLASS;
-%token <std::string> PSEUDO_ELEMENT;
-%token <std::string> SELECTOR_SEPARATOR
+%token LBRACKET     "["
+%token RBRACKET     "]"
+%token LBRACE       "{"
+%token RBRACE       "}"
 
-%token <std::string> VARIABLE_NAME
-%token <std::string> PROPERTY_NAME
-%token <std::string> VALUE
-%token <std::string> MODIFIER
-%token <std::string> SELECTOR
-
-%token <std::string> UNIT_VALUE;
-
-%token               UPPER
-%token               LOWER
-%token <std::string> WORD
-%token               CHAR
+%token COLON        ":"
+%token SEMICOLON    ";"
+%token COMMA        ","
+%token DOT          "."
+%token LT           "<"
+%token GT           ">"
+%token QUESTION     "?"
+%token DIVIDE       "/"
 
 %locations
 
