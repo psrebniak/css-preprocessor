@@ -28,7 +28,9 @@ include_directories(${CMAKE_BINARY_DIR})
 include_directories(src)
 set(SOURCE_FILES
         src/main.cpp
-        src/lib/driver/Driver.cpp)
+        src/lib/driver/Driver.cpp
+        src/lib/logger/Logger.cpp
+    )
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)

@@ -2,12 +2,28 @@
 #include <cstring>
 
 #include "lib/driver/Driver.hpp"
+#include "lib/logger/Logger.hpp"
 
 void printHelp(std::string binary) {
-    std::cerr << "Driver error" << std::endl;
-    std::cout << "Usage: " << std::endl;
-    std::cout << binary << " -f <filename> - parse given file" << std::endl;
-    std::cout << binary << " -i            - parse standard input" << std::endl;
+    CSSP::Logger err(std::cerr, CSSP::Logger::redColor);
+
+    err
+        << "Driver error"
+        << std::endl;
+
+    std::cout
+        << "Usage: "
+        << std::endl;
+
+    std::cout
+        << binary
+        << " -f <filename> - parse given file"
+        << std::endl;
+
+    std::cout
+        << binary
+        << " -i            - parse standard input"
+        << std::endl;
 
     return;
 }
