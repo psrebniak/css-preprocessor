@@ -6,7 +6,7 @@
 
 
 void printHelp(std::string binary) {
-    CSSP::Logger err(std::cerr, CSSP::Logger::redColor);
+    CSSP::Logger err(std::cerr, CSSP::Logger::colorRed);
 
     err
         << "Driver error"
