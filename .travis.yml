@@ -33,3 +33,6 @@ script:
   - cmake ..
   - cmake --build .
   - ctest .
+
+notifications:
+  email: false
