@@ -4,15 +4,21 @@
 #include <string>
 #include <cstddef>
 #include <istream>
+#include <iostream>
 
 #include "lib/lexer/Lexer.hpp"
+#include "lib/logger/Logger.hpp"
 #include "generated/parser.hpp"
 
 namespace CSSP{
 
-class Driver{
+class Driver {
 public:
-   Driver() = default;
+   Driver():
+        log(std::cout, Logger::blueColor),
+        warn(std::cout, Logger::yellowColor),
+        error(std::cerr, Logger::redColor)
+        {}
 
    virtual ~Driver();
 
@@ -27,28 +33,14 @@ public:
     */
    int parse( std::istream &iss );
 
-   void add_upper();
-   void add_lower();
-   void add_word( const std::string &word );
-   void add_newline();
-   void add_char();
-
-   std::ostream& print(std::ostream &stream);
+   Logger log;
+   Logger warn;
+   Logger error;
 private:
 
    int parse_helper( std::istream &stream );
-
-   std::size_t  chars      = 0;
-   std::size_t  words      = 0;
-   std::size_t  lines      = 0;
-   std::size_t  uppercase  = 0;
-   std::size_t  lowercase  = 0;
    CSSP::Parser  *parser  = nullptr;
    CSSP::Scanner *scanner = nullptr;
-
-   const std::string red   = "\033[1;31m";
-   const std::string blue  = "\033[1;36m";
-   const std::string norm  = "\033[0m";
 };
 
 }

@@ -21,6 +21,7 @@
 
    /* include for all driver functions */
    #include "lib/driver/Driver.hpp"
+   #include "lib/logger/Logger.hpp"
 
 #undef yylex
 #define yylex scanner.yylex
@@ -70,7 +71,9 @@
 %%
 
 preprocesor
-    : program
+    : program {
+        driver.log << "process complete" << std::endl;
+    }
 
 program
     : %empty
@@ -105,7 +108,7 @@ innerNode
     | innerNode property
 
 property
-    : property_name COLON property_value /*modifier*/ SEMICOLON
+    : property_name COLON property_value modifier SEMICOLON
 
 property_name
     : PROPERTY_NAME
@@ -128,22 +131,6 @@ modifier
     | MODIFIER
 
 %%
-
-/*
-
-list
-  : item
-  | list item
-  ;
-
-item
-  : UPPER   { driver.add_upper(); }
-  | LOWER   { driver.add_lower(); }
-  | WORD    { driver.add_word( $1 ); }
-  | NEW_LINE { driver.add_newline(); }
-  | CHAR    { driver.add_char(); }
-  ;
-  */
 
 void CSSP::Parser::error( const location_type &l, const std::string &err_message )
 {
