@@ -6,7 +6,6 @@ services:
 branches:
   only:
     - master
-    - dev
 
 env:
   matrix:
