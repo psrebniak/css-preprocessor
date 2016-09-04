@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "lib/logger/Logger.hpp"
 #include "lib/driver/Driver.hpp"
@@ -41,6 +42,5 @@ int main(const int argc, const char **argv) {
     }
 
     printHelp(argv[0]);
-    
     return EXIT_FAILURE;
 }
