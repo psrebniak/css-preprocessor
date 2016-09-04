@@ -25,8 +25,11 @@ addons:
       - bison
       - flex
 
+before_script:
+    - mkdir build
+    - cd build
+
 script:
-  - mkdir build && cd build
   - cmake ..
   - cmake --build .
   - ctest .
