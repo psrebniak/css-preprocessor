@@ -12,3 +12,7 @@ const std::string CSSP::Logger::colorBlue = "\033[1;34m";
 const std::string CSSP::Logger::colorMagenta = "\033[1;35m";
 const std::string CSSP::Logger::colorCyan = "\033[1;36m";
 const std::string CSSP::Logger::colorWhite = "\033[1;97m";
+
+void CSSP::Logger::setColor(std::string color) {
+    this->color = color;
+}
