@@ -14,6 +14,8 @@ namespace CSSP {
             os_(os),
             color(color) {}
 
+        void setColor(std::string color);
+
         static const std::string colorDefault;
         static const std::string colorBlack;
         static const std::string colorRed;
