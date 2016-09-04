@@ -27,7 +27,7 @@ namespace CSSP {
 
         // created by flex
         virtual int yylex(CSSP::Parser::semantic_type *const lval,
-                  CSSP::Parser::location_type *location);
+                          CSSP::Parser::location_type *location);
 
 
     private:

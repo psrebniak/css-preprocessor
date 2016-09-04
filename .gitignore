@@ -3,7 +3,8 @@ CMake**
 Makefile
 !CMakeLists.txt
 build
-*.o
 *.swp
 .idea
 .env
+*.[oa]
+*~

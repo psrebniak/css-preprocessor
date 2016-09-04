@@ -1,8 +1,8 @@
 #include <iostream>
-#include <cstring>
 
-#include "lib/driver/Driver.hpp"
 #include "lib/logger/Logger.hpp"
+#include "lib/driver/Driver.hpp"
+
 
 void printHelp(std::string binary) {
     CSSP::Logger err(std::cerr, CSSP::Logger::redColor);
@@ -32,14 +32,15 @@ int main(const int argc, const char **argv) {
     CSSP::Driver Driver;
 
     if (argc >= 2) {
-        if (argc >= 3 && std::strncmp( argv[1], "-f", 2 ) == 0) {
+        if (argc >= 3 && std::strncmp(argv[1], "-f", 2) == 0) {
             return Driver.parse(argv[2]);
         }
-        if (std::strncmp( argv[1], "-i", 2 ) == 0) {
+        if (std::strncmp(argv[1], "-i", 2) == 0) {
             return Driver.parse(std::cin);
         }
     }
 
     printHelp(argv[0]);
+    
     return EXIT_FAILURE;
 }

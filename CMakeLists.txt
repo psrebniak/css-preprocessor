@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 
-if(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+if (${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     message(FATAL_ERROR "Do not run cmake in-source. Instead run\n$ mkdir build\n$ cd build\n$ cmake ..\n")
-endif()
+endif ()
 
 project(CssPreprocessor)
 
@@ -27,9 +27,9 @@ include_directories(${CMAKE_BINARY_DIR})
 
 include_directories(src)
 set(SOURCE_FILES
-        src/main.cpp
-        src/lib/driver/Driver.cpp
-        src/lib/logger/Logger.cpp
+    src/main.cpp
+    src/lib/driver/Driver.cpp
+    src/lib/logger/Logger.cpp
     )
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
@@ -40,7 +40,7 @@ set(TEST_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 enable_testing()
 
 FILE(GLOB TESTS_SIMPLE "${TEST_SOURCE_DIR}/simple/*.simple")
-FOREACH(TEST ${TESTS_SIMPLE})
+FOREACH (TEST ${TESTS_SIMPLE})
     get_filename_component(TESTNAME ${TEST} NAME)
     add_test(
         NAME ${TESTNAME}
@@ -48,4 +48,4 @@ FOREACH(TEST ${TESTS_SIMPLE})
         COMMAND CssPreprocessor -f ${TEST}
         DEPENDS CssPreprocessor
     )
-ENDFOREACH(TEST)
+ENDFOREACH (TEST)
