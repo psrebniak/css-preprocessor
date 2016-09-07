@@ -20,12 +20,6 @@
 HEX      [0-9a-fA-F]
 DIGIT    [0-9]
 STRING   [a-zA-Z0-9\-\_]
-
-ID       [a-zA-Z0-9\-\_]
-TAG      [a-zA-Z]
-PROPERTY [a-zA-Z\-]
-MODIFIER [a-z]
-UNIT     ("px"|"em"|"rem"|"%")
 %%
 %{          /** Code executed at the beginning of yylex **/
             yylval = lval;
@@ -51,46 +45,100 @@ UNIT     ("px"|"em"|"rem"|"%")
     return token::STRING;
 }
 
+"~" {
+    return token::TILDE;
+}
+"!" {
+    return token::BANG;
+}
+"@" {
+    return token::AT;
+}
+"#" {
+    return token::HASH;
+}
+"$" {
+    return token::DOLLAR;
+}
+"%" {
+    return token::PERCENT;
+}
+"^" {
+    return token::CARET;
+}
+"&" {
+    return token::AMP;
+}
+"*" {
+    return token::ASTERISK;
+}
+"(" {
+    return token::LPAREN;
+}
+")" {
+    return token::RPAREN;
+}
 
-[\+\~\>]        {
-                        yylval->build <std::string> (yytext);
-                        return token::SELECTOR_SEPARATOR;
-                    }
+"-" {
+    //@warn always tokenized as STRING
+    return token::MINUS;
+}
+"_" {
+    //@warn always tokenized as STRING
+    return token::UNDERSCORE;
+}
+"+" {
+    return token::PLUS;
+}
+"=" {
+    return token::EQUAL;
+}
+"[" {
+    return token::LBRACKET;
+}
+"]" {
+    return token::RBRACKET;
+}
+"{" {
+    return token::LBRACE;
+}
+"}" {
+    return token::RBRACE;
+}
+":" {
+    return token::COLON;
+}
+";" {
+    return token::SEMICOLON;
+}
+"," {
+    return token::COMMA;
+}
+"." {
+    return token::DOT;
+}
+"<" {
+    return token::LT;
+}
+">" {
+    return token::GT;
+}
+"?" {
+    return token::QUESTION;
+}
+"/" {
+    return token::DIVIDE;
+}
 
+(\ |\t)+    ; // whitespaces
+\n {
+    loc->lines();
+    //return( token::NEW_LINE );
+}
 
-\n            {
-                // Update line number
-                loc->lines();
-                //return( token::NEW_LINE );
-              }
+. {
+    yylval->build <std::string> (yytext);
+    return token::CHAR;
+}
 
-\:            {
-                return token::COLON;
-              }
-
-\;            {
-                return token::SEMICOLON;
-              }
-\,            {
-                return token::COMMA;
-              }
-\(            {
-                return token::LPAREN;
-              }
-
-\)            {
-                return token::RPAREN;
-              }
-
-\{            {
-                return token::LBRACKET;
-              }
-
-\}            {
-                return token::RBRACKET;
-              }
-" "+          ;
-.             {
-                return( token::CHAR );
-              }
 %%
