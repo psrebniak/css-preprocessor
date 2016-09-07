@@ -4,8 +4,7 @@ services:
   - docker
 
 branches:
-  only:
-    - master
+  only: master
 
 env:
   matrix:
