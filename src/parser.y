@@ -35,6 +35,7 @@
 %token <std::string> HEX
 %token <std::string> STRING
 %token <std::string> NUMBER
+%token <std::string> CHAR
 
 // typeless tokens
 %token END_OF_FILE
@@ -89,24 +90,39 @@ instruction
     : node
 
 node
-    : selector LBRACKET innerNode RBRACKET
+    : selector LBRACE innerNode RBRACE
 
 selector
     : selectorNode
-    | selector SELECTOR_SEPARATOR selectorNode
-    | selector COMMA selectorNode
+    | selector selectorSeparator selectorNode
     | selector selectorNode
 
 selectorNode
     : selectorEntry
     | selectorNode selectorEntry
 
+selectorSeparator
+    : TILDE
+    | PLUS
+    | COMMA
+    | GT
+
 selectorEntry
-    : TAG
-    | CLASS
-    | ID
-    | PSEUDO_CLASS
-    | PSEUDO_ELEMENT
+    : STRING {
+        driver.log << "TagName: " << $1 << std::endl;
+    }
+    | DOT STRING {
+        driver.log << "Class: " << $2 << std::endl;
+    }
+    | HASH STRING {
+        driver.log << "Id: " << $2 << std::endl;
+    }
+    | COLON STRING {
+        driver.log << "PseudoClass: " << $2 << std::endl;
+    }
+    | COLON COLON STRING {
+        driver.log << "PseudoElement: " << $3 << std::endl;
+    }
 
 innerNode
     : %empty
@@ -114,31 +130,24 @@ innerNode
     | innerNode property
 
 property
-    : property_name COLON property_value modifier SEMICOLON
-
-property_name
-    : PROPERTY_NAME
-    | TAG
+    : STRING COLON property_value modifier SEMICOLON
 
 property_value
     : property_value_entry
     | property_value property_value_entry
 
-
 property_value_entry
-    : TAG
-    | PROPERTY_NAME
-    // as color
-    | ID
-    | UNIT_VALUE
+    : STRING
+    | HASH HEX
+    | NUMBER
 
 modifier
     : %empty
-    | MODIFIER
+    | BANG STRING
 
 %%
 
-void CSSP::Parser::error( const location_type &l, const std::string &err_message )
+void CSSP::Parser::error(const location_type &l, const std::string &err_message)
 {
    std::cerr << "Error: " << err_message << " at " << l << "\n";
 }
