@@ -25,6 +25,23 @@ STRING   [a-zA-Z0-9\-\_]
             yylval = lval;
 %}
 
+"//"+(.|"\\\n")*	;// ignore c-style comments
+\/\*+([^*]|[ \t\r\n]|(\*+([^\*\/]|[ \t\r\n])))*\*+\/ ; // ignore c++-style comments
+
+\"{1}([^\"]|"\\\"")*\"{1} {
+    yylval->build <std::string> (yytext);
+    return token::RAW_STRING;
+}
+\'{1}([^\']|\\\')*\'{1} {
+    yylval->build <std::string> (yytext);
+    return token::RAW_STRING;
+}
+
+{DIGIT}+ {
+    yylval->build <std::string> (yytext);
+    return token::NUMBER;
+}
+
 {HEX}{6} {
     yylval->build <std::string> (yytext);
     return token::HEX;
@@ -33,11 +50,6 @@ STRING   [a-zA-Z0-9\-\_]
 {HEX}{3} {
     yylval->build <std::string> (yytext);
     return token::HEX;
-}
-
-{DIGIT}+ {
-    yylval->build <std::string> (yytext);
-    return token::NUMBER;
 }
 
 {STRING}+ {
