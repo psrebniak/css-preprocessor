@@ -11,4 +11,6 @@ a b {}
 a b c {}
 a:first-child {}
 a::after {}
+[data-example]
+[data-example="someExample"]
 element#id.class:pseudoclass::pseudoelement ~ otherElement + #otherID > .otherClass last.div::after {}

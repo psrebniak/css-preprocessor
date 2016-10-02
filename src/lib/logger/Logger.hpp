@@ -31,7 +31,7 @@ namespace CSSP {
 
         template<typename T>
         friend std::ostream &operator<<(Logger &log, T op) {
-            log.os_ << log.color << op << Logger::colorDefault;
+            log.os_ << log.color << op;
             return log.os_;
         }
 

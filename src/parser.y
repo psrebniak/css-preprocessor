@@ -91,6 +91,22 @@ program
 instruction
     : node
     | variable
+    | query
+
+query
+    : AT STRING queryNode LBRACE innerNode RBRACE
+    | AT STRING RAW_STRING SEMICOLON
+    | AT STRING STRING SEMICOLON
+    | AT STRING STRING LPAREN RPAREN SEMICOLON
+    | AT STRING STRING LPAREN property_value RPAREN SEMICOLON
+
+queryNode
+    : queryEntry
+    | queryNode queryEntry
+
+queryEntry
+    : STRING
+    | LPAREN STRING COLON property_value_entry RPAREN
 
 variable:
     DOLLAR STRING COLON property_value modifier SEMICOLON {
@@ -114,6 +130,7 @@ selectorSeparator
     | PLUS
     | COMMA
     | GT
+    | AMP
 
 selectorEntry
     : STRING {
@@ -146,6 +163,8 @@ selectorEntry
 
 innerNode
     : %empty
+    | innerNode variable
+    | innerNode query
     | innerNode node
     | innerNode property
 
@@ -174,11 +193,17 @@ property_value_entry
     | RAW_STRING {
         driver.log << "Property-value: " << $1 << std::endl;
     }
-    | DOT NUMBER PERCENT {
-            driver.log << "Property-value: DOT " << $2 << std::endl;
+    | NUMBER DOT NUMBER PERCENT {
+            driver.log << "Property-value: DOT " << $1 << "." << $3 << "%" << std::endl;
+    }
+    | NUMBER DOT NUMBER {
+                driver.log << "Property-value: DOT " << $1 << "." << $3 << std::endl;
     }
     | DOT NUMBER PERCENT {
         driver.log << "Property-value: DOT " << $2 << std::endl;
+    }
+    | DOT NUMBER {
+            driver.log << "Property-value: DOT " << $2 << std::endl;
     }
     | DOT STRING {
         driver.log << "Property-value: DOT " << $2 << std::endl;
