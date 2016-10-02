@@ -11,7 +11,6 @@
 #include "generated/parser.hpp"
 
 namespace CSSP {
-
     class Driver {
     public:
         Driver() :
