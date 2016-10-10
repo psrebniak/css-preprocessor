@@ -6,7 +6,7 @@
 
     #undef  YY_DECL
     #define YY_DECL int CSSP::Scanner::yylex( CSSP::Parser::semantic_type * const lval, CSSP::Parser::location_type *location )
-    //#define yyterminate() return( token::END_OF_FILE )
+    #define yyterminate() return( token::END )
     #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
 %}
 
@@ -142,7 +142,9 @@ STRING   [a-zA-Z0-9\-\_]
     return token::DIVIDE;
 }
 
-(\ |\t)+    ; // whitespaces
+(\ |\t)+  {
+    lexerVirtualWhiteSpaceDetected = 1;
+}
 \n {
     loc->lines();
     //return( token::NEW_LINE );

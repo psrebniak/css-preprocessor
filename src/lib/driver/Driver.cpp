@@ -15,7 +15,9 @@ int CSSP::Driver::parse(const char *const filename) {
     if (filename == nullptr) {
         this->error
             << "Failed to read from file"
+            << this->error.end()
             << std::endl;
+
         return EXIT_FAILURE;
     }
 
@@ -23,7 +25,9 @@ int CSSP::Driver::parse(const char *const filename) {
     if (!in_file.good()) {
         this->error
             << "Failed to read from file"
+            << this->error.end()
             << std::endl;
+
         return EXIT_FAILURE;
     }
 
@@ -34,6 +38,7 @@ int CSSP::Driver::parse(std::istream &stream) {
     if (!stream.good() && stream.eof()) {
         this->error
             << "Failed to read from stream"
+            << this->error.end()
             << std::endl;
         return EXIT_FAILURE;
     }
@@ -53,6 +58,7 @@ int CSSP::Driver::parse_helper(std::istream &stream) {
             << "Failed to allocate scanner: ("
             << ba.what()
             << ")"
+            << this->error.end()
             << std::endl;
 
         exit(EXIT_FAILURE);
@@ -68,14 +74,18 @@ int CSSP::Driver::parse_helper(std::istream &stream) {
             << "Failed to allocate parser: ("
             << ba.what()
             << ")"
+            << this->error.end()
             << std::endl;
+
         exit(EXIT_FAILURE);
     }
 
     if (parser->parse() != EXIT_SUCCESS) {
         this->error
             << "Parser failed - parser end in non-acceptable state"
+            << this->error.end()
             << std::endl;
+
         return EXIT_FAILURE;
     }
 
