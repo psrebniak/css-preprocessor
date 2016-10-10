@@ -1,6 +1,8 @@
 #ifndef __LOGGER_HPP__
 #define __LOGGER_HPP__
 
+#include <iostream>
+#include <string>
 #include <ostream>
 
 namespace CSSP {
@@ -15,6 +17,8 @@ namespace CSSP {
             color(color) {}
 
         void setColor(std::string color);
+
+        static std::string end();
 
         static const std::string colorDefault;
         static const std::string colorBlack;

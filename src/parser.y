@@ -1,4 +1,5 @@
 %skeleton "lalr1.cc"
+%require  "3.0"
 %debug
 %defines
 %define api.namespace {CSSP}
@@ -23,6 +24,7 @@
    #include "lib/driver/Driver.hpp"
    #include "lib/logger/Logger.hpp"
 
+
 #undef yylex
 #define yylex scanner.yylex
 }
@@ -39,8 +41,9 @@
 %token <std::string> NUMBER
 %token <std::string> CHAR
 
+
 // typeless tokens
-%token END_OF_FILE
+%token END          0       "End of file"
 %token NEW_LINE     "\n"
 %token SPACE        " "
 %token TAB          "\t"
@@ -80,7 +83,7 @@
 %%
 
 preprocesor
-    : program {
+    : program END {
         driver.log << "process complete" << std::endl;
     }
 
@@ -134,9 +137,17 @@ selectorSeparator
 
 selectorEntry
     : STRING {
+        if (driver.scanner->lexerVirtualWhiteSpaceDetected) {
+            driver.log << "Driver detect whitespace flag" << std::endl;
+            driver.scanner->lexerVirtualWhiteSpaceDetected = 0;
+        }
         driver.log << "TagName: " << $1 << std::endl;
     }
     | DOT STRING {
+        if (driver.scanner->lexerVirtualWhiteSpaceDetected) {
+            driver.log << "Driver detect whitespace flag";
+            driver.scanner->lexerVirtualWhiteSpaceDetected = 0;
+        }
         driver.log << "Class: " << $2 << std::endl;
     }
     | HASH LBRACE DOLLAR STRING RBRACE {
@@ -221,13 +232,11 @@ property_value_entry
         driver.log << "Property-value: " << $1 << std::endl;
     }
 
-
 modifier
     : %empty
     | BANG STRING {
         driver.log << "Modifier: " << $2 << std::endl;
     }
-
 %%
 
 void CSSP::Parser::error(const location_type &l, const std::string &err_message)

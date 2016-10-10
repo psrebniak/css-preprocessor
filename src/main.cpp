@@ -11,20 +11,24 @@ void printHelp(std::string binary) {
 
     err
         << "Driver error"
+        << err.end()
         << std::endl;
 
     info
         << "Usage: "
+        << err.end()
         << std::endl;
 
     info
         << binary
         << " -f <filename> - parse given file"
+        << err.end()
         << std::endl;
 
     info
         << binary
         << " -i            - parse standard input"
+        << err.end()
         << std::endl;
 
     return;

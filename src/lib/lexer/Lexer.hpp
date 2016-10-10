@@ -15,6 +15,8 @@ namespace CSSP {
     class Scanner : public yyFlexLexer {
     public:
 
+        bool lexerVirtualWhiteSpaceDetected = 0;
+
         Scanner(std::istream *in) : yyFlexLexer(in) {
             loc = new CSSP::Parser::location_type();
         };
@@ -33,6 +35,7 @@ namespace CSSP {
     private:
         /* yyval ptr */
         CSSP::Parser::semantic_type *yylval = nullptr;
+
         /* location ptr */
         CSSP::Parser::location_type *loc = nullptr;
     };
