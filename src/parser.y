@@ -6,6 +6,10 @@
 %define parser_class_name {Parser}
 
 %code requires {
+   #include <map>
+   #include <vector>
+   #include "lib/ast/Ast.hpp"
+
    namespace CSSP {
       class Driver;
       class Scanner;
@@ -77,6 +81,9 @@
 %token GT           ">"
 %token QUESTION     "?"
 %token DIVIDE       "/"
+
+%type <CSSP::AST::Node*> modifier property;
+%type <std::vector<CSSP::AST::Node*>> property_value;
 
 %locations
 
@@ -177,11 +184,17 @@ innerNode
     | innerNode variable
     | innerNode query
     | innerNode node
-    | innerNode property
+    | innerNode property {
+        driver.log << $2->toString() << driver.log.end() << std::endl;
+    }
 
 property
-    : STRING COLON property_value modifier SEMICOLON
-    | STRING COLON property_value modifier
+    : STRING COLON property_value modifier SEMICOLON {
+        $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
+    }
+    | STRING COLON property_value modifier {
+        $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
+    }
 
 property_value
     : property_value_entry
@@ -208,7 +221,7 @@ property_value_entry
             driver.log << "Property-value: DOT " << $1 << "." << $3 << "%" << std::endl;
     }
     | NUMBER DOT NUMBER {
-                driver.log << "Property-value: DOT " << $1 << "." << $3 << std::endl;
+        driver.log << "Property-value: DOT " << $1 << "." << $3 << std::endl;
     }
     | DOT NUMBER PERCENT {
         driver.log << "Property-value: DOT " << $2 << std::endl;
@@ -233,9 +246,11 @@ property_value_entry
     }
 
 modifier
-    : %empty
+    : %empty {
+        $$ = new CSSP::AST::Modifier();
+    }
     | BANG STRING {
-        driver.log << "Modifier: " << $2 << std::endl;
+        $$ = new CSSP::AST::Modifier($2);
     }
 %%
 
