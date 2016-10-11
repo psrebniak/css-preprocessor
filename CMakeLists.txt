@@ -30,7 +30,7 @@ set(SOURCE_FILES
     src/main.cpp
     src/lib/driver/Driver.cpp
     src/lib/logger/Logger.cpp
-    src/lib/tree/AST.hpp)
+    src/lib/ast/node/Node.cpp src/lib/ast/node/Node.hpp src/lib/ast/modifier/Modifier.cpp src/lib/ast/modifier/Modifier.hpp src/lib/ast/property/Property.cpp src/lib/ast/property/Property.hpp src/lib/ast/string/String.cpp src/lib/ast/string/String.hpp)
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)
