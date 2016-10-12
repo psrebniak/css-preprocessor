@@ -6,8 +6,15 @@
 #define CSSPREPROCESSOR_AST_HPP
 
 #include "lib/ast/node/Node.hpp"
-#include "lib/ast/string/String.hpp"
 #include "lib/ast/modifier/Modifier.hpp"
 #include "lib/ast/property/Property.hpp"
+
+// value
+#include "lib/ast/value/value/Value.hpp"
+#include "lib/ast/value/color/Color.hpp"
+#include "lib/ast/value/number/Number.hpp"
+#include "lib/ast/value/string/String.hpp"
+#include "lib/ast/value/variable/Variable.hpp"
+#include "lib/ast/value/calculation/Calculation.hpp"
 
 #endif //CSSPREPROCESSOR_AST_HPP
