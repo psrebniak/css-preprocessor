@@ -16,6 +16,10 @@ namespace CSSP {
             virtual const std::string toString() const = 0;
             const std::string &getNodeType() const;
 
+#ifdef DEBUG
+            virtual const bool test() const = 0;
+#endif
+
         protected:
             std::string nodeType = "Unknown";
 

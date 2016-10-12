@@ -6,11 +6,11 @@
 #define CSSPREPROCESSOR_STRING_HPP
 
 #include <string>
-#include "lib/ast/node/Node.hpp"
+#include "lib/ast/value/value/Value.hpp"
 
 namespace CSSP {
     namespace AST {
-        class String : public Node {
+        class String : public Value {
         public:
             String(std::string value)
                 : value(value) {}

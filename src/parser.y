@@ -82,8 +82,16 @@
 %token QUESTION     "?"
 %token DIVIDE       "/"
 
-%type <CSSP::AST::Node*> modifier property;
-%type <std::vector<CSSP::AST::Node*>> property_value;
+
+%type <CSSP::AST::Node*> modifier;
+
+
+%type <CSSP::AST::Value*> value;
+%type <CSSP::AST::Value*> value_variable;
+%type <CSSP::AST::Value*> value_string;
+%type <CSSP::AST::Value*> value_number;
+%type <CSSP::AST::Value*> value_calculation;
+%type <CSSP::AST::Value*> value_color;
 
 %locations
 
@@ -116,7 +124,7 @@ queryNode
 
 queryEntry
     : STRING
-    | LPAREN STRING COLON property_value_entry RPAREN
+    | LPAREN STRING COLON value RPAREN
 
 variable:
     DOLLAR STRING COLON property_value modifier SEMICOLON {
@@ -185,65 +193,21 @@ innerNode
     | innerNode query
     | innerNode node
     | innerNode property {
-        driver.log << $2->toString() << driver.log.end() << std::endl;
+        //driver.log << $2->toString() << driver.log.end() << std::endl;
     }
 
 property
     : STRING COLON property_value modifier SEMICOLON {
-        $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
+        // $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
     }
     | STRING COLON property_value modifier {
-        $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
+        // $$ = new CSSP::AST::Property(new CSSP::AST::String($1), $3, $4);
     }
 
 property_value
-    : property_value_entry
-    | property_value COMMA property_value_entry
-    | property_value property_value_entry
-
-property_value_entry
-    : STRING LPAREN property_value RPAREN {
-        driver.log << "Property-value: " << $1 << "(" << "VALUE" << ")" << std::endl;
-    }
-    | DOLLAR STRING {
-        driver.log << "Variable: " << $2 << std::endl;
-    }
-    | HASH LBRACE DOLLAR STRING RBRACE {
-        driver.log << "Variable: " << $4 << std::endl;
-    }
-    | STRING {
-        driver.log << "Property-value: " << $1 << std::endl;
-    }
-    | RAW_STRING {
-        driver.log << "Property-value: " << $1 << std::endl;
-    }
-    | NUMBER DOT NUMBER PERCENT {
-            driver.log << "Property-value: DOT " << $1 << "." << $3 << "%" << std::endl;
-    }
-    | NUMBER DOT NUMBER {
-        driver.log << "Property-value: DOT " << $1 << "." << $3 << std::endl;
-    }
-    | DOT NUMBER PERCENT {
-        driver.log << "Property-value: DOT " << $2 << std::endl;
-    }
-    | DOT NUMBER {
-            driver.log << "Property-value: DOT " << $2 << std::endl;
-    }
-    | DOT STRING {
-        driver.log << "Property-value: DOT " << $2 << std::endl;
-    }
-    | HASH HEX {
-        driver.log << "Property-value: HEX " << $2 << std::endl;
-    }
-    | HASH NUMBER {
-        driver.log << "Property-value: HEX " << $2 << std::endl;
-    }
-    | NUMBER PERCENT {
-        driver.log << "Property-value: " << $1 << "PERCENT" << std::endl;
-    }
-    | NUMBER {
-        driver.log << "Property-value: " << $1 << std::endl;
-    }
+    : value
+    | property_value COMMA value
+    | property_value value
 
 modifier
     : %empty {
@@ -252,6 +216,92 @@ modifier
     | BANG STRING {
         $$ = new CSSP::AST::Modifier($2);
     }
+
+value
+    : value_variable {
+        $$ = $1;
+    }
+    | value_string {
+        $$ = $1;
+    }
+    | value_calculation {
+        $$ = $1;
+    }
+    | value_color {
+        $$ = $1;
+    }
+    | value_number {
+        $$ = $1;
+    }
+
+value_variable
+    : DOLLAR STRING {
+        $$ = new CSSP::AST::Variable($2);
+    }
+    | HASH LBRACE DOLLAR STRING RBRACE {
+        $$ = new CSSP::AST::Variable($4);
+    }
+
+value_string
+    : RAW_STRING {
+        $$ = new CSSP::AST::String($1);
+    }
+    | STRING {
+
+       /*
+       if (std::stoi($1) > 0) {
+            $$ = new CSSP::AST::Number($1);
+        } else {
+            $$ = new CSSP::AST::String($1);
+        }
+        */
+    }
+
+value_number
+    : NUMBER DOT STRING {
+        $$ = new CSSP::AST::Number($1, $3);
+    }
+    | NUMBER DOT NUMBER {
+        $$ = new CSSP::AST::Number($1, $3);
+    }
+    | DOT STRING {
+        $$ = new CSSP::AST::Number(0, $2);
+    }
+    | DOT NUMBER {
+        $$ = new CSSP::AST::Number(0, $2);
+    }
+    | DOT NUMBER PERCENT {
+        $$ = new CSSP::AST::Number(0, $2 + "%");
+    }
+    | NUMBER DOT NUMBER PERCENT {
+        $$ = new CSSP::AST::Number($1, $3 + "%");
+    }
+    | NUMBER {
+        $$ = new CSSP::AST::Number($1, "");
+    }
+
+value_calculation
+    : LPAREN value PLUS value RPAREN {
+        $$ = new CSSP::AST::Calculation($2, $4, token::PLUS);
+    }
+    | LPAREN value MINUS value RPAREN {
+        $$ = new CSSP::AST::Calculation($2, $4, token::MINUS);
+    }
+    | LPAREN value ASTERISK value RPAREN {
+        $$ = new CSSP::AST::Calculation($2, $4, token::ASTERISK);
+    }
+    | LPAREN value DIVIDE value RPAREN {
+        $$ = new CSSP::AST::Calculation($2, $4, token::DIVIDE);
+    }
+
+value_color
+    : HEX NUMBER {
+        $$ = new CSSP::AST::Color($2);
+    }
+    | HEX STRING {
+        $$ = new CSSP::AST::Color($2);
+    }
+
 %%
 
 void CSSP::Parser::error(const location_type &l, const std::string &err_message)
