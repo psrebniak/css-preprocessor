@@ -7,3 +7,9 @@
 const std::string &CSSP::AST::Node::getNodeType() const {
     return nodeType;
 }
+
+CSSP::AST::Node *CSSP::AST::Node::setToken(CSSP::Token token) {
+    this->token = token;
+
+    return this;
+}

@@ -9,6 +9,7 @@
    #include <map>
    #include <vector>
    #include "lib/ast/Ast.hpp"
+   #include "lib/token/Token.hpp"
 
    namespace CSSP {
       class Driver;
@@ -38,11 +39,11 @@
 %define parse.error verbose
 
 // TYPE TOKENS
-%token <std::string> RAW_STRING
+%token <CSSP::Token> RAW_STRING
 
-%token <std::string> HEX
-%token <std::string> STRING
-%token <std::string> NUMBER
+%token <CSSP::Token> HEX
+%token <CSSP::Token> STRING
+%token <CSSP::Token> NUMBER
 %token <std::string> CHAR
 
 
@@ -128,7 +129,7 @@ queryEntry
 
 variable:
     DOLLAR STRING COLON property_value modifier SEMICOLON {
-        driver.log << "Dollar: " << $2 << " : " << "value" << std::endl;
+        driver.log << "Dollar: " << $2.toString() << " : " << "value" << std::endl;
     }
 
 node
@@ -152,39 +153,31 @@ selectorSeparator
 
 selectorEntry
     : STRING {
-        if (driver.scanner->lexerVirtualWhiteSpaceDetected) {
-            driver.log << "Driver detect whitespace flag" << std::endl;
-            driver.scanner->lexerVirtualWhiteSpaceDetected = 0;
-        }
-        driver.log << "TagName: " << $1 << std::endl;
+        driver.log << "TagName: " << $1.toString() << std::endl;
     }
     | DOT STRING {
-        if (driver.scanner->lexerVirtualWhiteSpaceDetected) {
-            driver.log << "Driver detect whitespace flag";
-            driver.scanner->lexerVirtualWhiteSpaceDetected = 0;
-        }
-        driver.log << "Class: " << $2 << std::endl;
+        driver.log << "Class: " << $2.toString() << std::endl;
     }
     | HASH LBRACE DOLLAR STRING RBRACE {
-        driver.log << "Variable: " << $4 << std::endl;
+        driver.log << "Variable: " << $4.toString() << std::endl;
     }
     | HASH STRING {
-        driver.log << "Id: " << $2 << std::endl;
+        driver.log << "Id: " << $2.toString() << std::endl;
     }
     | COLON STRING LPAREN selectorEntry RPAREN {
-        driver.log << "PseudoClass: " << $2 << std::endl;
+        driver.log << "PseudoClass: " << $2.toString() << std::endl;
     }
     | COLON STRING {
-        driver.log << "PseudoClass: " << $2 << std::endl;
+        driver.log << "PseudoClass: " << $2.toString() << std::endl;
     }
     | COLON COLON STRING {
-        driver.log << "PseudoElement: " << $3 << std::endl;
+        driver.log << "PseudoElement: " << $3.toString() << std::endl;
     }
     | LBRACKET STRING RBRACKET {
-        driver.log << "Attribute: " << $2 << std::endl;
+        driver.log << "Attribute: " << $2.toString() << std::endl;
     }
     | LBRACKET STRING EQUAL RAW_STRING RBRACKET {
-        driver.log << "Attribute: " << $2 << " AS " << $4 << std::endl;
+        driver.log << "Attribute: " << $2.toString() << " AS " << $4.toString() << std::endl;
     }
 
 innerNode
@@ -214,70 +207,78 @@ modifier
         $$ = new CSSP::AST::Modifier();
     }
     | BANG STRING {
-        $$ = new CSSP::AST::Modifier($2);
+        $$ = (new CSSP::AST::Modifier($2.toString()))->setToken($2);
     }
 
 value
     : value_variable {
+        driver.log << "VARIABLE: " << $1->toString() << driver.log.end() << std::endl;
         $$ = $1;
     }
     | value_string {
+        driver.log << "STRING: " << $1->toString() << driver.log.end() << std::endl;
         $$ = $1;
     }
     | value_calculation {
+        driver.log << "CALCULTION: " << $1->toString() << driver.log.end() << std::endl;
         $$ = $1;
     }
     | value_color {
+        driver.log << "COLOR: " << $1->toString() << driver.log.end() << std::endl;
         $$ = $1;
     }
     | value_number {
+        driver.log << "NUMBER: " << $1->toString() << driver.log.end() << std::endl;
         $$ = $1;
     }
 
 value_variable
     : DOLLAR STRING {
-        $$ = new CSSP::AST::Variable($2);
+        $$ = new CSSP::AST::Variable($2.toString());
+        ///@todo set token as $
     }
     | HASH LBRACE DOLLAR STRING RBRACE {
-        $$ = new CSSP::AST::Variable($4);
+        $$ = new CSSP::AST::Variable($4.toString());
+        ///@todo set token as #
     }
 
 value_string
     : RAW_STRING {
-        $$ = new CSSP::AST::String($1);
+        $$ = (new CSSP::AST::String($1.toString()))->setToken($1);
     }
     | STRING {
-
-       /*
-       if (std::stoi($1) > 0) {
-            $$ = new CSSP::AST::Number($1);
-        } else {
-            $$ = new CSSP::AST::String($1);
+        // string can be a number with unit string
+        CSSP::AST::Value *value = NULL;
+        try {
+            std::stoi($1.toString());
+            value = new CSSP::AST::Number($1.toString());
+        } catch(std::invalid_argument) {
+            value = new CSSP::AST::String($1.toString());
         }
-        */
+        $$ = value->setToken($1);
     }
 
 value_number
     : NUMBER DOT STRING {
-        $$ = new CSSP::AST::Number($1, $3);
+        $$ = (new CSSP::AST::Number($1.toString() + "." + $3.toString()))->setToken($1);
     }
     | NUMBER DOT NUMBER {
-        $$ = new CSSP::AST::Number($1, $3);
+        $$ = (new CSSP::AST::Number($1.toString() + "." + $3.toString()))->setToken($1);
     }
     | DOT STRING {
-        $$ = new CSSP::AST::Number(0, $2);
+        $$ = new CSSP::AST::Number("0." + $2.toString());
     }
     | DOT NUMBER {
-        $$ = new CSSP::AST::Number(0, $2);
+        $$ = new CSSP::AST::Number("0" + $2.toString());
     }
     | DOT NUMBER PERCENT {
-        $$ = new CSSP::AST::Number(0, $2 + "%");
+        $$ = new CSSP::AST::Number("0." + $2.toString() + "%");
     }
     | NUMBER DOT NUMBER PERCENT {
-        $$ = new CSSP::AST::Number($1, $3 + "%");
+        $$ = (new CSSP::AST::Number($1.toString() + "." + $3.toString() + "%"))->setToken($1);
     }
     | NUMBER {
-        $$ = new CSSP::AST::Number($1, "");
+        $$ = (new CSSP::AST::Number($1.toString()))->setToken($1);
     }
 
 value_calculation
@@ -295,11 +296,11 @@ value_calculation
     }
 
 value_color
-    : HEX NUMBER {
-        $$ = new CSSP::AST::Color($2);
+    : HASH NUMBER {
+        $$ = new CSSP::AST::Color($2.toString());
     }
-    | HEX STRING {
-        $$ = new CSSP::AST::Color($2);
+    | HASH HEX {
+        $$ = new CSSP::AST::Color($2.toString());
     }
 
 %%
