@@ -13,8 +13,6 @@ namespace CSSP {
         public:
             Number(std::string);
 
-            Number(std::string, std::string unit);
-
             virtual const std::string toString() const override;
 
         protected:

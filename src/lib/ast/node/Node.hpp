@@ -6,6 +6,7 @@
 #define CSSPREPROCESSOR_NODE_HPP
 
 #include <string>
+#include <lib/token/Token.hpp>
 
 namespace CSSP {
     namespace AST {
@@ -16,12 +17,15 @@ namespace CSSP {
             virtual const std::string toString() const = 0;
             const std::string &getNodeType() const;
 
+            virtual Node* setToken(CSSP::Token);
+
 #ifdef DEBUG
             virtual const bool test() const = 0;
 #endif
 
         protected:
             std::string nodeType = "Unknown";
+            CSSP::Token token;
 
         };
     }

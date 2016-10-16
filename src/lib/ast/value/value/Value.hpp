@@ -13,6 +13,8 @@ namespace CSSP {
         public:
             virtual const std::string toString() const override;
 
+            virtual Value* setToken(CSSP::Token);
+
         protected:
             std::string nodeType = "Value";
         };

@@ -29,31 +29,36 @@ STRING   [a-zA-Z0-9\-\_]
 \/\*+([^*]|[ \t\r\n]|(\*+([^\*\/]|[ \t\r\n])))*\*+\/ ; // ignore c++-style comments
 
 \"{1}([^\"]|"\\\"")*\"{1} {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::RAW_STRING);
     return token::RAW_STRING;
 }
 \'{1}([^\']|\\\')*\'{1} {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::RAW_STRING);
+    lexerWhitespaceFlag = false;
     return token::RAW_STRING;
 }
 
 {DIGIT}+ {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::NUMBER);
+    lexerWhitespaceFlag = false;
     return token::NUMBER;
 }
 
 {HEX}{6} {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::HEX);
+    lexerWhitespaceFlag = false;
     return token::HEX;
 }
 
 {HEX}{3} {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::HEX);
+    lexerWhitespaceFlag = false;
     return token::HEX;
 }
 
 {STRING}+ {
-    yylval->build <std::string> (yytext);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::STRING);
+    lexerWhitespaceFlag = false;
     return token::STRING;
 }
 
@@ -143,16 +148,15 @@ STRING   [a-zA-Z0-9\-\_]
 }
 
 (\ |\t)+  {
-    lexerVirtualWhiteSpaceDetected = 1;
+    lexerWhitespaceFlag = true;
 }
 \n {
     loc->lines();
-    //return( token::NEW_LINE );
 }
 
 . {
-    yylval->build <std::string> (yytext);
-    return token::CHAR;
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::CHAR);
+    return yytext[0];
 }
 
 %%
