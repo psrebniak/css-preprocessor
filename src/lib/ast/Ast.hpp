@@ -8,6 +8,9 @@
 #include "lib/ast/node/Node.hpp"
 #include "lib/ast/modifier/Modifier.hpp"
 #include "lib/ast/property/Property.hpp"
+#include "lib/ast/separator/Separator.hpp"
+#include "lib/ast/selector/Selector.hpp"
+#include "lib/ast/block/Block.hpp"
 
 // value
 #include "lib/ast/value/value/Value.hpp"

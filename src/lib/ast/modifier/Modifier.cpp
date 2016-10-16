@@ -5,5 +5,8 @@
 #include "Modifier.hpp"
 
 const std::string CSSP::AST::Modifier::toString() const {
-    return "!" + this->modifier;
+    if (this->modifier != "") {
+        return " !" + this->modifier;
+    }
+    return "";
 }

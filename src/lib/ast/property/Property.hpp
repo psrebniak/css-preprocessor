@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "lib/ast/node/Node.hpp"
 
@@ -14,14 +15,16 @@ namespace CSSP {
     namespace AST {
         class Property : public Node {
         public:
-            Property(Node* name, std::vector<Node*> valueList, Node *modifier)
-                : name(name), valueList(valueList), modifier(modifier) {};
+            Property(Node* name, std::vector<Node*>* valueList, Node* modifier)
+                : name(name),
+                  valueList(valueList),
+                  modifier(modifier) {};
 
             virtual const std::string toString() const override;
 
         protected:
             Node *name;
-            std::vector<Node*> valueList;
+            std::vector<Node*> *valueList;
             Node *modifier;
 
             std::string nodeType = "Property";

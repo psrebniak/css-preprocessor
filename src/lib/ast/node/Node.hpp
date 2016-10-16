@@ -18,11 +18,7 @@ namespace CSSP {
             const std::string &getNodeType() const;
 
             virtual Node* setToken(CSSP::Token);
-
-#ifdef DEBUG
-            virtual const bool test() const = 0;
-#endif
-
+            CSSP::Token getToken() const;
         protected:
             std::string nodeType = "Unknown";
             CSSP::Token token;
