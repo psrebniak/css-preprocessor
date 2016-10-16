@@ -30,7 +30,21 @@ set(SOURCE_FILES
     src/main.cpp
     src/lib/driver/Driver.cpp
     src/lib/logger/Logger.cpp
-    src/lib/ast/node/Node.cpp src/lib/ast/node/Node.hpp src/lib/ast/modifier/Modifier.cpp src/lib/ast/modifier/Modifier.hpp src/lib/ast/property/Property.cpp src/lib/ast/property/Property.hpp src/lib/ast/value/string/String.cpp src/lib/ast/value/string/String.hpp src/lib/ast/value/value/Value.cpp src/lib/ast/value/value/Value.hpp src/lib/ast/value/color/Color.cpp src/lib/ast/value/color/Color.hpp src/lib/ast/value/number/Number.cpp src/lib/ast/value/number/Number.hpp src/lib/ast/value/variable/Variable.cpp src/lib/ast/value/variable/Variable.hpp src/lib/ast/value/calculation/Calculation.cpp src/lib/ast/value/calculation/Calculation.hpp src/lib/token/Token.cpp src/lib/token/Token.hpp)
+    src/lib/ast/node/Node.cpp
+    src/lib/ast/node/Node.hpp
+    src/lib/ast/modifier/Modifier.cpp
+    src/lib/ast/property/Property.cpp
+    src/lib/ast/value/string/String.cpp
+    src/lib/ast/value/value/Value.cpp
+    src/lib/ast/value/color/Color.cpp
+    src/lib/ast/value/number/Number.cpp
+    src/lib/ast/value/variable/Variable.cpp
+    src/lib/ast/value/calculation/Calculation.cpp
+    src/lib/token/Token.cpp
+    src/lib/ast/separator/Separator.cpp
+    src/lib/ast/selector/Selector.cpp
+    src/lib/ast/block/Block.cpp
+    )
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)

@@ -5,5 +5,5 @@
 #include "Variable.hpp"
 
 const std::string CSSP::AST::Variable::toString() const {
-    throw std::string("Not implemented yet");
+    return "#{" + this->name + "}";
 }

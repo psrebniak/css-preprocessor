@@ -13,3 +13,7 @@ CSSP::AST::Node *CSSP::AST::Node::setToken(CSSP::Token token) {
 
     return this;
 }
+
+CSSP::Token CSSP::AST::Node::getToken() const {
+    return this->token;
+}
