@@ -40,7 +40,7 @@ namespace CSSP {
         int parse_helper(std::istream &stream);
 
         CSSP::Parser *parser = nullptr;
-        CSSP::Scanner *scanner = nullptr;
+        CSSP::Lexer *lexer = nullptr;
     };
 
 }

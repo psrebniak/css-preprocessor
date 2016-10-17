@@ -22,7 +22,7 @@ FLEX_TARGET(Scanner src/lexer.l ${GENERATED_OUTPUT_DIRECTORY}/lexer.cpp)
 ADD_FLEX_BISON_DEPENDENCY(Scanner Parser)
 
 set(GENERATED_FILES ${BISON_Parser_OUTPUTS} ${FLEX_Scanner_OUTPUTS})
-include_directories(${CMAKE_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR})
 # / End of Bison/Flex
 
 include_directories(src)

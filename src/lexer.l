@@ -3,7 +3,7 @@
     #include "lib/lexer/Lexer.hpp"
 
     #undef  YY_DECL
-    #define YY_DECL int CSSP::Scanner::yylex( CSSP::Parser::semantic_type * const lval, CSSP::Parser::location_type *location )
+    #define YY_DECL int CSSP::Lexer::yylex( CSSP::Parser::semantic_type * const lval, CSSP::Parser::location_type *location )
 
     using token = CSSP::Parser::token;
 
@@ -16,17 +16,17 @@
 
 %option debug
 %option nodefault
-%option yyclass="CSSP::Scanner"
+%option yyclass="CSSP::Lexer"
 %option noyywrap
 %option c++
+%option verbose
 
 HEX      [0-9a-fA-F]
 DIGIT    [0-9]
 STRING   [a-zA-Z0-9\-\_]
 
 %%
-
-%{          /** Code executed at the beginning of yylex **/
+%{
             yylval = lval;
 %}
 
