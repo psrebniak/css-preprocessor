@@ -37,6 +37,8 @@
 %define api.value.type variant
 %define parse.assert
 %define parse.error verbose
+%locations
+
 
 // TYPE TOKENS
 %token <CSSP::Token> RAW_STRING
@@ -80,7 +82,6 @@
 %token <CSSP::Token> QUESTION     "?"
 %token <CSSP::Token> DIVIDE       "/"
 
-
 // modifiers
 %type <CSSP::AST::Node*> modifier;
 
@@ -101,9 +102,6 @@
 %type <CSSP::AST::Node*> selectorEntry;
 %type <CSSP::AST::Node*> instruction;
 %type <CSSP::AST::Block*> block;
-
-
-%locations
 
 %%
 
@@ -362,6 +360,5 @@ valueColor
 
 void CSSP::Parser::error(const location_type &l, const std::string &err_message)
 {
-    std::cerr << "COL" << l.begin.column << std::endl;
-   std::cerr << "Error: " << err_message << " at " << l << "\n";
+    std::cerr << "Error: " << err_message << " at " << l << "\n";
 }

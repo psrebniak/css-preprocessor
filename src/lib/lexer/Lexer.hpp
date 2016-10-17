@@ -2,9 +2,7 @@
 #define __SCANNER_HPP__
 
 #if !defined(yyFlexLexerOnce)
-
-#include <FlexLexer.h>
-
+    #include <FlexLexer.h>
 #endif
 
 #include "generated/parser.hpp"
@@ -14,8 +12,6 @@ namespace CSSP {
 
     class Scanner : public yyFlexLexer {
     public:
-        bool lexerWhitespaceFlag = false;
-
         Scanner(std::istream *in) : yyFlexLexer(in) {
             loc = new CSSP::Parser::location_type();
         };
@@ -32,6 +28,8 @@ namespace CSSP {
 
 
     private:
+        bool lexerWhitespaceFlag = false;
+
         /* yyval ptr */
         CSSP::Parser::semantic_type *yylval = nullptr;
 
