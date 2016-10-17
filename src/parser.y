@@ -99,18 +99,17 @@
 %type <CSSP::AST::Node*> instruction;
 %type <CSSP::AST::Block*> block;
 
+%type <CSSP::Token> string;
+
 %locations
 
-%left SEMICOLON STRING;
 %%
 
 preprocesor
     : instructions END {
-        for(int i = 0; i < $1->size(); i++) {
+        for(auto const &value: (*$1)) {
             std::cout
-                << "Instruction: "
-                << (*$1)[i]->toString()
-                << std::endl;
+                << value->toString();
         }
 
         driver.log << "process complete" << std::endl;
@@ -174,43 +173,43 @@ selectorSeparator
     }
 
 selectorEntry
-    : STRING {
+    : string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::TAG,
             $1.toString()
         ))->setToken($1);
     }
-    | DOT STRING {
+    | DOT string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::CLASS,
             $2.toString()
         ))->setToken($1);
     }
-    | HASH STRING {
+    | HASH string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::ID,
             $2.toString()
         ))->setToken($1);
     }
-    | COLON STRING {
+    | COLON string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::PSEUDOCLASS,
             $2.toString()
         ))->setToken($1);
     }
-    | COLON COLON STRING {
+    | COLON COLON string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::PSEUDOELEMENT,
             $3.toString()
         ))->setToken($1);
     }
-    | LBRACKET STRING RBRACKET {
+    | LBRACKET string RBRACKET {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::ATTRIBUTE,
             $2.toString()
         ))->setToken($1);
     }
-    | LBRACKET STRING EQUAL value RBRACKET {
+    | LBRACKET string EQUAL value RBRACKET {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::ATTRIBUTE,
             $2.toString(),
@@ -219,7 +218,7 @@ selectorEntry
     }
 
 property
-    : STRING COLON valueList modifier SEMICOLON {
+    : string COLON valueList modifier SEMICOLON {
         $$ = new CSSP::AST::Property(
             (new CSSP::AST::String($1.toString()))->setToken($1),
             $3,
@@ -268,18 +267,18 @@ value
     }
 
 valueVariable
-    : DOLLAR STRING {
+    : DOLLAR string {
         $$ = (new CSSP::AST::Variable($2.toString()))->setToken($1);
     }
-    | HASH LBRACE DOLLAR STRING RBRACE {
-        $$ = (new CSSP::AST::Variable($4.toString()))->setToken($1);
+    | DOLLAR LBRACE string RBRACE {
+        $$ = (new CSSP::AST::Variable($3.toString()))->setToken($1);
     }
 
 valueString
     : RAW_STRING {
         $$ = (new CSSP::AST::String($1.toString()))->setToken($1);
     }
-    | STRING {
+    | string {
         // string can be a number with unit string
         CSSP::AST::Value *value = NULL;
         try {
@@ -290,23 +289,12 @@ valueString
         }
         $$ = value->setToken($1);
     }
-    | HEX {
-        // string can be a number with unit string
-        CSSP::AST::Value *value = NULL;
-        try {
-            std::stof($1.toString());
-            value = new CSSP::AST::Number($1.toString());
-        } catch(std::invalid_argument) {
-            value = new CSSP::AST::String($1.toString());
-        }
-        $$ = value->setToken($1);
-    }
 
 valueNumber
-    : NUMBER DOT STRING {
+    : NUMBER DOT string {
         $$ = (new CSSP::AST::Number($1.toString() + "." + $3.toString()))->setToken($1);
     }
-    | STRING DOT STRING {
+    | string DOT string {
         // string can be a number with unit string
         CSSP::AST::Value *value = NULL;
         try {
@@ -320,7 +308,7 @@ valueNumber
     | NUMBER DOT NUMBER {
         $$ = (new CSSP::AST::Number($1.toString() + "." + $3.toString()))->setToken($1);
     }
-    | DOT STRING {
+    | DOT string {
         $$ = (new CSSP::AST::Number("0." + $2.toString()))->setToken($1);
     }
     | DOT NUMBER {
@@ -353,6 +341,14 @@ valueCalculation
 valueColor
     : HASH HEX {
         $$ = (new CSSP::AST::Color($2.toString()))->setToken($1);
+    }
+
+string
+    : STRING {
+        $$ = $1;
+    }
+    | HEX {
+        $$ = $1;
     }
 
 %%

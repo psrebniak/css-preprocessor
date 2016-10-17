@@ -11,17 +11,16 @@ const std::string CSSP::AST::Block::toString() const {
 
     for(int i = 0; i < this->selectorList->size(); i++) {
         stream
-            << (*this->selectorList)[i]->toString()
-            << std::endl;
+            << (*this->selectorList)[i]->toString();
     }
+    stream << " {" << std::endl;
 
 
     for(int i = 0; i < this->instructionList->size(); i++) {
         stream
-            << (*this->instructionList)[i]->toString()
-            << std::endl;
+            << (*this->instructionList)[i]->toString();
     }
-    stream << "End of block" << std::endl;
+    stream << "}" << std::endl;
 
     return stream.str();
 }

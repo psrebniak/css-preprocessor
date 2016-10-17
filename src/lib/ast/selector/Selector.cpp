@@ -7,7 +7,9 @@
 
 const std::string CSSP::AST::Selector::toString() const {
     std::stringstream stream;
-
+    if (this->getToken().isWhitespacePrefixed()) {
+        stream << " ";
+    }
     stream << this->getSelectorPrefix() << this->name;
     if (this->value != NULL) {
         stream << "=" << value->toString();
@@ -15,7 +17,6 @@ const std::string CSSP::AST::Selector::toString() const {
     if (this->type == SelectorType::ATTRIBUTE || this->type == SelectorType::ATTRIBUTE_VALUE) {
         stream << "]";
     };
-    stream << ";" << std::endl;
     return stream.str();
 }
 
