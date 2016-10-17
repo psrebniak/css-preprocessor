@@ -1,5 +1,5 @@
-#ifndef __SCANNER_HPP__
-#define __SCANNER_HPP__
+#ifndef __LEXER_HPP__
+#define __LEXER_HPP__
 
 #if !defined(yyFlexLexerOnce)
     #include <FlexLexer.h>
@@ -10,13 +10,13 @@
 
 namespace CSSP {
 
-    class Scanner : public yyFlexLexer {
+    class Lexer : public yyFlexLexer {
     public:
-        Scanner(std::istream *in) : yyFlexLexer(in) {
+        Lexer(std::istream *in) : yyFlexLexer(in) {
             loc = new CSSP::Parser::location_type();
         };
 
-        virtual ~Scanner() {
+        virtual ~Lexer() {
             delete loc;
         };
 
@@ -25,6 +25,10 @@ namespace CSSP {
         // created by flex
         virtual int yylex(CSSP::Parser::semantic_type *const lval,
                           CSSP::Parser::location_type *location);
+
+        CSSP::Parser::location_type & getCurrentLocation() {
+            return *(this->loc);
+        }
 
 
     private:

@@ -6,18 +6,18 @@
 %define parser_class_name {Parser}
 
 %code requires {
+   namespace CSSP {
+      class Driver;
+      class Lexer;
+   }
+
    #include <map>
    #include <vector>
    #include "lib/ast/Ast.hpp"
    #include "lib/token/Token.hpp"
-
-   namespace CSSP {
-      class Driver;
-      class Scanner;
-   }
 }
 
-%parse-param { Scanner  &scanner  }
+%parse-param { Lexer  &lexer  }
 %parse-param { Driver  &driver  }
 
 %code {
@@ -27,18 +27,14 @@
 
    /* include for all driver functions */
    #include "lib/driver/Driver.hpp"
-   #include "lib/logger/Logger.hpp"
-
 
 #undef yylex
-#define yylex scanner.yylex
+#define yylex lexer.yylex
 }
 
 %define api.value.type variant
 %define parse.assert
 %define parse.error verbose
-%locations
-
 
 // TYPE TOKENS
 %token <CSSP::Token> RAW_STRING
@@ -103,6 +99,9 @@
 %type <CSSP::AST::Node*> instruction;
 %type <CSSP::AST::Block*> block;
 
+%locations
+
+%left SEMICOLON STRING;
 %%
 
 preprocesor
@@ -358,7 +357,8 @@ valueColor
 
 %%
 
-void CSSP::Parser::error(const location_type &l, const std::string &err_message)
+void CSSP::Parser::error( const location_type &l, const std::string &err_message )
 {
-    std::cerr << "Error: " << err_message << " at " << l << "\n";
+    // because &l is not valid
+   std::cerr << "Error: " << err_message << " at " << this->lexer.getCurrentLocation() << "\n";
 }

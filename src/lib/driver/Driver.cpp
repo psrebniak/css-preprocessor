@@ -4,8 +4,8 @@
 #include "lib/driver/Driver.hpp"
 
 CSSP::Driver::~Driver() {
-    delete (scanner);
-    scanner = nullptr;
+    delete (lexer);
+    lexer = nullptr;
 
     delete (parser);
     parser = nullptr;
@@ -49,13 +49,13 @@ int CSSP::Driver::parse(std::istream &stream) {
 
 int CSSP::Driver::parse_helper(std::istream &stream) {
 
-    delete (scanner);
+    delete (lexer);
     try {
-        scanner = new CSSP::Scanner(&stream);
+        lexer = new CSSP::Lexer(&stream);
     }
     catch (std::bad_alloc &ba) {
         this->error
-            << "Failed to allocate scanner: ("
+            << "Failed to allocate lexer: ("
             << ba.what()
             << ")"
             << this->error.end()
@@ -66,8 +66,7 @@ int CSSP::Driver::parse_helper(std::istream &stream) {
 
     delete (parser);
     try {
-        parser = new CSSP::Parser((*scanner) /* scanner */,
-                                  (*this) /* driver */ );
+        parser = new CSSP::Parser((*lexer),(*this));
     }
     catch (std::bad_alloc &ba) {
         this->error
