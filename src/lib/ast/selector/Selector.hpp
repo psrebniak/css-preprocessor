@@ -21,8 +21,8 @@ namespace CSSP {
                 TAG,
                 CLASS,
                 ID,
-                PSEUDOELEMENT,
                 PSEUDOCLASS,
+                PSEUDOELEMENT,
                 ATTRIBUTE,
                 ATTRIBUTE_VALUE
             };
@@ -47,8 +47,8 @@ namespace CSSP {
                 {TAG, std::pair<std::string, std::string>("TAG", "")},
                 {CLASS, std::pair<std::string, std::string>("CLASS", ".")},
                 {ID, std::pair<std::string, std::string>("ID", "#")},
-                {PSEUDOELEMENT, std::pair<std::string, std::string>("PSEUDOELEMENT", ":")},
-                {PSEUDOCLASS, std::pair<std::string, std::string>("PSEUDOCLASS", "::")},
+                {PSEUDOCLASS, std::pair<std::string, std::string>("PSEUDOCLASS", ":")},
+                {PSEUDOELEMENT, std::pair<std::string, std::string>("PSEUDOELEMENT", "::")},
                 {ATTRIBUTE, std::pair<std::string, std::string>("ATTRIBUTE", "[")},
                 {ATTRIBUTE_VALUE, std::pair<std::string, std::string>("ATTRIBUTE_VALUE", "[")}
             };
