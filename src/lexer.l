@@ -2,13 +2,16 @@
     #include <string>
     #include "lib/lexer/Lexer.hpp"
 
-    using token = CSSP::Parser::token;
-
     #undef  YY_DECL
     #define YY_DECL int CSSP::Scanner::yylex( CSSP::Parser::semantic_type * const lval, CSSP::Parser::location_type *location )
+
+    using token = CSSP::Parser::token;
+
     #define yyterminate() return( token::END )
-    #define YY_USER_ACTION loc->step(); loc->columns (yyleng); \
-        std::cout << loc->begin.line << ":" << loc->begin.column << "@" << loc->end.line << ":" << loc->end.column << std::endl;
+
+    #define YY_NO_UNISTD_H
+
+    #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
 %}
 
 %option debug
@@ -16,8 +19,6 @@
 %option yyclass="CSSP::Scanner"
 %option noyywrap
 %option c++
-%option verbose
-%option yylineno
 
 HEX      [0-9a-fA-F]
 DIGIT    [0-9]

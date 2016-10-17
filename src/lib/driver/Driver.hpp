@@ -12,8 +12,6 @@
 
 namespace CSSP {
     class Driver {
-        friend class CSSP::Parser;
-
     public:
         Driver() :
             log(std::cout, Logger::colorCyan),
