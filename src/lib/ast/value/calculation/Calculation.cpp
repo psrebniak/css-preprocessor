@@ -5,5 +5,5 @@
 #include "Calculation.hpp"
 
 const std::string CSSP::AST::Calculation::toString() const {
-    throw std::string("Not implemented yet");
+    return std::string("Not implemented yet");
 }

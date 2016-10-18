@@ -11,6 +11,8 @@
 #include "lib/ast/separator/Separator.hpp"
 #include "lib/ast/selector/Selector.hpp"
 #include "lib/ast/block/Block.hpp"
+#include "lib/ast/import/Import.hpp"
+#include "lib/ast/variableSetter/VariableSetter.hpp"
 
 // value
 #include "lib/ast/value/value/Value.hpp"
