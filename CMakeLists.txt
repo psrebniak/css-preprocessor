@@ -44,7 +44,7 @@ set(SOURCE_FILES
     src/lib/ast/separator/Separator.cpp
     src/lib/ast/selector/Selector.cpp
     src/lib/ast/block/Block.cpp
-    )
+    src/lib/ast/import/Import.cpp src/lib/ast/import/Import.hpp src/lib/ast/variableSetter/VariableSetter.cpp src/lib/ast/variableSetter/VariableSetter.hpp)
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)

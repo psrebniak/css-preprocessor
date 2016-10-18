@@ -78,6 +78,11 @@
 %token <CSSP::Token> QUESTION     "?"
 %token <CSSP::Token> DIVIDE       "/"
 
+// special tokens
+%token <CSSP::Token> IMPORT       "@import"
+%token <CSSP::Token> FOR          "@for"
+%token <CSSP::Token> MEDIA        "@media"
+
 // modifiers
 %type <CSSP::AST::Node*> modifier;
 
@@ -90,14 +95,18 @@
 
 %type <std::vector<CSSP::AST::Node*>*> valueList;
 %type <std::vector<CSSP::AST::Node*>*> selector;
+%type <std::vector<CSSP::AST::Node*>*> globalInstructions;
 %type <std::vector<CSSP::AST::Node*>*> instructions;
 
 %type <CSSP::AST::Property*> property;
 %type <CSSP::AST::Node*> selectorEntryType;
 %type <CSSP::AST::Node*> selectorSeparator;
 %type <CSSP::AST::Node*> selectorEntry;
+%type <CSSP::AST::Node*> globalInstruction;
 %type <CSSP::AST::Node*> instruction;
 %type <CSSP::AST::Block*> block;
+%type <CSSP::AST::Import*> import;
+%type <CSSP::AST::VariableSetter*> variableSetter;
 
 %type <CSSP::Token> string;
 
@@ -105,8 +114,9 @@
 
 %%
 
+// main
 preprocesor
-    : instructions END {
+    : globalInstructions END {
         for(auto const &value: (*$1)) {
             std::cout
                 << value->toString();
@@ -115,6 +125,28 @@ preprocesor
         driver.log << "process complete" << std::endl;
     }
 
+// global instructions
+globalInstructions
+    : %empty {
+        $$ = new std::vector<CSSP::AST::Node*>();
+    }
+    | globalInstructions globalInstruction {
+        $1->push_back($2);
+        $$ = $1;
+    }
+
+globalInstruction
+    : block {
+        $$ = $1;
+    }
+    | import {
+        $$ = $1;
+    }
+    | variableSetter {
+        $$ = $1;
+    }
+
+// local instructions
 instructions
     : %empty {
         $$ = new std::vector<CSSP::AST::Node*>();
@@ -131,12 +163,29 @@ instruction
     | property {
         $$ = $1;
     }
+    | variableSetter {
+        $$ = $1;
+    }
 
+// import
+import
+    : IMPORT RAW_STRING SEMICOLON {
+        $$ = new CSSP::AST::Import($2.toString());
+    }
+
+// variable (setter)
+variableSetter
+    : DOLLAR string COLON value SEMICOLON {
+        $$ = new CSSP::AST::VariableSetter($2.toString(), $4);
+    }
+
+// block
 block
     : selector LBRACE instructions RBRACE {
         $$ = new CSSP::AST::Block($1, $3);
     }
 
+// selector
 selector
     : selectorEntryType {
         $$ = new std::vector<CSSP::AST::Node*>();
@@ -179,16 +228,40 @@ selectorEntry
             $1.toString()
         ))->setToken($1);
     }
+    | valueVariable {
+        $$ = (new CSSP::AST::Selector(
+            CSSP::AST::Selector::SelectorType::TAG,
+            "",
+            NULL,
+            (CSSP::AST::Variable*) $1
+        ))->setToken($1->getToken());
+    }
     | DOT string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::CLASS,
             $2.toString()
         ))->setToken($1);
     }
+    | DOT valueVariable {
+        $$ = (new CSSP::AST::Selector(
+            CSSP::AST::Selector::SelectorType::CLASS,
+            "",
+            NULL,
+            (CSSP::AST::Variable*) $2
+        ))->setToken($1);
+    }
     | HASH string {
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::ID,
             $2.toString()
+        ))->setToken($1);
+    }
+    | HASH valueVariable {
+        $$ = (new CSSP::AST::Selector(
+            CSSP::AST::Selector::SelectorType::ID,
+            "",
+            NULL,
+            (CSSP::AST::Variable*) $2
         ))->setToken($1);
     }
     | COLON string {
@@ -217,6 +290,7 @@ selectorEntry
         ))->setToken($1);
     }
 
+// property
 property
     : string COLON valueList modifier SEMICOLON {
         $$ = new CSSP::AST::Property(
@@ -249,6 +323,7 @@ modifier
         $$ = (new CSSP::AST::Modifier($2.toString()))->setToken($2);
     }
 
+// value
 value
     : valueVariable {
         $$ = $1;
@@ -267,10 +342,7 @@ value
     }
 
 valueVariable
-    : DOLLAR string {
-        $$ = (new CSSP::AST::Variable($2.toString()))->setToken($1);
-    }
-    | DOLLAR LBRACE string RBRACE {
+    : DOLLAR LBRACE string RBRACE {
         $$ = (new CSSP::AST::Variable($3.toString()))->setToken($1);
     }
 
@@ -343,6 +415,8 @@ valueColor
         $$ = (new CSSP::AST::Color($2.toString()))->setToken($1);
     }
 
+
+//string helper
 string
     : STRING {
         $$ = $1;

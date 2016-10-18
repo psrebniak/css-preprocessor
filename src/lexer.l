@@ -30,6 +30,18 @@ STRING   [a-zA-Z0-9\-\_]
             yylval = lval;
 %}
 
+"@import" {
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::IMPORT);
+    lexerWhitespaceFlag = false;
+    return token::IMPORT;
+}
+
+"@media" {
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::MEDIA);
+    lexerWhitespaceFlag = false;
+    return token::MEDIA;
+}
+
 "//"+(.|"\\\n")*	;// ignore c-style comments
 \/\*+([^*]|[ \t\r\n]|(\*+([^\*\/]|[ \t\r\n])))*\*+\/ ; // ignore c++-style comments
 

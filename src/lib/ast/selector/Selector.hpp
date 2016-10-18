@@ -9,7 +9,7 @@
 #include <map>
 #include <lib/ast/value/value/Value.hpp>
 #include "lib/ast/node/Node.hpp"
-
+#include "lib/ast/value/variable/Variable.hpp"
 
 namespace CSSP {
     namespace AST {
@@ -27,10 +27,11 @@ namespace CSSP {
                 ATTRIBUTE_VALUE
             };
 
-            Selector(SelectorType type, std::string name, Value* value= NULL)
+            Selector(SelectorType type, std::string name, Value* value = NULL, Variable* variable = NULL)
                 : type(type),
                   name(name),
-                  value(value) {};
+                  value(value),
+                  variable(variable) {};
 
             std::string getSelectorType() const;
             std::string getSelectorPrefix() const;
@@ -42,6 +43,7 @@ namespace CSSP {
             SelectorType type;
             std::string name;
             Value* value;
+            Variable* variable;
 
             std::map<SelectorType, std::pair<std::string, std::string>> selectorToStringMap = {
                 {TAG, std::pair<std::string, std::string>("TAG", "")},
