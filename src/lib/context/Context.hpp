@@ -1,7 +1,3 @@
-//
-// Created by piotrek on 05.11.16.
-//
-
 #ifndef CSSPREPROCESSOR_CONTEXT_HPP
 #define CSSPREPROCESSOR_CONTEXT_HPP
 
