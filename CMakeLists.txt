@@ -22,7 +22,7 @@ FLEX_TARGET(Scanner src/lexer.l ${GENERATED_OUTPUT_DIRECTORY}/lexer.cpp)
 ADD_FLEX_BISON_DEPENDENCY(Scanner Parser)
 
 set(GENERATED_FILES ${BISON_Parser_OUTPUTS} ${FLEX_Scanner_OUTPUTS})
-include_directories(${CMAKE_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR})
 # / End of Bison/Flex
 
 include_directories(src)
@@ -30,7 +30,23 @@ set(SOURCE_FILES
     src/main.cpp
     src/lib/driver/Driver.cpp
     src/lib/logger/Logger.cpp
-    )
+    src/lib/ast/node/Node.cpp
+    src/lib/ast/node/Node.hpp
+    src/lib/ast/modifier/Modifier.cpp
+    src/lib/ast/property/Property.cpp
+    src/lib/ast/value/string/String.cpp
+    src/lib/ast/value/value/Value.cpp
+    src/lib/ast/value/color/Color.cpp
+    src/lib/ast/value/number/Number.cpp
+    src/lib/ast/value/variable/Variable.cpp
+    src/lib/ast/value/calculation/Calculation.cpp
+    src/lib/token/Token.cpp
+    src/lib/ast/separator/Separator.cpp
+    src/lib/ast/selector/Selector.cpp
+    src/lib/ast/block/Block.cpp
+    src/lib/ast/import/Import.cpp
+    src/lib/ast/variableSetter/VariableSetter.cpp
+    src/lib/ast/media/Media.cpp src/lib/ast/media/Media.hpp src/lib/ast/mediaEntry/MediaEntry.cpp src/lib/ast/mediaEntry/MediaEntry.hpp src/lib/context/Context.cpp src/lib/context/Context.hpp)
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)

@@ -16,3 +16,7 @@ const std::string CSSP::Logger::colorWhite = "\033[1;97m";
 void CSSP::Logger::setColor(std::string color) {
     this->color = color;
 }
+
+std::string CSSP::Logger::end() {
+    return Logger::colorDefault;
+}

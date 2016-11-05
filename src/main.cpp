@@ -7,29 +7,34 @@
 
 void printHelp(std::string binary) {
     CSSP::Logger err(std::cerr, CSSP::Logger::colorRed);
+    CSSP::Logger info(std::cerr, CSSP::Logger::colorDefault);
 
     err
         << "Driver error"
+        << err.end()
         << std::endl;
 
-    std::cout
+    info
         << "Usage: "
+        << err.end()
         << std::endl;
 
-    std::cout
+    info
         << binary
         << " -f <filename> - parse given file"
+        << err.end()
         << std::endl;
 
-    std::cout
+    info
         << binary
         << " -i            - parse standard input"
+        << err.end()
         << std::endl;
 
     return;
 }
 
-int main(const int argc, const char **argv) {
+int processInput(int argc, const char *argv[]) {
     CSSP::Driver Driver;
 
     if (argc >= 2) {
@@ -43,4 +48,11 @@ int main(const int argc, const char **argv) {
 
     printHelp(argv[0]);
     return EXIT_FAILURE;
+}
+
+int main(const int argc, const char **argv) {
+    int code = processInput(argc, argv);
+    std::cout << CSSP::Logger::colorDefault << std::endl;
+
+    return code;
 }

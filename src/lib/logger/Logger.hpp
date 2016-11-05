@@ -1,6 +1,8 @@
 #ifndef __LOGGER_HPP__
 #define __LOGGER_HPP__
 
+#include <iostream>
+#include <string>
 #include <ostream>
 
 namespace CSSP {
@@ -15,6 +17,8 @@ namespace CSSP {
             color(color) {}
 
         void setColor(std::string color);
+
+        static std::string end();
 
         static const std::string colorDefault;
         static const std::string colorBlack;
@@ -31,7 +35,7 @@ namespace CSSP {
 
         template<typename T>
         friend std::ostream &operator<<(Logger &log, T op) {
-            log.os_ << log.color << op << Logger::colorDefault;
+            log.os_ << log.color << op;
             return log.os_;
         }
 
