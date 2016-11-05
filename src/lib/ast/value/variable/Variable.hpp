@@ -19,7 +19,7 @@ namespace CSSP {
 
         protected:
             std::string name;
-            std::string nodeType = "Variable";
+            std::string nodeType = "Value/Variable";
         };
     }
 }

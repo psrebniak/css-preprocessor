@@ -18,9 +18,14 @@ namespace CSSP {
 
             virtual const std::string toString() const override;
 
+            const std::string getName() const;
+            const Value *getValue() const;
+
         protected:
             std::string name;
             Value *value;
+
+            std::string nodeType = "VariableSetter";
         };
     }
 }

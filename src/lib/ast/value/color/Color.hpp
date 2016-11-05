@@ -26,7 +26,7 @@ namespace CSSP {
             float alpha;
             std::string value;
 
-            std::string nodeType = "Color";
+            std::string nodeType = "Value/Color";
         };
     }
 }

@@ -19,7 +19,7 @@ namespace CSSP {
             float number;
             std::string unit;
 
-            std::string nodeType = "Color";
+            std::string nodeType = "Value/Number";
         };
     }
 }

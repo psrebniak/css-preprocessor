@@ -1,16 +1,19 @@
 //
-// Created by piotrek on 16.10.16.
+// Created by piotrek on 05.11.16.
 //
 
 #include <sstream>
-#include "Block.hpp"
+#include <iostream>
+#include "Media.hpp"
 
-const std::string CSSP::AST::Block::toString() const {
+const std::string CSSP::AST::Media::toString() const {
     std::stringstream stream;
 
-    for(int i = 0; i < this->selectorList->size(); i++) {
+    stream << "@media";
+
+    for(int i = 0; i < this->mediaList->size(); i++) {
         stream
-            << (*this->selectorList)[i]->toString();
+            << " " << (*this->mediaList)[i]->toString();
     }
     stream << " {" << std::endl;
 

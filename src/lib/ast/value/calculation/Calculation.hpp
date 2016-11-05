@@ -22,7 +22,7 @@ namespace CSSP {
             Value* second;
             int operation;
 
-            std::string nodeType = "Calculation";
+            std::string nodeType = "Value/Calculation";
         };
     }
 }

@@ -97,6 +97,7 @@
 %type <std::vector<CSSP::AST::Node*>*> selector;
 %type <std::vector<CSSP::AST::Node*>*> globalInstructions;
 %type <std::vector<CSSP::AST::Node*>*> instructions;
+%type <std::vector<CSSP::AST::Node*>*> mediaList;
 
 %type <CSSP::AST::Property*> property;
 %type <CSSP::AST::Node*> selectorEntryType;
@@ -107,6 +108,7 @@
 %type <CSSP::AST::Block*> block;
 %type <CSSP::AST::Import*> import;
 %type <CSSP::AST::VariableSetter*> variableSetter;
+%type <CSSP::AST::Media*> media;
 
 %type <CSSP::Token> string;
 
@@ -142,6 +144,9 @@ globalInstruction
     | import {
         $$ = $1;
     }
+    | media {
+        $$ = $1;
+    }
     | variableSetter {
         $$ = $1;
     }
@@ -171,6 +176,25 @@ instruction
 import
     : IMPORT RAW_STRING SEMICOLON {
         $$ = new CSSP::AST::Import($2.toString());
+    }
+
+// media
+media
+    : MEDIA mediaList LBRACE instructions RBRACE {
+        $$ = new CSSP::AST::Media($2, $4);
+    }
+
+mediaList
+    : %empty {
+        $$ = new std::vector<CSSP::AST::Node*>();
+    }
+    | mediaList string {
+        $1->push_back(new CSSP::AST::String($2.toString()));
+        $$ = $1;
+    }
+    | mediaList LPAREN string COLON value RPAREN {
+        $1->push_back(new CSSP::AST::MediaEntry($3.toString(), $5));
+        $$ = $1;
     }
 
 // variable (setter)
