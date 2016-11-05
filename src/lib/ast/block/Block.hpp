@@ -23,6 +23,8 @@ namespace CSSP {
         protected:
             std::vector<Node*>* selectorList;
             std::vector<Node*>* instructionList;
+
+            std::string nodeType = "Block";
         };
     }
 }

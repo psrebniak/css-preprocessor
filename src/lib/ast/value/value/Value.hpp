@@ -16,7 +16,7 @@ namespace CSSP {
             virtual Value* setToken(CSSP::Token);
 
         protected:
-            std::string nodeType = "Value";
+            std::string nodeType = "Value/Value";
         };
     }
 }

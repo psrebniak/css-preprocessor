@@ -5,5 +5,13 @@
 #include "VariableSetter.hpp"
 
 const std::string CSSP::AST::VariableSetter::toString() const {
-    return std::string();
+    return "SET(" + this->name + ")\n";
+}
+
+const std::string CSSP::AST::VariableSetter::getName() const {
+    return this->name;
+}
+
+const CSSP::AST::Value *CSSP::AST::VariableSetter::getValue() const {
+    return this->value;
 }

@@ -20,7 +20,7 @@ namespace CSSP {
         protected:
             std::string value;
 
-            std::string nodeType = "String";
+            std::string nodeType = "Value/String";
         };
     }
 }
