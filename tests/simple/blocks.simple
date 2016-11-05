@@ -1,0 +1,24 @@
+.a {
+    &[href] {
+        color: transparent;
+    }
+    > b {
+    }
+    b a c {
+        .class[tag="tagname"] {
+        }
+    }
+}
+main::first-child {
+    display: none;
+    &.visible {
+        display: block;
+    }
+    & {
+        & {
+            .a {
+
+            }
+        }
+    }
+}

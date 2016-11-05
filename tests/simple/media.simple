@@ -1,0 +1,11 @@
+$a: 123;
+a{}
+@media screen {
+    a{}
+}
+@media (min-width: 768px) {
+    b{}
+}
+@media screen and (max-width: ${a}) {
+    screen: ${a};
+}
