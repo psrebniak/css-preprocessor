@@ -8,16 +8,16 @@
 const std::string CSSP::AST::Block::toString() const {
     std::stringstream stream;
 
-    for(int i = 0; i < this->selectorList->size(); i++) {
+    for(auto const node: *this->selectorList) {
         stream
-            << (*this->selectorList)[i]->toString();
+            << node->toString();
     }
     stream << " {" << std::endl;
 
 
-    for(int i = 0; i < this->instructionList->size(); i++) {
+    for(auto const node: *this->instructionList) {
         stream
-            << (*this->instructionList)[i]->toString();
+            << node->toString();
     }
     stream << "}" << std::endl;
 

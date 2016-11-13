@@ -11,16 +11,17 @@ const std::string CSSP::AST::Media::toString() const {
 
     stream << "@media";
 
-    for(int i = 0; i < this->mediaList->size(); i++) {
+    for(auto const node: *this->mediaList) {
         stream
-            << " " << (*this->mediaList)[i]->toString();
+            << " "
+            << node->toString();
     }
     stream << " {" << std::endl;
 
 
-    for(int i = 0; i < this->instructionList->size(); i++) {
+    for(auto const node: *this->instructionList) {
         stream
-            << (*this->instructionList)[i]->toString();
+            << node->toString();
     }
     stream << "}" << std::endl;
 
