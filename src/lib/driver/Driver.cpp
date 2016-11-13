@@ -44,6 +44,8 @@ int CSSP::Driver::parse(const char *const filename) {
 
     this->processQueue();
     this->debugQueue();
+
+    return 0;
 }
 
 int CSSP::Driver::parse(std::istream &stream) {
