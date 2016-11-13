@@ -252,7 +252,7 @@ selectorEntry
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::TAG,
             "",
-            NULL,
+            nullptr,
             (CSSP::AST::Variable*) $1
         ))->setToken($1->getToken());
     }
@@ -266,7 +266,7 @@ selectorEntry
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::CLASS,
             "",
-            NULL,
+            nullptr,
             (CSSP::AST::Variable*) $2
         ))->setToken($1);
     }
@@ -280,7 +280,7 @@ selectorEntry
         $$ = (new CSSP::AST::Selector(
             CSSP::AST::Selector::SelectorType::ID,
             "",
-            NULL,
+            nullptr,
             (CSSP::AST::Variable*) $2
         ))->setToken($1);
     }
@@ -372,7 +372,7 @@ valueString
     }
     | string {
         // string can be a number with unit string
-        CSSP::AST::Value *value = NULL;
+        CSSP::AST::Value *value = nullptr;
         try {
             std::stoi($1.toString());
             value = new CSSP::AST::Number($1.toString());
@@ -388,7 +388,7 @@ valueNumber
     }
     | string DOT string {
         // string can be a number with unit string
-        CSSP::AST::Value *value = NULL;
+        CSSP::AST::Value *value = nullptr;
         try {
             std::stof($1.toString());
             value = new CSSP::AST::Number($1.toString() + "." + $3.toString());

@@ -46,7 +46,10 @@ set(SOURCE_FILES
     src/lib/ast/block/Block.cpp
     src/lib/ast/import/Import.cpp
     src/lib/ast/variableSetter/VariableSetter.cpp
-    src/lib/ast/media/Media.cpp src/lib/ast/media/Media.hpp src/lib/ast/mediaEntry/MediaEntry.cpp src/lib/ast/mediaEntry/MediaEntry.hpp src/lib/context/Context.cpp src/lib/context/Context.hpp)
+    src/lib/ast/media/Media.cpp
+    src/lib/ast/mediaEntry/MediaEntry.cpp
+    src/lib/context/Context.cpp
+    )
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)

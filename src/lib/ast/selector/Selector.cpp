@@ -11,7 +11,7 @@ const std::string CSSP::AST::Selector::toString() const {
         stream << " ";
     }
     stream << this->getSelectorPrefix() << this->name;
-    if (this->value != NULL) {
+    if (this->value != nullptr) {
         stream << "=" << value->toString();
     }
     if (this->type == SelectorType::ATTRIBUTE || this->type == SelectorType::ATTRIBUTE_VALUE) {
