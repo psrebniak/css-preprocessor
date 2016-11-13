@@ -1,5 +1,8 @@
 #include <cctype>
 #include <fstream>
+#include <string>
+#include <unistd.h>
+#include <string.h>
 
 #include "lib/driver/Driver.hpp"
 
@@ -12,6 +15,7 @@ CSSP::Driver::~Driver() {
 }
 
 int CSSP::Driver::parse(const char *const filename) {
+
     if (filename == nullptr) {
         this->error
             << "Failed to read from file"
@@ -21,17 +25,25 @@ int CSSP::Driver::parse(const char *const filename) {
         return EXIT_FAILURE;
     }
 
-    std::ifstream in_file(filename);
-    if (!in_file.good()) {
+    std::string path = realpath(filename, NULL);
+    std::string name = basename(path.c_str());
+    std::string dir = path.substr(0, path.length() - name.length());
+
+    if (chdir(dir.c_str())) {
         this->error
-            << "Failed to read from file"
+            << "Failed to change directory relative to main file: "
+            << dir
             << this->error.end()
             << std::endl;
-
         return EXIT_FAILURE;
     }
 
-    return parse_helper(in_file);
+    this->baseName = dir;
+    this->mainFileName = name;
+    this->pushFileToQueue(name);
+
+    this->processQueue();
+    this->debugQueue();
 }
 
 int CSSP::Driver::parse(std::istream &stream) {
@@ -46,6 +58,20 @@ int CSSP::Driver::parse(std::istream &stream) {
     return parse_helper(stream);
 }
 
+int CSSP::Driver::parsePartial(const std::string filename) {
+    std::ifstream file(filename);
+    if (!file.good()) {
+        this->error
+            << "Failed to read from file: "
+            << filename
+            << this->error.end()
+            << std::endl;
+
+        return EXIT_FAILURE;
+    }
+
+    return this->parse_helper(file);
+}
 
 int CSSP::Driver::parse_helper(std::istream &stream) {
 
@@ -66,7 +92,7 @@ int CSSP::Driver::parse_helper(std::istream &stream) {
 
     delete (parser);
     try {
-        parser = new CSSP::Parser((*lexer),(*this));
+        parser = new CSSP::Parser((*lexer), (*this));
     }
     catch (std::bad_alloc &ba) {
         this->error
@@ -89,4 +115,88 @@ int CSSP::Driver::parse_helper(std::istream &stream) {
     }
 
     return EXIT_SUCCESS;
+}
+
+bool CSSP::Driver::isFileInTree(std::string filename) {
+    FileToTreeMapType::const_iterator position;
+    position = this->fileToTreeMap.find(filename);
+
+    return position != this->fileToTreeMap.end();
+}
+
+void CSSP::Driver::pushFileToQueue(std::string filename) {
+    this->log
+        << "Add file "
+        << filename
+        << " into queue"
+        << this->log.end()
+        << std::endl;
+
+    this->fileQueue.insert(
+        this->fileQueue.begin(),
+        filename
+    );
+}
+
+int CSSP::Driver::processQueue() {
+
+    while (!this->fileQueue.empty()) {
+        std::string filename = this->fileQueue.back();
+        if (!this->isFileInTree(filename)) {
+            this->log
+                << "Parse file: "
+                << filename
+                << this->log.end()
+                << std::endl;
+
+            this->currentFileName = filename;
+            this->parsePartial(filename);
+        } else {
+            this->log
+                << "File: "
+                << filename
+                << " already in tree"
+                << this->log.end()
+                << std::endl;
+        }
+        this->fileQueue.pop_back();
+    }
+
+    return 0;
+}
+
+void CSSP::Driver::setNodesAsCurrentTreeElement(std::vector<CSSP::AST::Node *> nodes) {
+    this->fileToTreeMap.insert(FileToTreePairType(
+        this->currentFileName,
+        nodes
+    ));
+}
+
+int CSSP::Driver::debugQueue() {
+    this->log
+        << "Debug queue"
+        << this->log.end()
+        << std::endl;
+    for(FileToTreeMapType::iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
+        this->log
+            << "File: "
+            << i->first
+            << this->log.end()
+            << std::endl;
+
+        std::vector<CSSP::AST::Node*> nodes = i->second;
+
+        for(auto const node : nodes) {
+            this->log
+                << node->toString()
+                << this->log.end()
+                << std::endl;
+        }
+    }
+    this->log
+        << "End queue"
+        << this->log.end()
+        << std::endl;
+
+    return 0;
 }

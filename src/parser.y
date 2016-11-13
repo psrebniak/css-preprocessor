@@ -119,12 +119,7 @@
 // main
 preprocesor
     : globalInstructions END {
-        for(auto const &value: (*$1)) {
-            std::cout
-                << value->toString();
-        }
-
-        driver.log << "process complete" << std::endl;
+        driver.setNodesAsCurrentTreeElement(*($1));
     }
 
 // global instructions
@@ -175,6 +170,7 @@ instruction
 // import
 import
     : IMPORT RAW_STRING SEMICOLON {
+        driver.pushFileToQueue($2.toString());
         $$ = new CSSP::AST::Import($2.toString());
     }
 

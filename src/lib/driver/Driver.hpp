@@ -5,13 +5,22 @@
 #include <cstddef>
 #include <istream>
 #include <iostream>
+#include <utility>
+#include <map>
+#include <vector>
 
 #include "lib/lexer/Lexer.hpp"
 #include "lib/logger/Logger.hpp"
+#include "lib/ast/node/Node.hpp"
 #include "generated/parser.hpp"
+
+typedef std::map<std::string, std::vector<CSSP::AST::Node*>>  FileToTreeMapType;
+typedef std::pair<std::string, std::vector<CSSP::AST::Node*>> FileToTreePairType;
+
 
 namespace CSSP {
     class Driver {
+        friend class Parser;
     public:
         Driver() :
             log(std::cout, Logger::colorCyan),
@@ -35,13 +44,26 @@ namespace CSSP {
         Logger log;
         Logger warn;
         Logger error;
-    private:
 
+    protected:
         int parse_helper(std::istream &stream);
+        bool isFileInTree(std::string filename);
+
+        std::string baseName;
+        std::string mainFileName;
+        std::string currentFileName;
+        std::vector<std::string> fileQueue;
+        FileToTreeMapType fileToTreeMap;
 
         CSSP::Parser *parser = nullptr;
         CSSP::Lexer *lexer = nullptr;
-    };
 
+        int processQueue();
+        int debugQueue();
+
+        int parsePartial(std::string);
+        void pushFileToQueue(std::string filename);
+        void setNodesAsCurrentTreeElement(std::vector<CSSP::AST::Node*>);
+    };
 }
 #endif
