@@ -25,7 +25,7 @@ int CSSP::Driver::parse(const char *const filename) {
         return EXIT_FAILURE;
     }
 
-    std::string path = realpath(filename, NULL);
+    std::string path = realpath(filename, nullptr);
     std::string name = basename(path.c_str());
     std::string dir = path.substr(0, path.length() - name.length());
 
@@ -40,7 +40,7 @@ int CSSP::Driver::parse(const char *const filename) {
 
     this->baseName = dir;
     this->mainFileName = name;
-    this->pushFileToQueue(name);
+    this->pushFileToQueue(path);
 
     this->processQueue();
     this->debugQueue();
@@ -57,7 +57,17 @@ int CSSP::Driver::parse(std::istream &stream) {
         return EXIT_FAILURE;
     }
 
-    return parse_helper(stream);
+    char temp[256];
+    getcwd(temp, 256);
+    this->baseName = std::string(temp);
+    this->mainFileName = "STDIN";
+    this->currentFileName = "STDIN";
+    this->parse_helper(stream);
+
+    this->processQueue();
+    this->debugQueue();
+
+    return 0;
 }
 
 int CSSP::Driver::parsePartial(const std::string filename) {
@@ -127,16 +137,18 @@ bool CSSP::Driver::isFileInTree(std::string filename) {
 }
 
 void CSSP::Driver::pushFileToQueue(std::string filename) {
+    std::string path = realpath(filename.c_str(), nullptr);
+
     this->log
         << "Add file "
-        << filename
+        << path
         << " into queue"
         << this->log.end()
         << std::endl;
 
     this->fileQueue.insert(
         this->fileQueue.begin(),
-        filename
+        path
     );
 }
 
@@ -179,7 +191,7 @@ int CSSP::Driver::debugQueue() {
         << "Debug queue"
         << this->log.end()
         << std::endl;
-    for(FileToTreeMapType::iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
+    for(FileToTreeMapType::const_iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
         this->log
             << "File: "
             << i->first

@@ -10,6 +10,8 @@
 #include "lib/ast/value/value/Value.hpp"
 #include "lib/ast/variableSetter/VariableSetter.hpp"
 
+#include "lib/driver/Driver.hpp"
+
 namespace CSSP {
     class Context {
     public:

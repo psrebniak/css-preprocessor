@@ -27,7 +27,7 @@ namespace CSSP {
                 ATTRIBUTE_VALUE
             };
 
-            Selector(SelectorType type, std::string name, Value* value = NULL, Variable* variable = NULL)
+            Selector(SelectorType type, std::string name, Value* value = nullptr, Variable* variable = nullptr)
                 : type(type),
                   name(name),
                   value(value),
