@@ -16,6 +16,10 @@ namespace CSSP {
 
             virtual const std::string toString() const override;
 
+            const std::string getFilename() {
+                return this->path;
+            }
+
         protected:
             std::string path;
 

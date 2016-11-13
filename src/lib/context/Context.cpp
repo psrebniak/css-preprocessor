@@ -1,7 +1,3 @@
-//
-// Created by piotrek on 05.11.16.
-//
-
 #include <utility>
 #include "Context.hpp"
 

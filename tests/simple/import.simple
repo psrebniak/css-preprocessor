@@ -1,3 +1,3 @@
 a{}
-@import "./media.simple";
+@import "media.simple";
 b{}
