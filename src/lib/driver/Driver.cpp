@@ -191,6 +191,7 @@ int CSSP::Driver::debugQueue() {
         << "Debug queue"
         << this->log.end()
         << std::endl;
+    
     for(FileToTreeMapType::const_iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
         this->log
             << "File: "
