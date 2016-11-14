@@ -3,3 +3,9 @@
 //
 
 #include "Generator.hpp"
+
+bool CSSP::Generator::pushFile(std::string filename) {
+    this->stack.push()
+
+    return false;
+}

@@ -48,8 +48,7 @@ set(SOURCE_FILES
     src/lib/ast/variableSetter/VariableSetter.cpp
     src/lib/ast/media/Media.cpp
     src/lib/ast/mediaEntry/MediaEntry.cpp
-    src/lib/context/Context.cpp
-    )
+    src/lib/generator/Generator.cpp src/lib/generator/Generator.hpp)
 
 add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)
