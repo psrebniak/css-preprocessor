@@ -9,14 +9,11 @@
 #include <map>
 #include <vector>
 
+#include "lib/types.hpp"
 #include "lib/lexer/Lexer.hpp"
 #include "lib/logger/Logger.hpp"
 #include "lib/ast/node/Node.hpp"
 #include "generated/parser.hpp"
-
-typedef std::map<std::string, std::vector<CSSP::AST::Node *>> FileToTreeMapType;
-typedef std::pair<std::string, std::vector<CSSP::AST::Node *>> FileToTreePairType;
-
 
 namespace CSSP {
     class Driver {
@@ -68,7 +65,7 @@ namespace CSSP {
 
         void pushFileToQueue(std::string filename);
 
-        void setNodesAsCurrentTreeElement(std::vector<CSSP::AST::Node *>);
+        void setNodesAsCurrentTreeElement(NodeVectorType nodes);
     };
 }
 #endif
