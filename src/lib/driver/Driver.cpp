@@ -215,3 +215,10 @@ int CSSP::Driver::debugQueue() {
 
     return 0;
 }
+
+CSSP::Generator *CSSP::Driver::getGenerator() {
+    return new CSSP::Generator(
+        &this->fileToTreeMap,
+        this->mainFileName
+    );
+}

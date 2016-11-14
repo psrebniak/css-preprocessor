@@ -10,21 +10,22 @@
 #include <vector>
 #include <stack>
 #include <fstream>
+#include <iostream>
 
-#include "lib/driver/Driver.hpp"
+#include "lib/types.hpp"
 #include "lib/ast/node/Node.hpp"
 
 namespace CSSP {
     class Generator {
     public:
-        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile) :
-            fileToTreeMap(*fileToTreeMap),
-            mainFile(mainFile) {};
+        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile)
+            : fileToTreeMap(*fileToTreeMap) {
+            this->pushFile(mainFile);
+        }
 
-        long generate(std::ofstream stream);
+        long generateOutput(std::ostream &ostream);
 
     protected:
-        std::string mainFile;
         FileToTreeMapType fileToTreeMap;
         std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType>> stack;
 
