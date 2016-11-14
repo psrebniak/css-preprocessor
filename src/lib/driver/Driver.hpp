@@ -13,6 +13,7 @@
 #include "lib/lexer/Lexer.hpp"
 #include "lib/logger/Logger.hpp"
 #include "lib/ast/node/Node.hpp"
+#include "lib/generator/Generator.hpp"
 #include "generated/parser.hpp"
 
 namespace CSSP {
@@ -38,6 +39,8 @@ namespace CSSP {
          * @param is - std::istream&, valid input stream
          */
         int parse(std::istream &iss);
+
+        CSSP::Generator *getGenerator();
 
         Logger log;
         Logger warn;

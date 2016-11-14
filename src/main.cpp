@@ -38,10 +38,12 @@ int processInput(int argc, const char *argv[]) {
 
     if (argc >= 2) {
         if (argc >= 3 && std::strncmp(argv[1], "-f", 2) == 0) {
-            return Driver.parse(argv[2]);
+            Driver.parse(argv[2]);
+            return Driver.getGenerator()->generateOutput(std::cout);
         }
         if (std::strncmp(argv[1], "-i", 2) == 0) {
-            return Driver.parse(std::cin);
+            Driver.parse(std::cin);
+            return Driver.getGenerator()->generateOutput(std::cout);
         }
     }
 

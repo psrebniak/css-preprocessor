@@ -13,6 +13,8 @@
 
    #include <map>
    #include <vector>
+
+   #include "lib/types.hpp"
    #include "lib/ast/Ast.hpp"
    #include "lib/token/Token.hpp"
 }
