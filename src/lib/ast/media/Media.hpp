@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "lib/types.hpp"
 #include "lib/ast/node/Node.hpp"
 
 namespace CSSP {
@@ -10,7 +11,7 @@ namespace CSSP {
         class Media : public Node {
         public:
 
-            Media(std::vector<Node *> *mediaList, std::vector<Node *> *instructionList)
+            Media(NodeVectorType *mediaList, NodeVectorType *instructionList)
                 : mediaList(mediaList),
                   instructionList(instructionList) {};
 
@@ -18,8 +19,8 @@ namespace CSSP {
             virtual const std::string toString() const override;
 
         protected:
-            std::vector<Node *> *mediaList;
-            std::vector<Node *> *instructionList;
+            NodeVectorType *mediaList;
+            NodeVectorType *instructionList;
 
             std::string nodeType = "Media";
         };
