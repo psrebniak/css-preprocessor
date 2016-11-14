@@ -12,7 +12,7 @@ const std::string CSSP::AST::Property::toString() const {
         << this->name->toString()
         << ":";
 
-    for(auto const &value: *this->valueList) {
+    for (auto const &value: *this->valueList) {
         if (value->getToken().isWhitespacePrefixed()) {
             stream << " ";
         }

@@ -15,10 +15,13 @@ namespace CSSP {
 
         public:
             virtual const std::string toString() const = 0;
+
             const std::string &getNodeType() const;
 
-            virtual Node* setToken(CSSP::Token);
+            virtual Node *setToken(CSSP::Token);
+
             CSSP::Token getToken() const;
+
         protected:
             std::string nodeType = "Unknown";
             CSSP::Token token;

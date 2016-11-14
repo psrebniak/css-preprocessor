@@ -2,7 +2,9 @@
 #define __LEXER_HPP__
 
 #if !defined(yyFlexLexerOnce)
-    #include <FlexLexer.h>
+
+#include <FlexLexer.h>
+
 #endif
 
 #include "generated/parser.hpp"
@@ -26,7 +28,7 @@ namespace CSSP {
         virtual int yylex(CSSP::Parser::semantic_type *const lval,
                           CSSP::Parser::location_type *location);
 
-        CSSP::Parser::location_type & getCurrentLocation() {
+        CSSP::Parser::location_type &getCurrentLocation() {
             return *(this->loc);
         }
 

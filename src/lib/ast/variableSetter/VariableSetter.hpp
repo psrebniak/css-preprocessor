@@ -12,13 +12,14 @@ namespace CSSP {
     namespace AST {
         class VariableSetter : public Node {
         public:
-            VariableSetter(std::string name, Value* value)
+            VariableSetter(std::string name, Value *value)
                 : name(name),
                   value(value) {};
 
             virtual const std::string toString() const override;
 
             const std::string getName() const;
+
             const Value *getValue() const;
 
         protected:

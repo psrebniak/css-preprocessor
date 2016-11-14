@@ -27,13 +27,14 @@ namespace CSSP {
                 ATTRIBUTE_VALUE
             };
 
-            Selector(SelectorType type, std::string name, Value* value = nullptr, Variable* variable = nullptr)
+            Selector(SelectorType type, std::string name, Value *value = nullptr, Variable *variable = nullptr)
                 : type(type),
                   name(name),
                   value(value),
                   variable(variable) {};
 
             std::string getSelectorType() const;
+
             std::string getSelectorPrefix() const;
 
 
@@ -42,17 +43,17 @@ namespace CSSP {
         protected:
             SelectorType type;
             std::string name;
-            Value* value;
-            Variable* variable;
+            Value *value;
+            Variable *variable;
             std::string nodeType = "Selector";
 
             std::map<SelectorType, std::pair<std::string, std::string>> selectorToStringMap = {
-                {TAG, std::pair<std::string, std::string>("TAG", "")},
-                {CLASS, std::pair<std::string, std::string>("CLASS", ".")},
-                {ID, std::pair<std::string, std::string>("ID", "#")},
-                {PSEUDOCLASS, std::pair<std::string, std::string>("PSEUDOCLASS", ":")},
-                {PSEUDOELEMENT, std::pair<std::string, std::string>("PSEUDOELEMENT", "::")},
-                {ATTRIBUTE, std::pair<std::string, std::string>("ATTRIBUTE", "[")},
+                {TAG,             std::pair<std::string, std::string>("TAG", "")},
+                {CLASS,           std::pair<std::string, std::string>("CLASS", ".")},
+                {ID,              std::pair<std::string, std::string>("ID", "#")},
+                {PSEUDOCLASS,     std::pair<std::string, std::string>("PSEUDOCLASS", ":")},
+                {PSEUDOELEMENT,   std::pair<std::string, std::string>("PSEUDOELEMENT", "::")},
+                {ATTRIBUTE,       std::pair<std::string, std::string>("ATTRIBUTE", "[")},
                 {ATTRIBUTE_VALUE, std::pair<std::string, std::string>("ATTRIBUTE_VALUE", "[")}
             };
         };

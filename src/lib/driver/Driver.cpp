@@ -191,17 +191,17 @@ int CSSP::Driver::debugQueue() {
         << "Debug queue"
         << this->log.end()
         << std::endl;
-    
-    for(FileToTreeMapType::const_iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
+
+    for (FileToTreeMapType::const_iterator i = this->fileToTreeMap.begin(); i != fileToTreeMap.end(); i++) {
         this->log
             << "File: "
             << i->first
             << this->log.end()
             << std::endl;
 
-        std::vector<CSSP::AST::Node*> nodes = i->second;
+        std::vector<CSSP::AST::Node *> nodes = i->second;
 
-        for(auto const node : nodes) {
+        for (auto const node : nodes) {
             this->log
                 << node->toString()
                 << this->log.end()

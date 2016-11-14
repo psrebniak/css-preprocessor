@@ -6,7 +6,7 @@ bool CSSP::Context::setVariable(CSSP::AST::VariableSetter *variable) {
         ->variables
         .insert(
             std::pair
-                <std::string, const AST::Value*>
+                <std::string, const AST::Value *>
                 (variable->getName(), variable->getValue())
         ).second;
 }
