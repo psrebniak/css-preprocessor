@@ -39,7 +39,7 @@ int CSSP::Driver::parse(const char *const filename) {
     }
 
     this->baseName = dir;
-    this->mainFileName = name;
+    this->mainFileName = path;
     this->pushFileToQueue(path);
 
     this->processQueue();
