@@ -8,14 +8,14 @@
 const std::string CSSP::AST::Block::toString() const {
     std::stringstream stream;
 
-    for(auto const node: *this->selectorList) {
+    for (auto const node: *this->selectorList) {
         stream
             << node->toString();
     }
     stream << " {" << std::endl;
 
 
-    for(auto const node: *this->instructionList) {
+    for (auto const node: *this->instructionList) {
         stream
             << node->toString();
     }

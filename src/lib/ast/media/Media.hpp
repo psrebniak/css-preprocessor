@@ -10,7 +10,7 @@ namespace CSSP {
         class Media : public Node {
         public:
 
-            Media(std::vector<Node*>* mediaList, std::vector<Node*>* instructionList)
+            Media(std::vector<Node *> *mediaList, std::vector<Node *> *instructionList)
                 : mediaList(mediaList),
                   instructionList(instructionList) {};
 
@@ -18,8 +18,8 @@ namespace CSSP {
             virtual const std::string toString() const override;
 
         protected:
-            std::vector<Node*>* mediaList;
-            std::vector<Node*>* instructionList;
+            std::vector<Node *> *mediaList;
+            std::vector<Node *> *instructionList;
 
             std::string nodeType = "Media";
         };

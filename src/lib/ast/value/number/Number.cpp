@@ -9,7 +9,7 @@ CSSP::AST::Number::Number(std::string number) {
     size_t offset = 0;
     try {
         this->number = std::stof(number, &offset);
-    } catch(std::invalid_argument) {
+    } catch (std::invalid_argument) {
         this->number = 0;
     }
     this->unit = number.substr(offset);

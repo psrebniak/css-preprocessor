@@ -10,7 +10,7 @@
 
 namespace CSSP {
     namespace AST {
-        class Variable: public Value {
+        class Variable : public Value {
         public:
             Variable(std::string name)
                 : name(name) {};

@@ -18,10 +18,11 @@ namespace CSSP {
         Context() = default;
 
         bool setVariable(AST::VariableSetter *variable);
-        unsigned int generateCode(std::stringstream output, std::vector<AST::Node*> *instructionList);
+
+        unsigned int generateCode(std::stringstream output, std::vector<AST::Node *> *instructionList);
 
     protected:
-        std::map<std::string, const AST::Value*> variables;
+        std::map<std::string, const AST::Value *> variables;
     };
 }
 

@@ -26,5 +26,4 @@ namespace CSSP {
 }
 
 
-
 #endif //CSSPREPROCESSOR_STRING_HPP
