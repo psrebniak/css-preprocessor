@@ -2,8 +2,6 @@
 
 long CSSP::Generator::generateOutput(std::ostream &ostream) {
 
-    std::cout << "checking stack " << std::endl;
-
     while(!this->stack.empty()) {
         NodeVectorType::const_iterator iterator = this->stack.top().first;
         NodeVectorType *nodes = this->stack.top().second;
@@ -13,14 +11,13 @@ long CSSP::Generator::generateOutput(std::ostream &ostream) {
             continue;
         }
 
-        std::cout << (*iterator)->toString() << std::endl;
+        ostream << (*iterator)->toString() << std::endl;
         if (++iterator == nodes->end()) {
             this->stack.pop();
         } else {
             this->stack.top().first = iterator;
         }
     }
-    std::cout << "end" << std::endl;
     return 0;
 }
 
