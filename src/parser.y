@@ -173,7 +173,8 @@ instruction
 import
     : IMPORT RAW_STRING SEMICOLON {
         driver.pushFileToQueue($2.toString());
-        $$ = new CSSP::AST::Import($2.toString());
+        std::string path = driver.getRealPath($2.toString());
+        $$ = new CSSP::AST::Import($2.toString(), path);
     }
 
 // media
