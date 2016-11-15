@@ -27,7 +27,7 @@ namespace CSSP {
 
     protected:
         FileToTreeMapType fileToTreeMap;
-        std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType>> stack;
+        std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *>> stack;
 
         bool pushFile(std::string filename);
     };

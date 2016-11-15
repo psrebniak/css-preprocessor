@@ -121,7 +121,7 @@
 // main
 preprocesor
     : globalInstructions END {
-        driver.setNodesAsCurrentTreeElement(*($1));
+        driver.setNodesAsCurrentTreeElement($1);
     }
 
 // global instructions

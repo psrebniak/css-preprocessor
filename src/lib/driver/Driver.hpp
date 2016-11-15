@@ -68,7 +68,7 @@ namespace CSSP {
 
         void pushFileToQueue(std::string filename);
 
-        void setNodesAsCurrentTreeElement(NodeVectorType nodes);
+        void setNodesAsCurrentTreeElement(NodeVectorType *nodes);
     };
 }
 #endif
