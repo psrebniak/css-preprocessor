@@ -28,7 +28,8 @@ namespace CSSP {
             };
 
             Selector(SelectorType type, std::string name, Value *value = nullptr, Variable *variable = nullptr)
-                : type(type),
+                : Node("Selector"),
+                  type(type),
                   name(name),
                   value(value),
                   variable(variable) {};
@@ -45,7 +46,6 @@ namespace CSSP {
             std::string name;
             Value *value;
             Variable *variable;
-            std::string nodeType = "Selector";
 
             std::map<SelectorType, std::pair<std::string, std::string>> selectorToStringMap = {
                 {TAG,             std::pair<std::string, std::string>("TAG", "")},

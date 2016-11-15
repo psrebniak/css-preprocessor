@@ -11,7 +11,7 @@ long CSSP::Generator::generateOutput(std::ostream &ostream) {
             continue;
         }
 
-        ostream << (*iterator)->toString() << std::endl;
+        ostream << (*iterator)->getNodeType() << std::endl;
         if (++iterator == nodes->end()) {
             this->stack.pop();
         } else {

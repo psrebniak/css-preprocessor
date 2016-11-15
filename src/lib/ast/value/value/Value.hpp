@@ -11,12 +11,12 @@ namespace CSSP {
     namespace AST {
         class Value : public Node {
         public:
+            Value(std::string nodeType)
+                : Node(nodeType) {}
+
             virtual const std::string toString() const override;
 
             virtual Value *setToken(CSSP::Token);
-
-        protected:
-            std::string nodeType = "Value/Value";
         };
     }
 }

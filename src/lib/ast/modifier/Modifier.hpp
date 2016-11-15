@@ -11,17 +11,17 @@ namespace CSSP {
     namespace AST {
         class Modifier : public Node {
         public:
-            Modifier() = default;
+            Modifier()
+                : Node("Modifier") {}
 
             Modifier(std::string modifier)
-                : modifier(modifier) {};
+                : Node("Modifier"),
+                  modifier(modifier) {};
 
             virtual const std::string toString() const override;
 
         protected:
             std::string modifier;
-
-            std::string nodeType = "Modifier";
         };
     }
 }

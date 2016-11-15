@@ -11,10 +11,10 @@ namespace CSSP {
     namespace AST {
         class Separator : public Node {
         public:
-            virtual const std::string toString() const override;
+            Separator()
+                : Node("Separator") {};
 
-        protected:
-            std::string nodeType = "Separator";
+            virtual const std::string toString() const override;
         };
     }
 }

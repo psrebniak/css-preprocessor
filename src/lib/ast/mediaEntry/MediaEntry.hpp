@@ -13,7 +13,8 @@ namespace CSSP {
         class MediaEntry : public Node {
         public:
             MediaEntry(std::string name, Value *value)
-                : name(name),
+                : Node("MediaEntry"),
+                  name(name),
                   value(value) {};
 
             virtual const std::string toString() const override;
@@ -21,8 +22,6 @@ namespace CSSP {
         protected:
             std::string name;
             Value *value;
-
-            std::string nodeType = "MediaEntry";
         };
     }
 }
