@@ -7,8 +7,8 @@
 
 #include "lib/ast/node/Node.hpp"
 
-typedef std::map<std::string, std::vector<CSSP::AST::Node *>> FileToTreeMapType;
-typedef std::pair<std::string, std::vector<CSSP::AST::Node *>> FileToTreePairType;
+typedef std::map<std::string, std::vector<CSSP::AST::Node *>*> FileToTreeMapType;
+typedef std::pair<std::string, std::vector<CSSP::AST::Node *>*> FileToTreePairType;
 typedef std::vector<CSSP::AST::Node *> NodeVectorType;
 
 #endif //CSSPREPROCESSOR_TYPES_HPP
