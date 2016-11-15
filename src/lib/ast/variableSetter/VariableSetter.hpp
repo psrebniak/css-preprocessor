@@ -13,7 +13,8 @@ namespace CSSP {
         class VariableSetter : public Node {
         public:
             VariableSetter(std::string name, Value *value)
-                : name(name),
+                : Node("VariableSetter"),
+                  name(name),
                   value(value) {};
 
             virtual const std::string toString() const override;
@@ -25,8 +26,6 @@ namespace CSSP {
         protected:
             std::string name;
             Value *value;
-
-            std::string nodeType = "VariableSetter";
         };
     }
 }

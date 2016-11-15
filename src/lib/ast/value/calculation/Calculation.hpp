@@ -13,7 +13,10 @@ namespace CSSP {
         class Calculation : public Value {
         public:
             Calculation(Value *first, Value *second, int operation)
-                : first(first), second(second), operation(operation) {};
+                : Value("Value/Calculation"),
+                  first(first),
+                  second(second),
+                  operation(operation) {};
 
             virtual const std::string toString() const override;
 
@@ -21,8 +24,6 @@ namespace CSSP {
             Value *first;
             Value *second;
             int operation;
-
-            std::string nodeType = "Value/Calculation";
         };
     }
 }

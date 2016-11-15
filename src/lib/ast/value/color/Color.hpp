@@ -12,10 +12,15 @@ namespace CSSP {
         class Color : public Value {
         public:
             Color(std::string color)
-                : value(color) {};
+                : Value("Value/Color"),
+                  value(color) {};
 
             Color(float red, float green, float blue, float aplha = 1)
-                : red(red), green(green), blue(blue), alpha(alpha) {};
+                : Value("Value/Color"),
+                  red(red),
+                  green(green),
+                  blue(blue),
+                  alpha(alpha) {};
 
             virtual const std::string toString() const override;
 
@@ -25,8 +30,6 @@ namespace CSSP {
             float blue;
             float alpha;
             std::string value;
-
-            std::string nodeType = "Value/Color";
         };
     }
 }

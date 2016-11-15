@@ -15,7 +15,8 @@ namespace CSSP {
         public:
 
             Block(NodeVectorType *selectorList, NodeVectorType *instructionList)
-                : selectorList(selectorList),
+                : Node("Block"),
+                  selectorList(selectorList),
                   instructionList(instructionList) {};
 
 
@@ -24,8 +25,6 @@ namespace CSSP {
         protected:
             NodeVectorType *selectorList;
             NodeVectorType *instructionList;
-
-            std::string nodeType = "Block";
         };
     }
 }

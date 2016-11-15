@@ -16,7 +16,8 @@ namespace CSSP {
         class Property : public Node {
         public:
             Property(Node *name, NodeVectorType *valueList, Node *modifier)
-                : name(name),
+                : Node("Property"),
+                  name(name),
                   valueList(valueList),
                   modifier(modifier) {};
 
@@ -26,8 +27,6 @@ namespace CSSP {
             Node *name;
             NodeVectorType *valueList;
             Node *modifier;
-
-            std::string nodeType = "Property";
         };
     }
 }

@@ -13,14 +13,13 @@ namespace CSSP {
         class String : public Value {
         public:
             String(std::string value)
-                : value(value) {}
+                : Value("Value/String"),
+                  value(value) {}
 
             virtual const std::string toString() const override;
 
         protected:
             std::string value;
-
-            std::string nodeType = "Value/String";
         };
     }
 }

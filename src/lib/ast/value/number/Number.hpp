@@ -18,8 +18,6 @@ namespace CSSP {
         protected:
             float number;
             std::string unit;
-
-            std::string nodeType = "Value/Number";
         };
     }
 }

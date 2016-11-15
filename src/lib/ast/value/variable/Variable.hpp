@@ -13,13 +13,13 @@ namespace CSSP {
         class Variable : public Value {
         public:
             Variable(std::string name)
-                : name(name) {};
+                : Value("Value/Variable"),
+                  name(name) {};
 
             virtual const std::string toString() const override;
 
         protected:
             std::string name;
-            std::string nodeType = "Value/Variable";
         };
     }
 }

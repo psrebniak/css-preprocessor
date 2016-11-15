@@ -12,7 +12,8 @@ namespace CSSP {
         class Import : public Node {
         public:
             Import(std::string path)
-                : path(path) {};
+                : Node("Import"),
+                  path(path) {};
 
             virtual const std::string toString() const override;
 
@@ -22,8 +23,6 @@ namespace CSSP {
 
         protected:
             std::string path;
-
-            std::string nodeType = "Import";
         };
     }
 }

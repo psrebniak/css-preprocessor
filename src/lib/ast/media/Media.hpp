@@ -12,7 +12,8 @@ namespace CSSP {
         public:
 
             Media(NodeVectorType *mediaList, NodeVectorType *instructionList)
-                : mediaList(mediaList),
+                : Node("Media"),
+                  mediaList(mediaList),
                   instructionList(instructionList) {};
 
 
@@ -21,8 +22,6 @@ namespace CSSP {
         protected:
             NodeVectorType *mediaList;
             NodeVectorType *instructionList;
-
-            std::string nodeType = "Media";
         };
     }
 }
