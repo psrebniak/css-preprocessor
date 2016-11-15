@@ -60,14 +60,11 @@ namespace CSSP {
         CSSP::Parser *parser = nullptr;
         CSSP::Lexer *lexer = nullptr;
 
+        std::string getRealPath(std::string path);
         int processQueue();
-
         int debugQueue();
-
         int parsePartial(std::string);
-
         void pushFileToQueue(std::string filename);
-
         void setNodesAsCurrentTreeElement(NodeVectorType *nodes);
     };
 }

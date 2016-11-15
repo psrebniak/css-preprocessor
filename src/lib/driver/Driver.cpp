@@ -25,7 +25,7 @@ int CSSP::Driver::parse(const char *const filename) {
         return EXIT_FAILURE;
     }
 
-    std::string path = realpath(filename, nullptr);
+    std::string path = this->getRealPath(filename);
     std::string name = basename(path.c_str());
     std::string dir = path.substr(0, path.length() - name.length());
 
@@ -137,7 +137,7 @@ bool CSSP::Driver::isFileInTree(std::string filename) {
 }
 
 void CSSP::Driver::pushFileToQueue(std::string filename) {
-    std::string path = realpath(filename.c_str(), nullptr);
+    std::string path = this->getRealPath(filename);
 
     this->log
         << "Add file "
@@ -221,4 +221,8 @@ CSSP::Generator *CSSP::Driver::getGenerator() {
         &this->fileToTreeMap,
         this->mainFileName
     );
+}
+
+std::string CSSP::Driver::getRealPath(std::string path) {
+    return realpath(path.c_str(), nullptr);
 }

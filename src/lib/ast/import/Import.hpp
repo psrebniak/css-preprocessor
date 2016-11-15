@@ -11,18 +11,24 @@ namespace CSSP {
     namespace AST {
         class Import : public Node {
         public:
-            Import(std::string path)
+            Import(std::string path, std::string realpath)
                 : Node("Import"),
-                  path(path) {};
+                  path(path),
+                  realpath(realpath) {};
 
             virtual const std::string toString() const override;
 
-            const std::string getFilename() {
+            const std::string getFilename() const {
                 return this->path;
+            }
+
+            const std::string getRealPath() const {
+                return this->realpath;
             }
 
         protected:
             std::string path;
+            std::string realpath;
         };
     }
 }
