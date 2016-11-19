@@ -20,6 +20,8 @@ namespace CSSP {
 
             virtual const std::string generate(Generator *generator) const override;
 
+            virtual Value *getAsPrimitive(Generator *generator) override;
+
         protected:
             std::string name;
         };

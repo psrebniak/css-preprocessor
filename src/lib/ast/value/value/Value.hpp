@@ -8,6 +8,8 @@
 #include "lib/ast/node/Node.hpp"
 
 namespace CSSP {
+    class Generator;
+
     namespace AST {
         class Value : public Node {
         public:
@@ -15,8 +17,8 @@ namespace CSSP {
                 : Node(nodeType) {}
 
             virtual const std::string debugString() const override;
-
             virtual Value *setToken(CSSP::Token);
+            virtual Value *getAsPrimitive(Generator *generator);
         };
     }
 }

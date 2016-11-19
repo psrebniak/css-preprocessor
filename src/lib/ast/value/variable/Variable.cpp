@@ -17,3 +17,12 @@ const std::string CSSP::AST::Variable::generate(CSSP::Generator *generator) cons
     generator->registerError("Cannot find variable: " + this->name);
     return Node::generate(generator);
 }
+
+CSSP::AST::Value *CSSP::AST::Variable::getAsPrimitive(Generator *generator) {
+    CSSP::AST::Value *value = const_cast<CSSP::AST::Value *>(generator->getVariable(this->name));
+
+    if (value != nullptr) {
+        return value->getAsPrimitive(generator);
+    }
+    return new Value("Value/Unknown");
+}

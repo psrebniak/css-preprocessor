@@ -5,11 +5,15 @@
 #include "Value.hpp"
 
 const std::string CSSP::AST::Value::debugString() const {
-    return nullptr;
+    return std::string();
 }
 
 CSSP::AST::Value *CSSP::AST::Value::setToken(CSSP::Token token) {
     this->token = token;
 
+    return this;
+}
+
+CSSP::AST::Value *CSSP::AST::Value::getAsPrimitive(Generator *generator) {
     return this;
 }
