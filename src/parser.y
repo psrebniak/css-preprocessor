@@ -312,6 +312,12 @@ selectorEntry
             $4
         ))->setToken($1);
     }
+    | ASTERISK {
+        $$ = (new CSSP::AST::Selector(
+            CSSP::AST::Selector::SelectorType::ASTERISK,
+            $1.toString()
+        ))->setToken($1);
+    }
 
 // property
 property

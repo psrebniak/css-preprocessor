@@ -17,7 +17,7 @@ namespace CSSP {
                   name(name),
                   value(value) {}
 
-            virtual const std::string generate(Generator *generator) override;;
+            virtual const std::string generate(Generator *generator) const override;
 
             virtual const std::string debugString() const override;
 

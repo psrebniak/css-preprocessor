@@ -24,7 +24,7 @@ const std::string CSSP::AST::Block::debugString() const {
     return stream.str();
 }
 
-const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
 
     for (auto const node: *this->selectorList) {

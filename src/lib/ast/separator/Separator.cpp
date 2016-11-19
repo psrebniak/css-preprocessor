@@ -8,6 +8,6 @@ const std::string CSSP::AST::Separator::debugString() const {
     return this->token.toString();
 }
 
-const std::string CSSP::AST::Separator::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Separator::generate(CSSP::Generator *generator) const {
     return this->debugString();
 }

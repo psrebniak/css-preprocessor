@@ -17,7 +17,7 @@ CSSP::AST::Value *CSSP::AST::VariableSetter::getValue() const {
     return this->value;
 }
 
-const std::string CSSP::AST::VariableSetter::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::VariableSetter::generate(CSSP::Generator *generator) const {
     generator->setVariable(this->getName(), this->getValue());
     return Node::generate(generator);
 }
