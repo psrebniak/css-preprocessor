@@ -27,3 +27,25 @@ const std::string CSSP::AST::Media::debugString() const {
 
     return stream.str();
 }
+
+const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) {
+    std::stringstream stream;
+
+    stream << "@media";
+
+    for (auto const node: *this->mediaList) {
+        stream
+            << " "
+            << node->generate(generator);
+    }
+    stream << " {" << std::endl;
+
+
+    for (auto const node: *this->instructionList) {
+        stream
+            << node->generate(generator);
+    }
+    stream << "}" << std::endl;
+
+    return stream.str();
+}

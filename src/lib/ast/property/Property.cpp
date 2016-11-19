@@ -23,3 +23,20 @@ const std::string CSSP::AST::Property::debugString() const {
     return stream.str();
 }
 
+const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) {
+    std::stringstream stream;
+    stream
+        << this->name->generate(generator)
+        << ":";
+
+    for (auto const &value: *this->valueList) {
+        if (value->getToken().isWhitespacePrefixed()) {
+            stream << " ";
+        }
+        stream << value->generate(generator);
+    }
+    stream << this->modifier->generate(generator) << ";" << std::endl;
+
+    return stream.str();
+}
+

@@ -17,7 +17,9 @@ namespace CSSP {
             Block(NodeVectorType *selectorList, NodeVectorType *instructionList)
                 : Node("Block"),
                   selectorList(selectorList),
-                  instructionList(instructionList) {};
+                  instructionList(instructionList) {}
+
+            virtual const std::string generate(Generator *generator) override;;
 
 
             virtual const std::string debugString() const override;

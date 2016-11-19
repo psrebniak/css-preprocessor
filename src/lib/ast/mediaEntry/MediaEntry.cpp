@@ -7,3 +7,7 @@
 const std::string CSSP::AST::MediaEntry::debugString() const {
     return "(" + this->name + ": " + this->value->debugString() + ") ";
 }
+
+const std::string CSSP::AST::MediaEntry::generate(CSSP::Generator *generator) {
+    return "(" + this->name + ": " + this->value->generate(generator) + ") ";
+}

@@ -7,3 +7,7 @@
 const std::string CSSP::AST::Separator::debugString() const {
     return this->token.toString();
 }
+
+const std::string CSSP::AST::Separator::generate(CSSP::Generator *generator) {
+    return this->debugString();
+}
