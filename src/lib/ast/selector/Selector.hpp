@@ -50,7 +50,7 @@ namespace CSSP {
             Value *value;
             Variable *variable;
 
-            std::map<SelectorType, std::pair<std::string, std::string>> selectorToStringMap = {
+            std::map<SelectorType, std::pair<std::string, std::string> > selectorToStringMap = {
                 {TAG,             std::pair<std::string, std::string>("TAG", "")},
                 {CLASS,           std::pair<std::string, std::string>("CLASS", ".")},
                 {ID,              std::pair<std::string, std::string>("ID", "#")},
