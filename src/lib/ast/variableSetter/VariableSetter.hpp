@@ -15,13 +15,15 @@ namespace CSSP {
             VariableSetter(std::string name, Value *value)
                 : Node("VariableSetter"),
                   name(name),
-                  value(value) {};
+                  value(value) {}
+
+            virtual const std::string generate(Generator *generator) override;;
 
             virtual const std::string debugString() const override;
 
             const std::string getName() const;
 
-            const Value *getValue() const;
+            Value *getValue() const;
 
         protected:
             std::string name;

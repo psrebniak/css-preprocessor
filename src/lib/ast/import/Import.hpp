@@ -18,6 +18,8 @@ namespace CSSP {
 
             virtual const std::string debugString() const override;
 
+            virtual const std::string generate(Generator *generator) override;
+
             const std::string getFilename() const {
                 return this->path;
             }

@@ -14,13 +14,14 @@ long CSSP::Generator::generateOutput(std::ostream &ostream) {
             continue;
         }
 
-        ostream << (*iterator)->debugString() << std::endl;
+        //ostream << (*iterator)->debugString() << std::endl;
+        ostream << (*iterator)->generate(this);
 
-        if ((*iterator)->getNodeType() == "Import") {
-            this->pushFile(
-                ((const CSSP::AST::Import*)(*iterator))->getRealPath()
-            );
-        }
+//        if ((*iterator)->getNodeType() == "Import") {
+//            this->pushFile(
+//                ((const CSSP::AST::Import*)(*iterator))->getRealPath()
+//            );
+//        }
         ++top->first;
     }
     return 0;
@@ -36,4 +37,29 @@ bool CSSP::Generator::pushFile(std::string filename) {
         return true;
     }
     return false;
+}
+
+bool CSSP::Generator::setVariable(const std::string name, CSSP::AST::Value *value) {
+    NameToVariableMapType::iterator iterator = this->variableMap.find(name);
+    if (iterator == this->variableMap.end()) {
+        this->variableMap.insert(NameToVariablePairType(
+            name,
+            value
+        ));
+        return true;
+    }
+    iterator->second = value;
+    return true;
+}
+
+const CSSP::AST::Value *CSSP::Generator::getVariable(const std::string name) {
+    NameToVariableMapType::const_iterator iterator = this->variableMap.find(name);
+    if (iterator == this->variableMap.end()) {
+        return NULL;
+    }
+    return iterator->second;
+}
+
+void CSSP::Generator::registerError(std::string description) {
+
 }
