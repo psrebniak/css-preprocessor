@@ -11,7 +11,7 @@
 
     #define YY_NO_UNISTD_H
 
-    #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
+    #define YY_USER_ACTION loc->step(); loc->columns(yyleng);currentLine += yytext;
 %}
 
 %option debug
@@ -56,6 +56,18 @@ STRING   [a-zA-Z0-9\-\_]
     text = text.substr(1, text.length() - 2);
     yylval->build <CSSP::Token>() = CSSP::Token(text, lexerWhitespaceFlag, token::RAW_STRING);
     return token::RAW_STRING;
+}
+
+{DIGIT}{3} {
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::NUMBER_HEX);
+    lexerWhitespaceFlag = false;
+    return token::NUMBER_HEX;
+}
+
+{DIGIT}{6} {
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::NUMBER_HEX);
+    lexerWhitespaceFlag = false;
+    return token::NUMBER_HEX;
 }
 
 {DIGIT}+ {
@@ -226,6 +238,7 @@ STRING   [a-zA-Z0-9\-\_]
 }
 \n {
     loc->lines();
+    currentLine = "";
 }
 
 . {
