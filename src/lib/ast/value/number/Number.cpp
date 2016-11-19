@@ -16,6 +16,6 @@ CSSP::AST::Number::Number(std::string number)
     this->unit = number.substr(offset);
 }
 
-const std::string CSSP::AST::Number::toString() const {
+const std::string CSSP::AST::Number::debugString() const {
     return std::to_string(this->number) + "@" + this->unit;
 }

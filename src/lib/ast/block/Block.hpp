@@ -20,7 +20,7 @@ namespace CSSP {
                   instructionList(instructionList) {};
 
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             NodeVectorType *selectorList;

@@ -4,6 +4,6 @@
 
 #include "Separator.hpp"
 
-const std::string CSSP::AST::Separator::toString() const {
+const std::string CSSP::AST::Separator::debugString() const {
     return this->token.toString();
 }

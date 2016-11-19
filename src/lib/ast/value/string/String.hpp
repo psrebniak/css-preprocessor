@@ -16,7 +16,7 @@ namespace CSSP {
                 : Value("Value/String"),
                   value(value) {}
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             std::string value;

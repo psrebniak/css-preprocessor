@@ -4,6 +4,6 @@
 
 #include "Variable.hpp"
 
-const std::string CSSP::AST::Variable::toString() const {
+const std::string CSSP::AST::Variable::debugString() const {
     return "#{" + this->name + "}";
 }

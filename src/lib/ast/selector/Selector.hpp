@@ -39,7 +39,7 @@ namespace CSSP {
             std::string getSelectorPrefix() const;
 
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             SelectorType type;

@@ -21,7 +21,7 @@ namespace CSSP {
                   valueList(valueList),
                   modifier(modifier) {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             Node *name;

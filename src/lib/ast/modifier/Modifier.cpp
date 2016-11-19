@@ -4,7 +4,7 @@
 
 #include "Modifier.hpp"
 
-const std::string CSSP::AST::Modifier::toString() const {
+const std::string CSSP::AST::Modifier::debugString() const {
     if (this->modifier != "") {
         return " !" + this->modifier;
     }

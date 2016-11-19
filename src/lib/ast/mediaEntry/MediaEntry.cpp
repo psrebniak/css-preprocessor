@@ -4,6 +4,6 @@
 
 #include "MediaEntry.hpp"
 
-const std::string CSSP::AST::MediaEntry::toString() const {
-    return "(" + this->name + ": " + this->value->toString() + ") ";
+const std::string CSSP::AST::MediaEntry::debugString() const {
+    return "(" + this->name + ": " + this->value->debugString() + ") ";
 }

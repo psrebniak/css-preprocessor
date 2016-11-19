@@ -18,7 +18,7 @@ namespace CSSP {
                 : Node("Modifier"),
                   modifier(modifier) {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             std::string modifier;

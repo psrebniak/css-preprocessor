@@ -16,7 +16,7 @@ namespace CSSP {
             Node(std::string nodeType)
                 : nodeType(nodeType) {};
 
-            virtual const std::string toString() const = 0;
+            virtual const std::string debugString() const = 0;
 
             const std::string &getNodeType() const;
 

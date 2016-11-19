@@ -14,7 +14,7 @@ namespace CSSP {
             Value(std::string nodeType)
                 : Node(nodeType) {}
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
             virtual Value *setToken(CSSP::Token);
         };

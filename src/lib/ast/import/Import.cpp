@@ -4,6 +4,6 @@
 
 #include "Import.hpp"
 
-const std::string CSSP::AST::Import::toString() const {
+const std::string CSSP::AST::Import::debugString() const {
     return "@import" + this->path + ";\n";
 }

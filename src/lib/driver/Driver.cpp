@@ -203,7 +203,7 @@ int CSSP::Driver::debugQueue() {
 
         for (auto const node : nodes) {
             this->log
-                << node->toString()
+                << node->debugString()
                 << this->log.end()
                 << std::endl;
         }

@@ -5,14 +5,14 @@
 #include <sstream>
 #include "Selector.hpp"
 
-const std::string CSSP::AST::Selector::toString() const {
+const std::string CSSP::AST::Selector::debugString() const {
     std::stringstream stream;
     if (this->getToken().isWhitespacePrefixed()) {
         stream << " ";
     }
     stream << this->getSelectorPrefix() << this->name;
     if (this->value != nullptr) {
-        stream << "=" << value->toString();
+        stream << "=" << value->debugString();
     }
     if (this->type == SelectorType::ATTRIBUTE || this->type == SelectorType::ATTRIBUTE_VALUE) {
         stream << "]";

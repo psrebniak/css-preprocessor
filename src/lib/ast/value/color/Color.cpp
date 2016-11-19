@@ -7,7 +7,7 @@
 #include <iterator>
 #include "Color.hpp"
 
-const std::string CSSP::AST::Color::toString() const {
+const std::string CSSP::AST::Color::debugString() const {
     if (this->value != "") {
         return "#" + this->value;
     }
