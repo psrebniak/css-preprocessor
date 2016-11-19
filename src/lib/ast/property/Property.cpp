@@ -23,7 +23,7 @@ const std::string CSSP::AST::Property::debugString() const {
     return stream.str();
 }
 
-const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
     stream
         << this->name->generate(generator)

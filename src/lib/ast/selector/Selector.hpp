@@ -24,7 +24,8 @@ namespace CSSP {
                 PSEUDOCLASS,
                 PSEUDOELEMENT,
                 ATTRIBUTE,
-                ATTRIBUTE_VALUE
+                ATTRIBUTE_VALUE,
+                ASTERISK
             };
 
             Selector(SelectorType type, std::string name, Value *value = nullptr, Variable *variable = nullptr)
@@ -41,7 +42,7 @@ namespace CSSP {
 
             virtual const std::string debugString() const override;
 
-            virtual const std::string generate(Generator *generator) override;
+            virtual const std::string generate(Generator *generator) const override;
 
         protected:
             SelectorType type;
@@ -56,7 +57,8 @@ namespace CSSP {
                 {PSEUDOCLASS,     std::pair<std::string, std::string>("PSEUDOCLASS", ":")},
                 {PSEUDOELEMENT,   std::pair<std::string, std::string>("PSEUDOELEMENT", "::")},
                 {ATTRIBUTE,       std::pair<std::string, std::string>("ATTRIBUTE", "[")},
-                {ATTRIBUTE_VALUE, std::pair<std::string, std::string>("ATTRIBUTE_VALUE", "[")}
+                {ATTRIBUTE_VALUE, std::pair<std::string, std::string>("ATTRIBUTE_VALUE", "[")},
+                {ASTERISK,        std::pair<std::string, std::string>("ASTERISK", "")}
             };
         };
     }

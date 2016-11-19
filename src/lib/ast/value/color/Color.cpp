@@ -29,6 +29,6 @@ const std::string CSSP::AST::Color::debugString() const {
     return res.str();
 }
 
-const std::string CSSP::AST::Color::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Color::generate(CSSP::Generator *generator) const {
     return this->debugString();
 }

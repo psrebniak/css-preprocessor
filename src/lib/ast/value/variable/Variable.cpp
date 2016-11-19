@@ -9,11 +9,9 @@ const std::string CSSP::AST::Variable::debugString() const {
     return "#{" + this->name + "}";
 }
 
-const std::string CSSP::AST::Variable::generate(CSSP::Generator *generator) {
-    const CSSP::AST::Value *constValue = generator->getVariable(this->name);
-    if (constValue != nullptr) {
-        ///@todo do it better
-        CSSP::AST::Value *value = const_cast<CSSP::AST::Value*>(constValue);
+const std::string CSSP::AST::Variable::generate(CSSP::Generator *generator) const {
+    const CSSP::AST::Value *value = generator->getVariable(this->name);
+    if (value != nullptr) {
         return value->generate(generator);
     }
     generator->registerError("Cannot find variable: " + this->name);

@@ -9,7 +9,7 @@ const std::string CSSP::AST::Import::debugString() const {
     return "@import" + this->path + ";\n";
 }
 
-const std::string CSSP::AST::Import::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Import::generate(CSSP::Generator *generator) const {
     if (generator->pushFile(this->getRealPath())) {
         return "// Import file: " + this->getFilename();
     }

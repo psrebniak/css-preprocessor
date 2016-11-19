@@ -28,7 +28,7 @@ namespace CSSP {
 
             CSSP::Token getToken() const;
 
-            inline virtual const std::string generate(Generator *generator) {
+            inline virtual const std::string generate(Generator *generator) const {
                 return "";
             };
 

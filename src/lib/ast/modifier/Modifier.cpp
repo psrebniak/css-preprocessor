@@ -11,6 +11,6 @@ const std::string CSSP::AST::Modifier::debugString() const {
     return "";
 }
 
-const std::string CSSP::AST::Modifier::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Modifier::generate(CSSP::Generator *generator) const {
     return this->debugString();
 }

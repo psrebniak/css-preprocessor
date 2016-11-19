@@ -20,7 +20,7 @@ const std::string CSSP::AST::Selector::debugString() const {
     return stream.str();
 }
 
-const std::string CSSP::AST::Selector::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Selector::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
     if (this->getToken().isWhitespacePrefixed()) {
         stream << " ";

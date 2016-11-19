@@ -28,7 +28,7 @@ const std::string CSSP::AST::Media::debugString() const {
     return stream.str();
 }
 
-const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) {
+const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
 
     stream << "@media";

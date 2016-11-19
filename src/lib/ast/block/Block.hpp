@@ -19,7 +19,7 @@ namespace CSSP {
                   selectorList(selectorList),
                   instructionList(instructionList) {}
 
-            virtual const std::string generate(Generator *generator) override;;
+            virtual const std::string generate(Generator *generator) const override;
 
 
             virtual const std::string debugString() const override;
