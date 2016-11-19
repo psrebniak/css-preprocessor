@@ -32,9 +32,13 @@ namespace CSSP {
             return *(this->loc);
         }
 
+        const std::string getCurrentLine() const {
+            return this->currentLine;
+        }
 
     private:
         bool lexerWhitespaceFlag = false;
+        std::string currentLine;
 
         /* yyval ptr */
         CSSP::Parser::semantic_type *yylval = nullptr;
