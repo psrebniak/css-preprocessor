@@ -10,3 +10,7 @@ const std::string CSSP::AST::Modifier::debugString() const {
     }
     return "";
 }
+
+const std::string CSSP::AST::Modifier::generate(CSSP::Generator *generator) {
+    return this->debugString();
+}

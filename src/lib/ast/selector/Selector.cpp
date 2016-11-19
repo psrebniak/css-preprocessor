@@ -20,6 +20,21 @@ const std::string CSSP::AST::Selector::debugString() const {
     return stream.str();
 }
 
+const std::string CSSP::AST::Selector::generate(CSSP::Generator *generator) {
+    std::stringstream stream;
+    if (this->getToken().isWhitespacePrefixed()) {
+        stream << " ";
+    }
+    stream << this->getSelectorPrefix() << this->name;
+    if (this->value != nullptr) {
+        stream << "=" << value->generate(generator);
+    }
+    if (this->type == SelectorType::ATTRIBUTE || this->type == SelectorType::ATTRIBUTE_VALUE) {
+        stream << "]";
+    };
+    return stream.str();
+}
+
 std::string CSSP::AST::Selector::getSelectorType() const {
     return (this->selectorToStringMap.at(this->type)).first;
 }

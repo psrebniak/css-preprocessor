@@ -19,7 +19,9 @@ namespace CSSP {
                 : Node("Property"),
                   name(name),
                   valueList(valueList),
-                  modifier(modifier) {};
+                  modifier(modifier) {}
+
+            virtual const std::string generate(Generator *generator) override;;
 
             virtual const std::string debugString() const override;
 

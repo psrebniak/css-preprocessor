@@ -23,3 +23,23 @@ const std::string CSSP::AST::Block::debugString() const {
 
     return stream.str();
 }
+
+const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) {
+    std::stringstream stream;
+
+    for (auto const node: *this->selectorList) {
+        stream
+            << node->generate(generator);
+    }
+    stream << " {" << std::endl;
+
+
+    for (auto const node: *this->instructionList) {
+        stream
+            << node->generate(generator);
+    }
+    stream << "}" << std::endl;
+
+    return stream.str();
+}
+

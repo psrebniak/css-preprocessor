@@ -7,3 +7,7 @@
 const std::string CSSP::AST::String::debugString() const {
     return this->value;
 }
+
+const std::string CSSP::AST::String::generate(CSSP::Generator *generator) {
+    return this->debugString();
+}

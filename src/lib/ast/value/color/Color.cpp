@@ -11,7 +11,7 @@ const std::string CSSP::AST::Color::debugString() const {
     if (this->value != "") {
         return "#" + this->value;
     }
-    std::string retval = "";
+
     std::vector<std::string> vector = {};
     vector.push_back(this->alpha != 0 ? "rgba(" : "rgb(");
 
@@ -27,4 +27,8 @@ const std::string CSSP::AST::Color::debugString() const {
     std::stringstream res;
     std::copy(vector.begin(), vector.end(), std::ostream_iterator<std::string>(res));
     return res.str();
+}
+
+const std::string CSSP::AST::Color::generate(CSSP::Generator *generator) {
+    return this->debugString();
 }

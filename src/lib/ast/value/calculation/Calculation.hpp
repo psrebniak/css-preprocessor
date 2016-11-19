@@ -20,6 +20,8 @@ namespace CSSP {
 
             virtual const std::string debugString() const override;
 
+            virtual const std::string generate(Generator *generator) override;
+
         protected:
             Value *first;
             Value *second;
