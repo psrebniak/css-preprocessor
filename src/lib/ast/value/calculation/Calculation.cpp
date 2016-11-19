@@ -9,5 +9,5 @@ const std::string CSSP::AST::Calculation::debugString() const {
 }
 
 const std::string CSSP::AST::Calculation::generate(CSSP::Generator *generator) const {
-
+    return "{Calculation not implemented}";
 }
