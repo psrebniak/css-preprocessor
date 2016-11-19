@@ -11,6 +11,7 @@
 #include <stack>
 #include <fstream>
 
+#include "lib/ast/value/value/Value.hpp"
 #include "lib/types.hpp"
 #include "lib/ast/node/Node.hpp"
 
@@ -23,12 +24,17 @@ namespace CSSP {
         }
 
         long generateOutput(std::ostream &ostream);
+        bool pushFile(const std::string filename);
+        void registerError(const std::string description);
+
+        bool setVariable(const std::string name, CSSP::AST::Value* value);
+        const CSSP::AST::Value* getVariable(std::string name);
 
     protected:
         FileToTreeMapType fileToTreeMap;
         std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *>> stack;
 
-        bool pushFile(std::string filename);
+        NameToVariableMapType variableMap;
     };
 }
 

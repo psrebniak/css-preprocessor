@@ -6,9 +6,13 @@
 #define CSSPREPROCESSOR_NODE_HPP
 
 #include <string>
-#include <lib/token/Token.hpp>
+#include "lib/token/Token.hpp"
 
 namespace CSSP {
+
+    // forward declaration
+    class Generator;
+
     namespace AST {
 
         class Node {
@@ -23,6 +27,10 @@ namespace CSSP {
             virtual Node *setToken(CSSP::Token);
 
             CSSP::Token getToken() const;
+
+            inline virtual const std::string generate(Generator *generator) {
+                return "";
+            };
 
         protected:
             std::string nodeType = "Unknown";
