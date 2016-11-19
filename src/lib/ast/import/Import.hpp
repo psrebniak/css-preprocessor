@@ -16,7 +16,7 @@ namespace CSSP {
                   path(path),
                   realpath(realpath) {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
             const std::string getFilename() const {
                 return this->path;

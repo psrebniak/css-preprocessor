@@ -5,19 +5,19 @@
 #include <sstream>
 #include "Block.hpp"
 
-const std::string CSSP::AST::Block::toString() const {
+const std::string CSSP::AST::Block::debugString() const {
     std::stringstream stream;
 
     for (auto const node: *this->selectorList) {
         stream
-            << node->toString();
+            << node->debugString();
     }
     stream << " {" << std::endl;
 
 
     for (auto const node: *this->instructionList) {
         stream
-            << node->toString();
+            << node->debugString();
     }
     stream << "}" << std::endl;
 

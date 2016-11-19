@@ -4,6 +4,6 @@
 
 #include "String.hpp"
 
-const std::string CSSP::AST::String::toString() const {
+const std::string CSSP::AST::String::debugString() const {
     return this->value;
 }

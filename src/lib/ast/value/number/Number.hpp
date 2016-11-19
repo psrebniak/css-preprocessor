@@ -13,7 +13,7 @@ namespace CSSP {
         public:
             Number(std::string);
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             float number;

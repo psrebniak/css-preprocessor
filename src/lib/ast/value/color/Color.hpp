@@ -22,7 +22,7 @@ namespace CSSP {
                   blue(blue),
                   alpha(alpha) {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             float red;

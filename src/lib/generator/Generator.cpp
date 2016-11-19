@@ -14,7 +14,7 @@ long CSSP::Generator::generateOutput(std::ostream &ostream) {
             continue;
         }
 
-        ostream << (*iterator)->toString() << std::endl;
+        ostream << (*iterator)->debugString() << std::endl;
 
         if ((*iterator)->getNodeType() == "Import") {
             this->pushFile(

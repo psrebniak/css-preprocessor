@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Media.hpp"
 
-const std::string CSSP::AST::Media::toString() const {
+const std::string CSSP::AST::Media::debugString() const {
     std::stringstream stream;
 
     stream << "@media";
@@ -14,14 +14,14 @@ const std::string CSSP::AST::Media::toString() const {
     for (auto const node: *this->mediaList) {
         stream
             << " "
-            << node->toString();
+            << node->debugString();
     }
     stream << " {" << std::endl;
 
 
     for (auto const node: *this->instructionList) {
         stream
-            << node->toString();
+            << node->debugString();
     }
     stream << "}" << std::endl;
 

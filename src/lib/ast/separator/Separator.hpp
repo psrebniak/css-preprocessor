@@ -14,7 +14,7 @@ namespace CSSP {
             Separator()
                 : Node("Separator") {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
         };
     }
 }

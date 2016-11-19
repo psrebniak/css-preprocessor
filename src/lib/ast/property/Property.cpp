@@ -5,20 +5,20 @@
 #include <sstream>
 #include "Property.hpp"
 
-const std::string CSSP::AST::Property::toString() const {
+const std::string CSSP::AST::Property::debugString() const {
 
     std::stringstream stream;
     stream
-        << this->name->toString()
+        << this->name->debugString()
         << ":";
 
     for (auto const &value: *this->valueList) {
         if (value->getToken().isWhitespacePrefixed()) {
             stream << " ";
         }
-        stream << value->toString();
+        stream << value->debugString();
     }
-    stream << this->modifier->toString() << ";" << std::endl;
+    stream << this->modifier->debugString() << ";" << std::endl;
 
     return stream.str();
 }

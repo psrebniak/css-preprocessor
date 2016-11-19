@@ -4,7 +4,7 @@
 
 #include "VariableSetter.hpp"
 
-const std::string CSSP::AST::VariableSetter::toString() const {
+const std::string CSSP::AST::VariableSetter::debugString() const {
     return "SET(" + this->name + ")\n";
 }
 

@@ -4,7 +4,7 @@
 
 #include "Value.hpp"
 
-const std::string CSSP::AST::Value::toString() const {
+const std::string CSSP::AST::Value::debugString() const {
     return nullptr;
 }
 

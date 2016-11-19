@@ -18,7 +18,7 @@ namespace CSSP {
                   second(second),
                   operation(operation) {};
 
-            virtual const std::string toString() const override;
+            virtual const std::string debugString() const override;
 
         protected:
             Value *first;
