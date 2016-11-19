@@ -1,7 +1,7 @@
 #include <src/lib/ast/import/Import.hpp>
 #include "Generator.hpp"
 
-long CSSP::Generator::generateOutput(std::ostream &ostream) {
+int CSSP::Generator::generateOutput(std::ostream &ostream) {
 
     while(!this->stack.empty()) {
         std::pair<NodeVectorType::const_iterator, NodeVectorType *> *top = &this->stack.top();

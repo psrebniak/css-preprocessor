@@ -8,3 +8,5 @@ build
 .env
 *.[oa]
 *~
+**.gch
+main.plist

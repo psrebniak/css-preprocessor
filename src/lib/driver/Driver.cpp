@@ -1,6 +1,6 @@
+#include <string>
 #include <cctype>
 #include <fstream>
-#include <string>
 #include <unistd.h>
 #include <string.h>
 
