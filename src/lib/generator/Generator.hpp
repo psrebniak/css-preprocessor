@@ -24,15 +24,18 @@ namespace CSSP {
         }
 
         long generateOutput(std::ostream &ostream);
+
         bool pushFile(const std::string filename);
+
         void registerError(const std::string description);
 
-        bool setVariable(const std::string name, CSSP::AST::Value* value);
-        const CSSP::AST::Value* getVariable(std::string name);
+        bool setVariable(const std::string name, CSSP::AST::Value *value);
+
+        const CSSP::AST::Value *getVariable(std::string name);
 
     protected:
         FileToTreeMapType fileToTreeMap;
-        std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *>> stack;
+        std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *> > stack;
 
         NameToVariableMapType variableMap;
     };
