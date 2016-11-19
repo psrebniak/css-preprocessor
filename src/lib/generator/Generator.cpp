@@ -1,4 +1,5 @@
 #include <src/lib/ast/import/Import.hpp>
+#include <iostream>
 #include "Generator.hpp"
 
 int CSSP::Generator::generateOutput(std::ostream &ostream) {
@@ -61,5 +62,25 @@ const CSSP::AST::Value *CSSP::Generator::getVariable(const std::string name) {
 }
 
 void CSSP::Generator::registerError(std::string description) {
-
+    std::cerr << description << std::endl;
 }
+
+void CSSP::Generator::pushBlockSelector(std::string selector) {
+    this->blockSelectors.push(selector);
+}
+
+void CSSP::Generator::popBlockSelector() {
+    if (this->blockSelectors.size() == 0) {
+        this->registerError("Cannot pop block selector from empty stack");
+        return;
+    }
+    this->blockSelectors.pop();
+}
+
+std::string CSSP::Generator::getLatestBlockSelector() {
+    if (this->blockSelectors.size() == 0) {
+        return "";
+    }
+    return this->blockSelectors.top();
+}
+
