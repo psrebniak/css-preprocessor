@@ -25,13 +25,19 @@ const std::string CSSP::AST::Selector::generate(CSSP::Generator *generator) cons
     if (this->getToken().isWhitespacePrefixed()) {
         stream << " ";
     }
-    stream << this->getSelectorPrefix() << this->name;
+    stream << this->getSelectorPrefix();
+    if (this->variable != nullptr) {
+        stream << this->variable->generate(generator);
+    } else {
+        stream << this->name;
+    }
+
     if (this->value != nullptr) {
         stream << "=" << value->generate(generator);
     }
     if (this->type == SelectorType::ATTRIBUTE || this->type == SelectorType::ATTRIBUTE_VALUE) {
         stream << "]";
-    };
+    }
     return stream.str();
 }
 
