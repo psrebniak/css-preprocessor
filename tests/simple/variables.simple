@@ -1,11 +1,16 @@
 $var1: first;
-$var2: 10px;
-$otherVar: 0.5;
+$var2: second;
+$otherVar: veryLongName;
+$valueVar: 123px;
+$otherValueVar: 0.5;
 
 ${var1} {
     .${var2} {}
     #${otherVar} {
-        margin: ${var2};
-        padding: (${var2} * ${otherVar});
+        margin: ${valueVar};
+        padding: (${valueVar} * ${otherValuesVar});
+    }
+    #${otherVar} & {
+        parent: use parent selector Luke;
     }
 }

@@ -2,6 +2,7 @@
 // Created by piotrek on 16.10.16.
 //
 
+#include "lib/generator/Generator.hpp"
 #include <sstream>
 #include "Block.hpp"
 
@@ -26,20 +27,44 @@ const std::string CSSP::AST::Block::debugString() const {
 
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
+    std::string latestSelector = generator->getLatestBlockSelector();
+    std::string currentSelector = "";
+    bool hasParentOperator = false;
 
     for (auto const node: *this->selectorList) {
         stream
             << node->generate(generator);
+
+        if (node->getToken().toString() == "&") {
+            hasParentOperator = true;
+        }
     }
-    stream << " {" << std::endl;
 
+    if (!hasParentOperator) {
+        currentSelector = latestSelector;
+    }
+    currentSelector += stream.str();
+    stream << std::endl;
+    stream.str(std::string());
+    generator->pushBlockSelector(currentSelector);
 
+    bool isCurrentSelectorWritten = false;
     for (auto const node: *this->instructionList) {
+        if (!isCurrentSelectorWritten && node->getNodeType() == "Property") {
+            stream << currentSelector << " {" << std::endl;
+            isCurrentSelectorWritten = true;
+        } else if (isCurrentSelectorWritten && node->getNodeType() != "Property") {
+            stream << "\n } " << std::endl;
+        }
+
         stream
             << node->generate(generator);
     }
-    stream << "}" << std::endl;
+    if (isCurrentSelectorWritten) {
+        stream << "}" << std::endl;
+    }
+
+    generator->popBlockSelector();
 
     return stream.str();
 }
-
