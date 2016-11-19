@@ -14,8 +14,15 @@ namespace CSSP {
             Number(std::string);
 
             virtual const std::string debugString() const override;
-
             virtual const std::string generate(Generator *generator) const override;
+            const std::string getUnit() const {
+                return this->unit;
+            }
+            const float getValue() const {
+                return this->number;
+            }
+
+            static const std::string floatToString(float number);
 
         protected:
             float number;

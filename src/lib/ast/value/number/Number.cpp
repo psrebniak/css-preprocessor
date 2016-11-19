@@ -22,14 +22,18 @@ const std::string CSSP::AST::Number::debugString() const {
 }
 
 const std::string CSSP::AST::Number::generate(CSSP::Generator *generator) const {
+    return Number::floatToString(this->number) + this->unit;
+}
+
+const std::string CSSP::AST::Number::floatToString(float number) {
     // is integer?
-    if (roundf(this->number) == this->number) {
-        return std::to_string((int) this->number) + this->unit;
+    if (roundf(number) == number) {
+        return std::to_string((int) number);
     }
 
     // remove trailing zeros from float
-    std::string number = std::to_string(this->number);
-    number.erase (number.find_last_not_of('0') + 1, std::string::npos);
+    std::string str = std::to_string(number);
+    str.erase (str.find_last_not_of('0') + 1, std::string::npos);
 
-    return number + this->unit;
+    return str;
 }
