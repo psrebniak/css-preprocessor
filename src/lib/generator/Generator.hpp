@@ -23,7 +23,7 @@ namespace CSSP {
             this->pushFile(mainFile);
         }
 
-        long generateOutput(std::ostream &ostream);
+        int generateOutput(std::ostream &ostream);
 
         bool pushFile(const std::string filename);
 
