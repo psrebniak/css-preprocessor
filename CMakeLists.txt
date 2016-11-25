@@ -68,3 +68,14 @@ FOREACH (TEST ${TESTS_SIMPLE})
         DEPENDS CssPreprocessor
     )
 ENDFOREACH (TEST)
+
+FILE(GLOB TESTS_IN_OUT "${TEST_SOURCE_DIR}/in/*.in")
+FOREACH (TEST ${TESTS_IN_OUT})
+    get_filename_component(TESTNAME ${TEST} NAME)
+    add_test(
+        NAME ${TESTNAME}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMAND ${TEST_SOURCE_DIR}/diff.sh ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${TEST}
+        DEPENDS CssPreprocessor
+    )
+ENDFOREACH (TEST)
