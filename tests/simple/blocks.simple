@@ -22,3 +22,12 @@ main::first-child {
         }
     }
 }
+second {
+    third, third_with_comma {
+        forth, maybe_comma {
+            fifth {
+                display: block;
+            }
+        }
+    }
+}
