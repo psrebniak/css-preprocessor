@@ -8,7 +8,7 @@
 
 const std::string CSSP::AST::Block::debugString() const {
     std::stringstream stream;
-
+/*
     for (auto const node: *this->selectorList) {
         stream
             << node->debugString();
@@ -21,13 +21,26 @@ const std::string CSSP::AST::Block::debugString() const {
             << node->debugString();
     }
     stream << "}" << std::endl;
-
+*/
     return stream.str();
 }
 
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
+    std::vector<std::string> *latestSelectorList = generator->getLatestBlockSelector();
+    std::vector<std::string> *currentSelectorList = new std::vector<std::string>();
+
+    for (auto const selector: *latestSelectorList) {
+        bool hasParentSelector = false;
+        std::string currentSelector = std::string();
+        for(auto const node: selector) {
+
+        }
+    }
+
+    /*
     std::string latestSelector = generator->getLatestBlockSelector();
+
     std::string currentSelector = "";
     bool hasParentOperator = false;
 
@@ -65,6 +78,7 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     }
 
     generator->popBlockSelector();
-
+*/
     return stream.str();
+
 }

@@ -102,6 +102,8 @@
 %type <std::vector<CSSP::AST::Node*>*> instructions;
 %type <std::vector<CSSP::AST::Node*>*> mediaList;
 
+%type <std::vector<std::vector<CSSP::AST::Node*>*>*> selectorList;
+
 %type <CSSP::AST::Property*> property;
 %type <CSSP::AST::Node*> selectorEntryType;
 %type <CSSP::AST::Node*> selectorSeparator;
@@ -206,9 +208,19 @@ variableSetter
 
 // block
 block
-    : selector LBRACE instructions RBRACE {
+    : selectorList LBRACE instructions RBRACE {
         $$ = new CSSP::AST::Block($1, $3);
     }
+
+selectorList
+     : selector {
+        $$ = new std::vector<std::vector<CSSP::AST::Node*>*>();
+        $$->push_back($1);
+     }
+     | selectorList COMMA selector {
+        $1->push_back($3);
+        $$ = $1;
+     }
 
 // selector
 selector
@@ -236,9 +248,11 @@ selectorSeparator
     | PLUS {
         $$ = (new CSSP::AST::Separator())->setToken($1);
     }
+/*
     | COMMA {
         $$ = (new CSSP::AST::Separator())->setToken($1);
     }
+*/
     | GT {
         $$ = (new CSSP::AST::Separator())->setToken($1);
     }

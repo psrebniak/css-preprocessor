@@ -14,7 +14,7 @@ namespace CSSP {
         class Block : public Node {
         public:
 
-            Block(NodeVectorType *selectorList, NodeVectorType *instructionList)
+            Block(std::vector<NodeVectorType*> *selectorList, NodeVectorType *instructionList)
                 : Node("Block"),
                   selectorList(selectorList),
                   instructionList(instructionList) {}
@@ -25,7 +25,7 @@ namespace CSSP {
             virtual const std::string debugString() const override;
 
         protected:
-            NodeVectorType *selectorList;
+            std::vector<NodeVectorType*> *selectorList;
             NodeVectorType *instructionList;
         };
     }

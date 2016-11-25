@@ -32,13 +32,13 @@ namespace CSSP {
         bool setVariable(const std::string name, CSSP::AST::Value *value);
 
         const CSSP::AST::Value *getVariable(std::string name);
-        void pushBlockSelector(std::string);
+        void pushBlockSelector(std::vector<std::string>*);
         void popBlockSelector();
-        std::string getLatestBlockSelector();
+        std::vector<std::string> *getLatestBlockSelector();
     protected:
         FileToTreeMapType fileToTreeMap;
         std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *> > stack;
-        std::stack<std::string> blockSelectors;
+        std::stack<std::vector<std::string>*> blockSelectors;
 
         NameToVariableMapType variableMap;
 
