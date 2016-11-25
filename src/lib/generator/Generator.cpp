@@ -83,4 +83,3 @@ std::string CSSP::Generator::getLatestBlockSelector() {
     }
     return this->blockSelectors.top();
 }
-
