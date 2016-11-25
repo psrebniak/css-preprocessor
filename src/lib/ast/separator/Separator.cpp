@@ -9,9 +9,5 @@ const std::string CSSP::AST::Separator::debugString() const {
 }
 
 const std::string CSSP::AST::Separator::generate(CSSP::Generator *generator) const {
-    if (this->token.toString() == "&") {
-        return (this->token.isWhitespacePrefixed() ? " " : std::string() ) + generator->getLatestBlockSelector();
-    }
-
-    return this->token.toString();
+    return this->token.isWhitespacePrefixed() ? " " : std::string();
 }

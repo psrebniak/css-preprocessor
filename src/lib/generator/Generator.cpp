@@ -65,7 +65,7 @@ void CSSP::Generator::registerError(std::string description) {
     std::cerr << description << std::endl;
 }
 
-void CSSP::Generator::pushBlockSelector(std::string selector) {
+void CSSP::Generator::pushBlockSelector(std::vector<std::string> *selector) {
     this->blockSelectors.push(selector);
 }
 
@@ -77,9 +77,9 @@ void CSSP::Generator::popBlockSelector() {
     this->blockSelectors.pop();
 }
 
-std::string CSSP::Generator::getLatestBlockSelector() {
+std::vector<std::string> *CSSP::Generator::getLatestBlockSelector() {
     if (this->blockSelectors.size() == 0) {
-        return "";
+        return NULL;
     }
     return this->blockSelectors.top();
 }
