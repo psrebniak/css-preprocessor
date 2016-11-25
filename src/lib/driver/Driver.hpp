@@ -22,8 +22,8 @@ namespace CSSP {
 
     public:
         Driver() :
-            log(std::cout, Logger::colorCyan),
-            warn(std::cout, Logger::colorYellow),
+            log(std::cerr, Logger::colorCyan),
+            warn(std::cerr, Logger::colorYellow),
             error(std::cerr, Logger::colorRed) {}
 
         virtual ~Driver();

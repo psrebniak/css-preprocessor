@@ -1,0 +1,14 @@
+.parent {
+    & child {
+        test: test;
+    }
+    &_child {
+        test: test;
+    }
+    grandparent & {
+        test: test;
+    }
+    grandparent_& {
+        test: test;
+    }
+}

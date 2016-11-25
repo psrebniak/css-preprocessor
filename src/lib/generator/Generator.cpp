@@ -62,7 +62,7 @@ const CSSP::AST::Value *CSSP::Generator::getVariable(const std::string name) {
 }
 
 void CSSP::Generator::registerError(std::string description) {
-    std::cerr << description << std::endl;
+    this->error << description << this->error.end() << std::endl;
 }
 
 void CSSP::Generator::pushBlockSelector(std::vector<std::string> *selector) {

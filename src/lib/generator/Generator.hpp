@@ -10,6 +10,7 @@
 #include <vector>
 #include <stack>
 #include <fstream>
+#include <src/lib/logger/Logger.hpp>
 
 #include "lib/ast/value/value/Value.hpp"
 #include "lib/types.hpp"
@@ -19,7 +20,8 @@ namespace CSSP {
     class Generator {
     public:
         Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile)
-            : fileToTreeMap(*fileToTreeMap) {
+            : fileToTreeMap(*fileToTreeMap),
+            error(std::cerr, Logger::colorRed){
             this->pushFile(mainFile);
         }
 
@@ -35,6 +37,8 @@ namespace CSSP {
         void pushBlockSelector(std::vector<std::string>*);
         void popBlockSelector();
         std::vector<std::string> *getLatestBlockSelector();
+
+        Logger error;
     protected:
         FileToTreeMapType fileToTreeMap;
         std::stack<std::pair<NodeVectorType::const_iterator, NodeVectorType *> > stack;
