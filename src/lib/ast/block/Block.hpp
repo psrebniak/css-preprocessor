@@ -27,6 +27,8 @@ namespace CSSP {
         protected:
             std::vector<NodeVectorType*> *selectorList;
             NodeVectorType *instructionList;
+
+            const std::string joinStringList(std::vector<std::string> *list) const;
         };
     }
 }

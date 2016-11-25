@@ -4,6 +4,7 @@
 
 #include "lib/generator/Generator.hpp"
 #include <sstream>
+#include <iterator>
 #include "Block.hpp"
 
 const std::string CSSP::AST::Block::debugString() const {
@@ -25,49 +26,73 @@ const std::string CSSP::AST::Block::debugString() const {
     return stream.str();
 }
 
+const std::string CSSP::AST::Block::joinStringList(std::vector<std::string> *list) const {
+    if (list->size() == 0) {
+        return std::string();
+    } else if (list->size() == 1) {
+        return list->back();
+    }
+
+    std::ostringstream imploded;
+    const char* const delimiter = ", ";
+    std::copy(list->begin(), list->end() - 1, std::ostream_iterator<std::string>(imploded, delimiter));
+
+    return imploded.str() + *(list->end() - 1);
+}
+
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
     std::vector<std::string> *latestSelectorList = generator->getLatestBlockSelector();
+    bool fakeParentObject = false;
+
+    if (nullptr == latestSelectorList) {
+        fakeParentObject = true;
+        latestSelectorList = new std::vector<std::string>();
+        latestSelectorList->push_back(std::string());
+    }
+
     std::vector<std::string> *currentSelectorList = new std::vector<std::string>();
 
-    for (auto const selector: *latestSelectorList) {
-        bool hasParentSelector = false;
-        std::string currentSelector = std::string();
-        for(auto const node: selector) {
+    // for every item in comma separated selector list from parent selector list
+    for (auto const parentSelector: *latestSelectorList) {
+        // for every item in comma separated selector list from current selector list
+        for(auto const currentSelector: *this->selectorList) {
 
+            bool hasParentOperator = false;
+            std::string currentSelectorString = std::string();
+
+            // perform generation on every node from current selector
+            for(auto const node: *currentSelector) {
+                if (node->getToken().toString() == "&") {
+                    hasParentOperator = true;
+                    currentSelectorString =
+                        parentSelector
+                        + (node->getToken().isWhitespacePrefixed() ? " " : "")
+                        + currentSelectorString;
+                } else {
+                    currentSelectorString += node->generate(generator);
+                }
+            }
+
+            if (!hasParentOperator) {
+                currentSelectorString = parentSelector + currentSelectorString;
+            }
+            currentSelectorList->push_back(currentSelectorString);
         }
     }
 
-    /*
-    std::string latestSelector = generator->getLatestBlockSelector();
+    generator->pushBlockSelector(currentSelectorList);
 
-    std::string currentSelector = "";
-    bool hasParentOperator = false;
-
-    for (auto const node: *this->selectorList) {
-        stream
-            << node->generate(generator);
-
-        if (node->getToken().toString() == "&") {
-            hasParentOperator = true;
-        }
-    }
-
-    if (!hasParentOperator) {
-        currentSelector = latestSelector;
-    }
-    currentSelector += stream.str();
-    stream << std::endl;
-    stream.str(std::string());
-    generator->pushBlockSelector(currentSelector);
+    std::string currentSelectorAsString = this->joinStringList(currentSelectorList);
 
     bool isCurrentSelectorWritten = false;
     for (auto const node: *this->instructionList) {
         if (!isCurrentSelectorWritten && node->getNodeType() == "Property") {
-            stream << currentSelector << " {" << std::endl;
+            stream << currentSelectorAsString << " {" << std::endl;
             isCurrentSelectorWritten = true;
         } else if (isCurrentSelectorWritten && node->getNodeType() != "Property") {
-            stream << "\n } " << std::endl;
+            stream << "}" << std::endl;
+            isCurrentSelectorWritten = false;
         }
 
         stream
@@ -78,7 +103,10 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     }
 
     generator->popBlockSelector();
-*/
+
+    if (fakeParentObject) {
+        delete latestSelectorList;
+    }
     return stream.str();
 
 }
