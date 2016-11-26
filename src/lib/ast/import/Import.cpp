@@ -11,9 +11,12 @@ const std::string CSSP::AST::Import::debugString() const {
 
 const std::string CSSP::AST::Import::generate(CSSP::Generator *generator) const {
     if (generator->pushFile(this->getRealPath())) {
-        return "// Import file: " + this->getFilename();
+        if (generator->isMinified()) {
+            return std::string();
+        }
+        return "// Import file: " + this->getFilename() + generator->getEol();
     }
 
     generator->registerError("Cannot find file: " + this->getFilename());
-    return Node::generate(generator);
+    return std::string();
 }
