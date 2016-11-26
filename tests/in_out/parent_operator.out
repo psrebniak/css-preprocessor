@@ -1,0 +1,12 @@
+parent child {
+    test: test;
+}
+parent_child {
+    test: test;
+}
+grandparent parent {
+    test: test;
+}
+grandparent_parent {
+    test: test;
+}

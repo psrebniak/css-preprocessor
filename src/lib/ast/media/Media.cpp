@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include "Media.hpp"
+#include "lib/generator/Generator.hpp"
 
 const std::string CSSP::AST::Media::debugString() const {
     std::stringstream stream;
@@ -38,14 +39,14 @@ const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) const {
             << " "
             << node->generate(generator);
     }
-    stream << " {" << std::endl;
+    stream << " {" << generator->getEol();
 
 
     for (auto const node: *this->instructionList) {
         stream
             << node->generate(generator);
     }
-    stream << "}" << std::endl;
+    stream << "}" << generator->getEol();
 
     return stream.str();
 }

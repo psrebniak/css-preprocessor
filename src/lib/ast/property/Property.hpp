@@ -15,20 +15,20 @@ namespace CSSP {
     namespace AST {
         class Property : public Node {
         public:
-            Property(Node *name, NodeVectorType *valueList, Node *modifier)
+            Property(Node *name, NodeVectorType *valueList, Node *modifier, bool minify = false)
                 : Node("Property"),
                   name(name),
                   valueList(valueList),
                   modifier(modifier) {}
 
             virtual const std::string generate(Generator *generator) const override;
-
             virtual const std::string debugString() const override;
 
         protected:
             Node *name;
             NodeVectorType *valueList;
             Node *modifier;
+            bool minify;
         };
     }
 }

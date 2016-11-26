@@ -55,8 +55,8 @@ add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
 target_link_libraries(CssPreprocessor fl)
 
 # Add test target
-set(TEST_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 enable_testing()
+set(TEST_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 
 FILE(GLOB TESTS_SIMPLE "${TEST_SOURCE_DIR}/simple/*.simple")
 FOREACH (TEST ${TESTS_SIMPLE})
@@ -69,7 +69,7 @@ FOREACH (TEST ${TESTS_SIMPLE})
     )
 ENDFOREACH (TEST)
 
-FILE(GLOB TESTS_IN_OUT "${TEST_SOURCE_DIR}/in/*.in")
+FILE(GLOB TESTS_IN_OUT "${TEST_SOURCE_DIR}/in_out/*.in")
 FOREACH (TEST ${TESTS_IN_OUT})
     get_filename_component(TESTNAME ${TEST} NAME)
     add_test(

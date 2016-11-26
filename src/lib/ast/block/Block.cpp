@@ -40,6 +40,10 @@ const std::string CSSP::AST::Block::joinStringList(std::vector<std::string> *lis
     return imploded.str() + *(list->end() - 1);
 }
 
+const std::string CSSP::AST::Block::trimString(std::string string) const {
+    return string.erase(0, string.find_first_not_of(" \n\r\t"));
+}
+
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
     std::vector<std::string> *latestSelectorList = generator->getLatestBlockSelector();
@@ -66,9 +70,9 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
                 if (node->getToken().toString() == "&") {
                     hasParentOperator = true;
                     currentSelectorString =
-                        parentSelector
+                        currentSelectorString
                         + (node->getToken().isWhitespacePrefixed() ? " " : "")
-                        + currentSelectorString;
+                        + parentSelector;
                 } else {
                     currentSelectorString += node->generate(generator);
                 }
@@ -83,15 +87,15 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
 
     generator->pushBlockSelector(currentSelectorList);
 
-    std::string currentSelectorAsString = this->joinStringList(currentSelectorList);
+    std::string currentSelectorAsString = this->trimString(this->joinStringList(currentSelectorList));
 
     bool isCurrentSelectorWritten = false;
     for (auto const node: *this->instructionList) {
         if (!isCurrentSelectorWritten && node->getNodeType() == "Property") {
-            stream << currentSelectorAsString << " {" << std::endl;
+            stream << currentSelectorAsString << " {" << generator->getEol();
             isCurrentSelectorWritten = true;
         } else if (isCurrentSelectorWritten && node->getNodeType() != "Property") {
-            stream << "}" << std::endl;
+            stream << "}" << generator->getEol();
             isCurrentSelectorWritten = false;
         }
 
@@ -99,14 +103,13 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
             << node->generate(generator);
     }
     if (isCurrentSelectorWritten) {
-        stream << "}" << std::endl;
+        stream << "}" << generator->getEol();
     }
-
-    generator->popBlockSelector();
 
     if (fakeParentObject) {
         delete latestSelectorList;
+    } else {
+        generator->popBlockSelector();
     }
     return stream.str();
-
 }

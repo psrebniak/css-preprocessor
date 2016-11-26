@@ -15,14 +15,7 @@ int CSSP::Generator::generateOutput(std::ostream &ostream) {
             continue;
         }
 
-        //ostream << (*iterator)->debugString() << std::endl;
         ostream << (*iterator)->generate(this);
-
-//        if ((*iterator)->getNodeType() == "Import") {
-//            this->pushFile(
-//                ((const CSSP::AST::Import*)(*iterator))->getRealPath()
-//            );
-//        }
         ++top->first;
     }
     return 0;
@@ -82,4 +75,12 @@ std::vector<std::string> *CSSP::Generator::getLatestBlockSelector() {
         return NULL;
     }
     return this->blockSelectors.top();
+}
+
+const std::string CSSP::Generator::getIndent() const {
+    return (this->minify) ? std::string() : std::string("    ");
+}
+
+const std::string CSSP::Generator::getEol() const {
+    return (this->minify) ? std::string() : std::string("\n");
 }
