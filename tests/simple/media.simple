@@ -1,10 +1,16 @@
 $a: 123;
-a{}
+a{
+    a: a;
+}
 @media screen {
-    a{}
+    a{
+        a: a;
+    }
 }
 @media (min-width: 768px) {
-    b{}
+    b{
+        b:b;
+    }
 }
 @media screen and (max-width: ${a}) {
     screen: ${a};

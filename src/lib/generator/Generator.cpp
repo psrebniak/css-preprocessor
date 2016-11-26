@@ -84,3 +84,7 @@ const std::string CSSP::Generator::getIndent() const {
 const std::string CSSP::Generator::getEol() const {
     return (this->minify) ? std::string() : std::string("\n");
 }
+
+const bool CSSP::Generator::isMinified() const {
+    return this->minify;
+}

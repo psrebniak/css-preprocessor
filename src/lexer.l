@@ -46,15 +46,11 @@ STRING   [a-zA-Z0-9\-\_]
 \/\*+([^*]|[ \t\r\n]|(\*+([^\*\/]|[ \t\r\n])))*\*+\/ ; // ignore c++-style comments
 
 \"{1}([^\"]|"\\\"")*\"{1} {
-    std::string text = yytext;
-    text = text.substr(1, text.length() - 2);
-    yylval->build <CSSP::Token>() = CSSP::Token(text, lexerWhitespaceFlag, token::RAW_STRING);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::RAW_STRING);
     return token::RAW_STRING;
 }
 \'{1}([^\']|\\\')*\'{1} {
-    std::string text = yytext;
-    text = text.substr(1, text.length() - 2);
-    yylval->build <CSSP::Token>() = CSSP::Token(text, lexerWhitespaceFlag, token::RAW_STRING);
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::RAW_STRING);
     return token::RAW_STRING;
 }
 

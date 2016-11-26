@@ -41,7 +41,7 @@ namespace CSSP {
 
         const std::string getIndent() const;
         const std::string getEol() const;
-
+        const bool isMinified() const;
         Logger error;
     protected:
         FileToTreeMapType fileToTreeMap;

@@ -1,3 +1,7 @@
-a{}
+a{
+    test: test;
+}
 @import "media.simple";
-b{}
+b{
+    test: test;
+}
