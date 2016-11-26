@@ -216,10 +216,11 @@ int CSSP::Driver::debugQueue() {
     return 0;
 }
 
-CSSP::Generator *CSSP::Driver::getGenerator() {
+CSSP::Generator *CSSP::Driver::getGenerator(bool minify) {
     return new CSSP::Generator(
         &this->fileToTreeMap,
-        this->mainFileName
+        this->mainFileName,
+        minify
     );
 }
 

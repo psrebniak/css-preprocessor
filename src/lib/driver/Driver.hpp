@@ -21,10 +21,10 @@ namespace CSSP {
         friend class Parser;
 
     public:
-        Driver() :
-            log(std::cerr, Logger::colorCyan),
-            warn(std::cerr, Logger::colorYellow),
-            error(std::cerr, Logger::colorRed) {}
+        Driver(std::ostream &os) :
+            log(os, Logger::colorCyan),
+            warn(os, Logger::colorYellow),
+            error(os, Logger::colorRed) {}
 
         virtual ~Driver();
 
@@ -40,7 +40,7 @@ namespace CSSP {
          */
         int parse(std::istream &iss);
 
-        CSSP::Generator *getGenerator();
+        CSSP::Generator *getGenerator(bool minify = false);
 
         Logger log;
         Logger warn;
