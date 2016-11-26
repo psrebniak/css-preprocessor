@@ -4,7 +4,7 @@ if (${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     message(FATAL_ERROR "Do not run cmake in-source. Instead run\n$ mkdir build\n$ cd build\n$ cmake ..\n")
 endif ()
 
-project(CssPreprocessor)
+project(cssp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -49,10 +49,11 @@ set(SOURCE_FILES
     src/lib/ast/media/Media.cpp
     src/lib/ast/mediaEntry/MediaEntry.cpp
     src/lib/generator/Generator.cpp
+    src/lib/main/Main.cpp
     )
 
-add_executable(CssPreprocessor ${SOURCE_FILES} ${GENERATED_FILES})
-target_link_libraries(CssPreprocessor fl)
+add_executable(cssp ${SOURCE_FILES} ${GENERATED_FILES})
+target_link_libraries(cssp fl)
 
 # Add test target
 enable_testing()
@@ -64,8 +65,8 @@ FOREACH (TEST ${TESTS_SIMPLE})
     add_test(
         NAME ${TESTNAME}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMAND CssPreprocessor -f ${TEST}
-        DEPENDS CssPreprocessor
+        COMMAND cssp -f ${TEST}
+        DEPENDS cssp
     )
 ENDFOREACH (TEST)
 
@@ -76,6 +77,6 @@ FOREACH (TEST ${TESTS_IN_OUT})
         NAME ${TESTNAME}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMAND ${TEST_SOURCE_DIR}/diff.sh ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${TEST}
-        DEPENDS CssPreprocessor
+        DEPENDS cssp
     )
 ENDFOREACH (TEST)
