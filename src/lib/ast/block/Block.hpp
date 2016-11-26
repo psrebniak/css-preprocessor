@@ -29,6 +29,7 @@ namespace CSSP {
             NodeVectorType *instructionList;
 
             const std::string joinStringList(std::vector<std::string> *list) const;
+            const std::string trimString(std::string string) const;
         };
     }
 }

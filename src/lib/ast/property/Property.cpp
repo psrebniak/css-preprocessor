@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include "Property.hpp"
+#include "lib/generator/Generator.hpp"
 
 const std::string CSSP::AST::Property::debugString() const {
 
@@ -26,6 +27,7 @@ const std::string CSSP::AST::Property::debugString() const {
 const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
     stream
+        << generator->getIndent()
         << this->name->generate(generator)
         << ":";
 
@@ -35,8 +37,7 @@ const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) cons
         }
         stream << value->generate(generator);
     }
-    stream << this->modifier->generate(generator) << ";" << std::endl;
+    stream << this->modifier->generate(generator) << ";" << generator->getEol();
 
     return stream.str();
 }
-

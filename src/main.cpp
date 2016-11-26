@@ -33,7 +33,7 @@ void printHelp(std::string binary) {
     return;
 }
 
-int processInput(int argc, const char *argv[]) {
+int main(int argc, const char *argv[]) {
     CSSP::Driver Driver;
 
     if (argc >= 2) {
@@ -49,11 +49,4 @@ int processInput(int argc, const char *argv[]) {
 
     printHelp(argv[0]);
     return EXIT_FAILURE;
-}
-
-int main(const int argc, const char **argv) {
-    int code = processInput(argc, argv);
-    std::cout << CSSP::Logger::colorDefault << std::endl;
-
-    return code;
 }

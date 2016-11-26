@@ -19,9 +19,10 @@
 namespace CSSP {
     class Generator {
     public:
-        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile)
+        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile, bool minify = false)
             : fileToTreeMap(*fileToTreeMap),
-            error(std::cerr, Logger::colorRed){
+            error(std::cerr, Logger::colorRed),
+            minify(minify) {
             this->pushFile(mainFile);
         }
 
@@ -38,6 +39,9 @@ namespace CSSP {
         void popBlockSelector();
         std::vector<std::string> *getLatestBlockSelector();
 
+        const std::string getIndent() const;
+        const std::string getEol() const;
+
         Logger error;
     protected:
         FileToTreeMapType fileToTreeMap;
@@ -45,7 +49,7 @@ namespace CSSP {
         std::stack<std::vector<std::string>*> blockSelectors;
 
         NameToVariableMapType variableMap;
-
+        bool minify;
 
     };
 }

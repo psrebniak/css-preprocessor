@@ -30,7 +30,7 @@ before_script:
 script:
   - cmake ..
   - cmake --build .
-  - ctest .
+  - ctest --output-on-failure .
 
 notifications:
   email: false
