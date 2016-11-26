@@ -106,10 +106,10 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
         stream << "}" << generator->getEol();
     }
 
+    generator->popBlockSelector();
     if (fakeParentObject) {
         delete latestSelectorList;
-    } else {
-        generator->popBlockSelector();
     }
+
     return stream.str();
 }
