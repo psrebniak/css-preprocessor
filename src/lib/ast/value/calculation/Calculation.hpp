@@ -9,6 +9,8 @@
 #include "lib/ast/value/value/Value.hpp"
 
 namespace CSSP {
+    class Generator;
+
     namespace AST {
         class Calculation : public Value {
         public:
@@ -19,7 +21,6 @@ namespace CSSP {
                   operation(operation) {};
 
             virtual const std::string debugString() const override;
-
             virtual const std::string generate(Generator *generator) const override;
 
         protected:
