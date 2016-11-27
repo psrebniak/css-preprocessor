@@ -137,6 +137,11 @@ bool CSSP::Driver::isFileInTree(std::string filename) {
 }
 
 void CSSP::Driver::pushFileToQueue(std::string filename) {
+    if (access(filename.c_str(), F_OK) != 0) {
+        this->error << "Cannot open file " << filename << this->error.end() << std::endl;
+        return;
+    }
+
     std::string path = this->getRealPath(filename);
 
     this->log
@@ -225,5 +230,10 @@ CSSP::Generator *CSSP::Driver::getGenerator(bool minify) {
 }
 
 std::string CSSP::Driver::getRealPath(std::string path) {
+    if (access(path.c_str(), F_OK) != 0) {
+        this->error << "Cannot open file " << path << this->error.end() << std::endl;
+        return std::string();
+    }
+
     return realpath(path.c_str(), nullptr);
 }

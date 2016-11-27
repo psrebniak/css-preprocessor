@@ -60,12 +60,12 @@ void CSSP::Main::parseOpt(int argc, char *argv[]) {
     if (!this->readStdin && !this->readFile) {
         this->printHelp = true;
     } else if (!(this->readStdin ^ this->readFile)) {
-        std::cerr << "Please use --file or --stdin option" << std::endl;
+        std::cerr << "Error: Please use --file or --stdin option" << std::endl;
         this->hasError = true;
     }
     if (this->readFile) {
         if (access(this->filename.c_str(), F_OK) != 0) {
-            std::cerr << "Cannot get file access" << std::endl;
+            std::cerr << "Error: Cannot get file access" << std::endl;
             this->hasError = true;
         }
     }
@@ -100,6 +100,9 @@ int CSSP::Main::run() {
     }
 
     // print help if necessary
+    if (this->hasError) {
+        std::cerr << std::endl;
+    }
     if (this->printHelp || this->hasError) {
         this->help();
         return 1;

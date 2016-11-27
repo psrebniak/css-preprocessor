@@ -24,7 +24,7 @@ namespace CSSP {
         Driver(std::ostream &os) :
             log(os, Logger::colorCyan),
             warn(os, Logger::colorYellow),
-            error(os, Logger::colorRed) {}
+            error(std::cerr, Logger::colorRed) {}
 
         virtual ~Driver();
 
