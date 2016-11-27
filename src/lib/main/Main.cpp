@@ -22,11 +22,11 @@ void CSSP::Main::parseOpt(int argc, char *argv[]) {
 
     const struct option longopts[] =
         {
-            {"help",    no_argument,       0, 'h'},
-            {"verbose", no_argument,       0, 'v'},
-            {"minify",  no_argument,       0, 'm'},
-            {"stdin",   no_argument,       0, 'i'},
-            {"file",    required_argument, 0, 'f'},
+            {"help",     no_argument,       0, 'h'},
+            {"verbose",  no_argument,       0, 'v'},
+            {"minify",   no_argument,       0, 'm'},
+            {"stdin",    no_argument,       0, 'i'},
+            {"filename", required_argument, 0, 'f'},
             {0, 0,                         0, 0}
         };
 
@@ -78,11 +78,11 @@ void CSSP::Main::help() {
     std::cerr << "CSSP - CSS preprocessor" << std::endl;
     std::cerr << "Author: Piotr Srebniak, W-11, Wrocław Institute of Technology" << std::endl;
     std::cerr << std::endl;
-    std::cerr << "-h --help                   print help" << std::endl;
-    std::cerr << "-v --verbose                print verbose information" << std::endl;
-    std::cerr << "-m --minify                 minify output" << std::endl;
-    std::cerr << "-f --filename <filename>    parse given file" << std::endl;
-    std::cerr << "-i --stdin                  parse standard input" << std::endl;
+    std::cerr << "-h --help               print help" << std::endl;
+    std::cerr << "-v --verbose            print verbose information" << std::endl;
+    std::cerr << "-m --minify             minify output" << std::endl;
+    std::cerr << "-f --file <filename>    parse given file" << std::endl;
+    std::cerr << "-i --stdin              parse standard input" << std::endl;
     std::cerr << std::endl;
 }
 

@@ -22,6 +22,10 @@ int CSSP::Generator::generateOutput(std::ostream &ostream) {
 }
 
 bool CSSP::Generator::pushFile(std::string filename) {
+    if (this->stack.size() >= this->MAX_STACK_SIZE) {
+        this->registerError("Cannot include file " + filename + ";Stack size exceed");
+        return false;
+    }
     FileToTreeMapType::const_iterator position = this->fileToTreeMap.find(filename);
     if (position != this->fileToTreeMap.end()) {
         this->stack.push(std::pair<NodeVectorType::const_iterator, NodeVectorType*>(

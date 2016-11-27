@@ -50,7 +50,7 @@ namespace CSSP {
 
         NameToVariableMapType variableMap;
         bool minify;
-
+        const int MAX_STACK_SIZE = 16;
     };
 }
 
