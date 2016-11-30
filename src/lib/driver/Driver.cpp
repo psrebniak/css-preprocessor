@@ -151,16 +151,13 @@ void CSSP::Driver::pushFileToQueue(std::string filename) {
         << this->log.end()
         << std::endl;
 
-    this->fileQueue.insert(
-        this->fileQueue.begin(),
-        path
-    );
+    this->fileQueue.push(path);
 }
 
 int CSSP::Driver::processQueue() {
 
     while (!this->fileQueue.empty()) {
-        std::string filename = this->fileQueue.back();
+        std::string filename = this->fileQueue.front();
         if (!this->isFileInTree(filename)) {
             this->log
                 << "Parse file: "
@@ -178,7 +175,7 @@ int CSSP::Driver::processQueue() {
                 << this->log.end()
                 << std::endl;
         }
-        this->fileQueue.pop_back();
+        this->fileQueue.pop();
     }
 
     return 0;

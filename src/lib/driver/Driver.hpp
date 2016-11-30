@@ -7,7 +7,7 @@
 #include <iostream>
 #include <utility>
 #include <map>
-#include <list>
+#include <queue>
 
 #include "lib/types.hpp"
 #include "lib/lexer/Lexer.hpp"
@@ -54,7 +54,7 @@ namespace CSSP {
         std::string baseName;
         std::string mainFileName;
         std::string currentFileName;
-        std::list<std::string> fileQueue;
+        std::queue<std::string> fileQueue;
         FileToTreeMapType fileToTreeMap;
 
         CSSP::Parser *parser = nullptr;
