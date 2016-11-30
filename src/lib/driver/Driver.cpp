@@ -184,7 +184,7 @@ int CSSP::Driver::processQueue() {
     return 0;
 }
 
-void CSSP::Driver::setNodesAsCurrentTreeElement(NodeVectorType *nodes) {
+void CSSP::Driver::setNodesAsCurrentTreeElement(NodeListType *nodes) {
     this->fileToTreeMap.insert(FileToTreePairType(
         this->currentFileName,
         nodes
@@ -204,7 +204,7 @@ int CSSP::Driver::debugQueue() {
             << this->log.end()
             << std::endl;
 
-        NodeVectorType nodes = *i->second;
+        NodeListType nodes = *i->second;
 
         for (auto const node : nodes) {
             this->log

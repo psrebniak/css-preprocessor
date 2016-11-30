@@ -12,7 +12,7 @@
    }
 
    #include <map>
-   #include <vector>
+   #include <list>
 
    #include "lib/types.hpp"
    #include "lib/ast/Ast.hpp"
@@ -96,13 +96,13 @@
 %type <CSSP::AST::Value*> valueCalculation;
 %type <CSSP::AST::Value*> valueColor;
 
-%type <std::vector<CSSP::AST::Node*>*> valueList;
-%type <std::vector<CSSP::AST::Node*>*> selector;
-%type <std::vector<CSSP::AST::Node*>*> globalInstructions;
-%type <std::vector<CSSP::AST::Node*>*> instructions;
-%type <std::vector<CSSP::AST::Node*>*> mediaList;
+%type <std::list<CSSP::AST::Node*>*> valueList;
+%type <std::list<CSSP::AST::Node*>*> selector;
+%type <std::list<CSSP::AST::Node*>*> globalInstructions;
+%type <std::list<CSSP::AST::Node*>*> instructions;
+%type <std::list<CSSP::AST::Node*>*> mediaList;
 
-%type <std::vector<std::vector<CSSP::AST::Node*>*>*> selectorList;
+%type <std::list<std::list<CSSP::AST::Node*>*>*> selectorList;
 
 %type <CSSP::AST::Property*> property;
 %type <CSSP::AST::Node*> selectorEntryType;
@@ -131,7 +131,7 @@ preprocesor
 // global instructions
 globalInstructions
     : %empty {
-        $$ = new std::vector<CSSP::AST::Node*>();
+        $$ = new std::list<CSSP::AST::Node*>();
     }
     | globalInstructions globalInstruction {
         $1->push_back($2);
@@ -155,7 +155,7 @@ globalInstruction
 // local instructions
 instructions
     : %empty {
-        $$ = new std::vector<CSSP::AST::Node*>();
+        $$ = new std::list<CSSP::AST::Node*>();
     }
     | instructions instruction {
         $1->push_back($2);
@@ -192,7 +192,7 @@ media
 
 mediaList
     : %empty {
-        $$ = new std::vector<CSSP::AST::Node*>();
+        $$ = new std::list<CSSP::AST::Node*>();
     }
     | mediaList string {
         $1->push_back(new CSSP::AST::String($2.toString()));
@@ -217,7 +217,7 @@ block
 
 selectorList
      : selector {
-        $$ = new std::vector<std::vector<CSSP::AST::Node*>*>();
+        $$ = new std::list<std::list<CSSP::AST::Node*>*>();
         $$->push_back($1);
      }
      | selectorList COMMA selector {
@@ -228,7 +228,7 @@ selectorList
 // selector
 selector
     : selectorEntryType {
-        $$ = new std::vector<CSSP::AST::Node*>();
+        $$ = new std::list<CSSP::AST::Node*>();
         $$->push_back($1);
     }
     | selector selectorEntryType {
@@ -350,7 +350,7 @@ property
 
 valueList
     : value {
-        $$ = new std::vector<CSSP::AST::Node*>();
+        $$ = new std::list<CSSP::AST::Node*>();
         $$->push_back($1);
     }
     | valueList COMMA value {

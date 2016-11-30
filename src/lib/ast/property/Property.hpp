@@ -5,7 +5,7 @@
 #ifndef CSSPREPROCESSOR_PROPERTY_HPP
 #define CSSPREPROCESSOR_PROPERTY_HPP
 
-#include <vector>
+#include <list>
 #include <string>
 
 #include "lib/types.hpp"
@@ -15,7 +15,7 @@ namespace CSSP {
     namespace AST {
         class Property : public Node {
         public:
-            Property(Node *name, NodeVectorType *valueList, Node *modifier, bool minify = false)
+            Property(Node *name, NodeListType *valueList, Node *modifier, bool minify = false)
                 : Node("Property"),
                   name(name),
                   valueList(valueList),
@@ -26,7 +26,7 @@ namespace CSSP {
 
         protected:
             Node *name;
-            NodeVectorType *valueList;
+            NodeListType *valueList;
             Node *modifier;
             bool minify;
         };
