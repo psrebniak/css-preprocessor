@@ -5,7 +5,7 @@
 #ifndef CSSPREPROCESSOR_SELECTOR_HPP
 #define CSSPREPROCESSOR_SELECTOR_HPP
 
-#include <vector>
+#include <list>
 #include <map>
 #include <lib/ast/value/value/Value.hpp>
 #include "lib/ast/node/Node.hpp"

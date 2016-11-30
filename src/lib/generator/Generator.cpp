@@ -5,10 +5,10 @@
 int CSSP::Generator::generateOutput(std::ostream &ostream) {
 
     while(!this->stack.empty()) {
-        std::pair<NodeVectorType::const_iterator, NodeVectorType *> *top = &this->stack.top();
+        std::pair<NodeListType::const_iterator, NodeListType *> *top = &this->stack.top();
 
-        NodeVectorType::const_iterator iterator = top->first;
-        NodeVectorType *nodes = top->second;
+        NodeListType::const_iterator iterator = top->first;
+        NodeListType *nodes = top->second;
 
         if (iterator == nodes->end()) {
             this->stack.pop();
@@ -28,7 +28,7 @@ bool CSSP::Generator::pushFile(std::string filename) {
     }
     FileToTreeMapType::const_iterator position = this->fileToTreeMap.find(filename);
     if (position != this->fileToTreeMap.end()) {
-        this->stack.push(std::pair<NodeVectorType::const_iterator, NodeVectorType*>(
+        this->stack.push(std::pair<NodeListType::const_iterator, NodeListType*>(
             position->second->begin(),
             position->second
         ));
@@ -62,7 +62,7 @@ void CSSP::Generator::registerError(std::string description) {
     this->error << description << this->error.end() << std::endl;
 }
 
-void CSSP::Generator::pushBlockSelector(std::vector<std::string> *selector) {
+void CSSP::Generator::pushBlockSelector(std::list<std::string> *selector) {
     this->blockSelectors.push(selector);
 }
 
@@ -74,7 +74,7 @@ void CSSP::Generator::popBlockSelector() {
     this->blockSelectors.pop();
 }
 
-std::vector<std::string> *CSSP::Generator::getLatestBlockSelector() {
+std::list<std::string> *CSSP::Generator::getLatestBlockSelector() {
     if (this->blockSelectors.size() == 0) {
         return NULL;
     }

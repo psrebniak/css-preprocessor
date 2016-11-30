@@ -2,7 +2,7 @@
 // Created by piotrek on 11.10.16.
 //
 
-#include <vector>
+#include <list>
 #include <sstream>
 #include <iterator>
 #include "Color.hpp"
@@ -12,20 +12,20 @@ const std::string CSSP::AST::Color::debugString() const {
         return "#" + this->value;
     }
 
-    std::vector<std::string> vector = {};
-    vector.push_back(this->alpha != 0 ? "rgba(" : "rgb(");
+    std::list<std::string> list = {};
+    list.push_back(this->alpha != 0 ? "rgba(" : "rgb(");
 
-    vector.push_back(std::to_string(this->red));
-    vector.push_back(",");
+    list.push_back(std::to_string(this->red));
+    list.push_back(",");
 
-    vector.push_back(std::to_string(this->green));
-    vector.push_back(",");
+    list.push_back(std::to_string(this->green));
+    list.push_back(",");
 
-    vector.push_back(std::to_string(this->blue));
-    vector.push_back(")");
+    list.push_back(std::to_string(this->blue));
+    list.push_back(")");
 
     std::stringstream res;
-    std::copy(vector.begin(), vector.end(), std::ostream_iterator<std::string>(res));
+    std::copy(list.begin(), list.end(), std::ostream_iterator<std::string>(res));
     return res.str();
 }
 

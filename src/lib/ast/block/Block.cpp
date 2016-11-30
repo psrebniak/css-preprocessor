@@ -26,7 +26,7 @@ const std::string CSSP::AST::Block::debugString() const {
     return stream.str();
 }
 
-const std::string CSSP::AST::Block::joinStringList(std::vector<std::string> *list) const {
+const std::string CSSP::AST::Block::joinStringList(std::list<std::string> *list) const {
     if (list->size() == 0) {
         return std::string();
     } else if (list->size() == 1) {
@@ -35,9 +35,9 @@ const std::string CSSP::AST::Block::joinStringList(std::vector<std::string> *lis
 
     std::ostringstream imploded;
     const char* const delimiter = ", ";
-    std::copy(list->begin(), list->end() - 1, std::ostream_iterator<std::string>(imploded, delimiter));
+    std::copy(list->begin(), --list->end(), std::ostream_iterator<std::string>(imploded, delimiter));
 
-    return imploded.str() + *(list->end() - 1);
+    return imploded.str() + *(--list->end());
 }
 
 const std::string CSSP::AST::Block::trimString(std::string string) const {
@@ -46,16 +46,16 @@ const std::string CSSP::AST::Block::trimString(std::string string) const {
 
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     std::stringstream stream;
-    std::vector<std::string> *latestSelectorList = generator->getLatestBlockSelector();
+    std::list<std::string> *latestSelectorList = generator->getLatestBlockSelector();
     bool fakeParentObject = false;
 
     if (nullptr == latestSelectorList) {
         fakeParentObject = true;
-        latestSelectorList = new std::vector<std::string>();
+        latestSelectorList = new std::list<std::string>();
         latestSelectorList->push_back(std::string());
     }
 
-    std::vector<std::string> *currentSelectorList = new std::vector<std::string>();
+    std::list<std::string> *currentSelectorList = new std::list<std::string>();
 
     // for every item in comma separated selector list from parent selector list
     for (auto const parentSelector: *latestSelectorList) {

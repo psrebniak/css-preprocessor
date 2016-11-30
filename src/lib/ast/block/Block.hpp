@@ -5,7 +5,7 @@
 #ifndef CSSPREPROCESSOR_BLOCK_HPP
 #define CSSPREPROCESSOR_BLOCK_HPP
 
-#include <vector>
+#include <list>
 #include "lib/types.hpp"
 #include "lib/ast/node/Node.hpp"
 
@@ -14,7 +14,7 @@ namespace CSSP {
         class Block : public Node {
         public:
 
-            Block(std::vector<NodeVectorType*> *selectorList, NodeVectorType *instructionList)
+            Block(std::list<NodeListType*> *selectorList, NodeListType *instructionList)
                 : Node("Block"),
                   selectorList(selectorList),
                   instructionList(instructionList) {}
@@ -25,10 +25,10 @@ namespace CSSP {
             virtual const std::string debugString() const override;
 
         protected:
-            std::vector<NodeVectorType*> *selectorList;
-            NodeVectorType *instructionList;
+            std::list<NodeListType*> *selectorList;
+            NodeListType *instructionList;
 
-            const std::string joinStringList(std::vector<std::string> *list) const;
+            const std::string joinStringList(std::list<std::string> *list) const;
             const std::string trimString(std::string string) const;
         };
     }

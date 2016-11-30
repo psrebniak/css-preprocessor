@@ -1,7 +1,7 @@
 #ifndef CSSPREPROCESSOR_MEDIA_HPP
 #define CSSPREPROCESSOR_MEDIA_HPP
 
-#include <vector>
+#include <list>
 
 #include "lib/types.hpp"
 #include "lib/ast/node/Node.hpp"
@@ -11,7 +11,7 @@ namespace CSSP {
         class Media : public Node {
         public:
 
-            Media(NodeVectorType *mediaList, NodeVectorType *instructionList)
+            Media(NodeListType *mediaList, NodeListType *instructionList)
                 : Node("Media"),
                   mediaList(mediaList),
                   instructionList(instructionList) {};
@@ -22,8 +22,8 @@ namespace CSSP {
             virtual const std::string generate(Generator *generator) const override;
 
         protected:
-            NodeVectorType *mediaList;
-            NodeVectorType *instructionList;
+            NodeListType *mediaList;
+            NodeListType *instructionList;
         };
     }
 }
