@@ -1,0 +1,13 @@
+// Import file: 'import_1.part'
+.test {
+    test: 'first';
+}
+// Import file: 'import_1.part'
+.test {
+    test: 'second';
+}
+// Import file: 'import_2.part'
+// Import file: 'import_1.part'
+.test {
+    test: 'third';
+}

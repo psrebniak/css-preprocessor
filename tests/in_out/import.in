@@ -1,0 +1,7 @@
+$item: 'first';
+@import 'import_1.part';
+
+$item: 'second';
+@import 'import_1.part';
+
+@import 'import_2.part';

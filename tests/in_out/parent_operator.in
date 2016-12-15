@@ -11,4 +11,7 @@ parent {
     grandparent_& {
         test: test;
     }
+    grandfather &, child {
+        test: test;
+    }
 }
