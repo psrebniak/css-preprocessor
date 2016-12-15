@@ -1,0 +1,2 @@
+$item: 'third';
+@import 'import_1.part';

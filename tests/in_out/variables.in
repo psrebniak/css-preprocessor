@@ -1,15 +1,16 @@
-$int1: 100;
-$int2: 3;
-
+$var: 1;
 .test {
-    test: ${int1};
-    test: ${int2};
+    test: ${var};
 }
-
-$int1: 10;
-$int2: 321;
-
+$var: "string with \" symbol ";
 .test {
-    test: ${int1};
-    test: ${int2};
+    test: ${var};
+}
+$selector: container;
+.${selector} {
+    test: test;
+}
+$attribute: "attr";
+tag[attribute=${attribute}] {
+    test: test;
 }

@@ -10,3 +10,6 @@ grandparent parent {
 grandparent_parent {
     test: test;
 }
+grandfather parent, parent child {
+    test: test;
+}

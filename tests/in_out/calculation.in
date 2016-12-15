@@ -1,19 +1,18 @@
-$v1: 640;
-$v2: 2;
+$container: 640;
 
 .col-1-4 {
-    width: (${v1} / 4);
+    width: (${container} / 4);
 }
 .col-2-4 {
-    width: (2 * (${v1} / 4));
+    width: (2 * (${container} / 4));
 }
 .col-3-4 {
-    width: (3 * (${v1} / 4));
+    width: (3 * (${container} / 4));
 }
 .col-4-4 {
-    width: (4 * (${v1} / 4));
+    width: (4 * (${container} / 4));
 }
-
-.text_test {
-    test: (test + (4 * (${v1} / 4)));
+$test: (5 * (${container} / 4));
+.concatenation_test {
+    test: (test + ${test});
 }
