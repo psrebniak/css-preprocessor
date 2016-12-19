@@ -21,6 +21,10 @@ namespace CSSP {
         friend class Parser;
 
     public:
+        /**
+         * Create new Driver
+         * @param os info/warning output stream
+         */
         Driver(std::ostream &os) :
             log(os, Logger::colorCyan),
             warn(os, Logger::colorYellow),
@@ -40,15 +44,21 @@ namespace CSSP {
          */
         int parse(std::istream &iss);
 
+        /**
+         * Create new generator with current fileToFreeMap
+         * @param minify should be output minified
+         * @return new Generator instance
+         */
         CSSP::Generator *getGenerator(bool minify = false);
 
-        Logger log;
-        Logger warn;
-        Logger error;
+        /**
+         * Get access to fileToTreeMap
+         * @return fileToTreeMap
+         */
+        const FileToTreeMapType *getFileToTreeMap() const;
 
     protected:
         int parse_helper(std::istream &stream);
-
         bool isFileInTree(std::string filename);
 
         std::string baseName;
@@ -56,6 +66,10 @@ namespace CSSP {
         std::string currentFileName;
         std::queue<std::string> fileQueue;
         FileToTreeMapType fileToTreeMap;
+
+        Logger log;
+        Logger warn;
+        Logger error;
 
         CSSP::Parser *parser = nullptr;
         CSSP::Lexer *lexer = nullptr;
