@@ -234,3 +234,7 @@ std::string CSSP::Driver::getRealPath(std::string path) {
 
     return realpath(path.c_str(), nullptr);
 }
+
+const FileToTreeMapType *CSSP::Driver::getFileToTreeMap() const {
+    return &(this->fileToTreeMap);
+}
