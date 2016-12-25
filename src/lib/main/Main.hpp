@@ -14,14 +14,24 @@ namespace CSSP {
      */
     class Main {
     public:
+        /**
+         * Constuctor
+         * @param argc
+         * @param argv
+         */
         Main(int argc, char *argv[]) {
             this->parseOpt(argc, argv);
         }
 
-        void parseOpt(int argc, char *argv[]);
-
+        /**
+         * Print help
+         */
         void help();
 
+        /**
+         * Run application
+         * @return
+         */
         int run();
 
     protected:
@@ -59,6 +69,13 @@ namespace CSSP {
          * filename for main file
          */
         std::string filename = std::string();
+
+        /**
+         * Parse arguments
+         * @param argc
+         * @param argv
+         */
+        void parseOpt(int argc, char *argv[]);
     };
 }
 

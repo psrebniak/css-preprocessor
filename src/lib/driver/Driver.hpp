@@ -27,7 +27,6 @@ namespace CSSP {
          */
         Driver(std::ostream &os) :
             log(os, Logger::colorCyan),
-            warn(os, Logger::colorYellow),
             error(std::cerr, Logger::colorRed) {}
 
         virtual ~Driver();
@@ -58,27 +57,100 @@ namespace CSSP {
         const FileToTreeMapType *getFileToTreeMap() const;
 
     protected:
-        int parse_helper(std::istream &stream);
+        /**
+         * helper method, parse given stream
+         * @param stream
+         * @return
+         */
+        int parseHelper(std::istream &stream);
+
+        /**
+         * return true if file is already parsed
+         * @param filename
+         * @return
+         */
         bool isFileInTree(std::string filename);
 
-        std::string baseName;
+        /**
+         * main file directory name or current working directory in stream parse case
+         */
+        std::string directory;
+
+        /**
+         * main file realpath
+         */
         std::string mainFileName;
+
+        /**
+         * current processed filename
+         */
         std::string currentFileName;
+
+        /**
+         * file to process queue
+         */
         std::queue<std::string> fileQueue;
+
+        /**
+         * realpath to tree map
+         */
         FileToTreeMapType fileToTreeMap;
 
+        /**
+         * warning logger
+         */
         Logger log;
-        Logger warn;
+
+        /**
+         * error logger
+         */
         Logger error;
 
+        /**
+         * Parser instance
+         */
         CSSP::Parser *parser = nullptr;
+
+        /**
+         * Lexer instance
+         */
         CSSP::Lexer *lexer = nullptr;
 
+        /**
+         * get realpath of given file (as cwd is used directory parameter)
+         * @param path
+         * @return
+         */
         std::string getRealPath(std::string path);
+
+        /**
+         * run queue and proceed used files
+         * @return
+         */
         int processQueue();
+
+        /**
+         * run queue and use DebugString method instead of generate
+         * @return
+         */
         int debugQueue();
+
+        /**
+         * Parse partial with given filename
+         * @return
+         */
         int parsePartial(std::string);
+
+        /**
+         * Push new file to queue
+         * @param filename
+         */
         void pushFileToQueue(std::string filename);
+
+        /**
+         * Set tree for currently parsed element (used by lexer)
+         * @param nodes
+         */
         void setNodesAsCurrentTreeElement(NodeListType *nodes);
     };
 }

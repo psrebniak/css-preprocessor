@@ -104,13 +104,39 @@ namespace CSSP {
          */
         const bool isMinified() const;
     protected:
+        /**
+         * Map passed with constructor
+         */
         FileToTreeMapType fileToTreeMap;
+
+        /**
+         * Stack for files to proceed
+         */
         std::stack<std::pair<NodeListType::const_iterator, NodeListType *> > stack;
+
+        /**
+         * Calculated selectors for external blocks (used inside blocks)
+         */
         std::stack<std::list<std::string> *> blockSelectors;
+
+        /**
+         * map of variables
+         */
         NameToVariableMapType variableMap;
 
-        bool minify;
+        /**
+         * should be output minified
+         */
+        const bool minify;
+
+        /**
+         * max number of files in stack
+         */
         const int MAX_STACK_SIZE = 16;
+
+        /**
+         * logger output
+         */
         Logger error;
     };
 }

@@ -11,18 +11,39 @@ namespace CSSP {
         class Media : public Node {
         public:
 
+            /**
+             * Media
+             * @param mediaList
+             * @param instructionList
+             */
             Media(NodeListType *mediaList, NodeListType *instructionList)
                 : Node("Media"),
                   mediaList(mediaList),
                   instructionList(instructionList) {};
 
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual const std::string debugString() const override;
 
+            /**
+             * @inherit
+             * @param generator
+             * @return
+             */
             virtual const std::string generate(Generator *generator) const override;
 
         protected:
+            /**
+             * List of media conditions
+             */
             NodeListType *mediaList;
+
+            /**
+             * List of contained instructions
+             */
             NodeListType *instructionList;
         };
     }

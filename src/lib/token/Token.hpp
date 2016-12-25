@@ -10,17 +10,38 @@
 namespace CSSP {
     class Token {
     public:
+        /**
+         * Constructor
+         */
         Token() {};
 
+        /**
+         * Constructor
+         * @param stringValue
+         * @param isWhitespacePrefixed
+         * @param tokenType
+         */
         Token(std::string stringValue, bool isWhitespacePrefixed, int tokenType)
             : stringValue(stringValue),
               whitespacePrefixed(isWhitespacePrefixed),
               tokenType(tokenType) {};
 
+        /**
+         * return token string value
+         * @return
+         */
         const std::string toString() const;
 
+        /**
+         * is token whiteprefixed
+         * @return
+         */
         const bool isWhitespacePrefixed() const;
 
+        /**
+         * get token type (bison token code)
+         * @return
+         */
         const int getTokenType() const;
 
     protected:

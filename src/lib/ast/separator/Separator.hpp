@@ -11,11 +11,23 @@ namespace CSSP {
     namespace AST {
         class Separator : public Node {
         public:
+            /**
+             * Constructor
+             */
             Separator()
                 : Node("Separator") {};
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual const std::string debugString() const override;
 
+            /**
+             * @inherit
+             * @param generator
+             * @return
+             */
             virtual const std::string generate(Generator *generator) const override;
         };
     }

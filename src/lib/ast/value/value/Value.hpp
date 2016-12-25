@@ -13,13 +13,30 @@ namespace CSSP {
     namespace AST {
         class Value : public Node {
         public:
+            /**
+             * Constructor
+             * @param nodeType
+             */
             Value(std::string nodeType)
                 : Node(nodeType) {}
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual const std::string debugString() const override;
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual Value *setToken(CSSP::Token) override;
 
+            /**
+             * Return value as primitive (eg. variable value instead of variable)
+             * @param generator
+             * @return
+             */
             virtual Value *getAsPrimitive(Generator *generator);
         };
     }
