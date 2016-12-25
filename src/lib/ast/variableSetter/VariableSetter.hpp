@@ -12,21 +12,50 @@ namespace CSSP {
     namespace AST {
         class VariableSetter : public Node {
         public:
+            /**
+             * Constructor
+             * @param name
+             * @param value
+             */
             VariableSetter(std::string name, Value *value)
                 : Node("VariableSetter"),
                   name(name),
                   value(value) {}
 
+            /**
+             * @inherit
+             * @param generator
+             * @return
+             */
             virtual const std::string generate(Generator *generator) const override;
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual const std::string debugString() const override;
 
+            /**
+             * Get variable name
+             * @return
+             */
             const std::string getName() const;
 
+            /**
+             * Get variable value
+             * @return
+             */
             Value *getValue() const;
 
         protected:
+            /**
+             * variable name
+             */
             std::string name;
+
+            /**
+             * variable value
+             */
             Value *value;
         };
     }

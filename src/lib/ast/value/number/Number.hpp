@@ -11,21 +11,56 @@ namespace CSSP {
     namespace AST {
         class Number : public Value {
         public:
+            /**
+             * Constructor
+             */
             Number(std::string);
 
+            /**
+             * @inherit
+             * @return
+             */
             virtual const std::string debugString() const override;
+
+            /**
+             * @inherit
+             * @param generator
+             * @return
+             */
             virtual const std::string generate(Generator *generator) const override;
+
+            /**
+             * Get number unit (eg. px)
+             * @return
+             */
             const std::string getUnit() const {
                 return this->unit;
             }
+
+            /**
+             * Get value without unit
+             * @return
+             */
             const float getValue() const {
                 return this->number;
             }
 
+            /**
+             * Helper method, return float without trailing zeroes
+             * @param number
+             * @return
+             */
             static const std::string floatToString(float number);
 
         protected:
+            /**
+             * number value
+             */
             float number;
+
+            /**
+             * unit
+             */
             std::string unit;
         };
     }

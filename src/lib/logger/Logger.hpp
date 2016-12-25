@@ -9,15 +9,32 @@ namespace CSSP {
 
     class Logger {
     public:
+        /**
+         * Constructor
+         * @param os output stream
+         */
         Logger(std::ostream &os) :
             os_(os) {}
 
+        /**
+         * Constructor
+         * @param os  output stream
+         * @param color logger color
+         */
         Logger(std::ostream &os, std::string color) :
             os_(os),
             color(color) {}
 
+        /**
+         * Set color for logger
+         * @param color
+         */
         void setColor(std::string color);
 
+        /**
+         * Return color reset code
+         * @return
+         */
         static std::string end();
 
         static const std::string colorDefault;

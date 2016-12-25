@@ -38,7 +38,7 @@ int CSSP::Driver::parse(const char *const filename) {
         return EXIT_FAILURE;
     }
 
-    this->baseName = dir;
+    this->directory = dir;
     this->mainFileName = path;
     this->pushFileToQueue(path);
 
@@ -59,10 +59,10 @@ int CSSP::Driver::parse(std::istream &stream) {
 
     char temp[256];
     getcwd(temp, 256);
-    this->baseName = std::string(temp);
+    this->directory = std::string(temp);
     this->mainFileName = "STDIN";
     this->currentFileName = "STDIN";
-    this->parse_helper(stream);
+    this->parseHelper(stream);
 
     this->processQueue();
     this->debugQueue();
@@ -82,10 +82,10 @@ int CSSP::Driver::parsePartial(const std::string filename) {
         return EXIT_FAILURE;
     }
 
-    return this->parse_helper(file);
+    return this->parseHelper(file);
 }
 
-int CSSP::Driver::parse_helper(std::istream &stream) {
+int CSSP::Driver::parseHelper(std::istream &stream) {
 
     delete (lexer);
     try {
