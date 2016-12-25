@@ -25,7 +25,8 @@ namespace CSSP {
          * @param mainFile - main file (key in tree)
          * @param minify - should be output minified
          */
-        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile, bool minify = false, unsigned int stackSize = 16)
+        Generator(FileToTreeMapType *fileToTreeMap, std::string mainFile, bool minify = false,
+                  unsigned int stackSize = 16)
             : fileToTreeMap(*fileToTreeMap),
               error(std::cerr, Logger::colorRed),
               minify(minify),
@@ -103,6 +104,7 @@ namespace CSSP {
          * @return
          */
         const bool isMinified() const;
+
     protected:
         /**
          * Map passed with constructor

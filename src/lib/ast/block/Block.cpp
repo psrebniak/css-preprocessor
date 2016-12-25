@@ -34,7 +34,7 @@ const std::string CSSP::AST::Block::joinStringList(std::list<std::string> *list)
     }
 
     std::ostringstream imploded;
-    const char* const delimiter = ", ";
+    const char *const delimiter = ", ";
     std::copy(list->begin(), --list->end(), std::ostream_iterator<std::string>(imploded, delimiter));
 
     return imploded.str() + *(--list->end());
@@ -60,13 +60,13 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
     // for every item in comma separated selector list from parent selector list
     for (auto const parentSelector: *latestSelectorList) {
         // for every item in comma separated selector list from current selector list
-        for(auto const currentSelector: *this->selectorList) {
+        for (auto const currentSelector: *this->selectorList) {
 
             bool hasParentOperator = false;
             std::string currentSelectorString = std::string();
 
             // perform generation on every node from current selector
-            for(auto const node: *currentSelector) {
+            for (auto const node: *currentSelector) {
                 if (node->getToken().toString() == "&") {
                     hasParentOperator = true;
                     currentSelectorString =

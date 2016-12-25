@@ -29,7 +29,7 @@ const std::string CSSP::AST::Calculation::generate(CSSP::Generator *generator) c
         try {
             std::stoi(v1);
             first = new CSSP::AST::Number(v1);
-        } catch(std::invalid_argument) {
+        } catch (std::invalid_argument) {
             first = new CSSP::AST::String(v1);
         }
     }
@@ -39,7 +39,7 @@ const std::string CSSP::AST::Calculation::generate(CSSP::Generator *generator) c
         try {
             std::stoi(v2);
             second = new CSSP::AST::Number(v2);
-        } catch(std::invalid_argument) {
+        } catch (std::invalid_argument) {
             second = new CSSP::AST::String(v2);
         }
     }
@@ -59,7 +59,7 @@ const std::string CSSP::AST::Calculation::generate(CSSP::Generator *generator) c
 
         float value = 0;
 
-        switch(this->operation) {
+        switch (this->operation) {
             case token::PLUS: {
                 value = firstNumber->getValue() + secondNumber->getValue();
                 break;

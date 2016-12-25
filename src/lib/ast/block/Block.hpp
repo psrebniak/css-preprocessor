@@ -19,7 +19,7 @@ namespace CSSP {
              * @param selectorList
              * @param instructionList
              */
-            Block(std::list<NodeListType*> *selectorList, NodeListType *instructionList)
+            Block(std::list<NodeListType *> *selectorList, NodeListType *instructionList)
                 : Node("Block"),
                   selectorList(selectorList),
                   instructionList(instructionList) {}
@@ -41,7 +41,7 @@ namespace CSSP {
             /**
              * List of selector entries
              */
-            std::list<NodeListType*> *selectorList;
+            std::list<NodeListType *> *selectorList;
 
             /**
              * List of instructions inside current block

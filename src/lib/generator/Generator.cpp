@@ -4,7 +4,7 @@
 
 int CSSP::Generator::generateOutput(std::ostream &ostream) {
 
-    while(!this->stack.empty()) {
+    while (!this->stack.empty()) {
         std::pair<NodeListType::const_iterator, NodeListType *> *top = &this->stack.top();
 
         NodeListType::const_iterator iterator = top->first;
@@ -28,7 +28,7 @@ bool CSSP::Generator::pushFile(std::string filename) {
     }
     FileToTreeMapType::const_iterator position = this->fileToTreeMap.find(filename);
     if (position != this->fileToTreeMap.end()) {
-        this->stack.push(std::pair<NodeListType::const_iterator, NodeListType*>(
+        this->stack.push(std::pair<NodeListType::const_iterator, NodeListType *>(
             position->second->begin(),
             position->second
         ));
