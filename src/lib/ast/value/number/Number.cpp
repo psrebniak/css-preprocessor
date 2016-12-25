@@ -33,7 +33,7 @@ const std::string CSSP::AST::Number::floatToString(float number) {
 
     // remove trailing zeros from float
     std::string str = std::to_string(number);
-    str.erase (str.find_last_not_of('0') + 1, std::string::npos);
+    str.erase(str.find_last_not_of('0') + 1, std::string::npos);
 
     return str;
 }

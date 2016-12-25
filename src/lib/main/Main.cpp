@@ -27,7 +27,7 @@ void CSSP::Main::parseOpt(int argc, char *argv[]) {
             {"minify",   no_argument,       0, 'm'},
             {"stdin",    no_argument,       0, 'i'},
             {"filename", required_argument, 0, 'f'},
-            {0, 0,                         0, 0}
+            {0, 0,                          0, 0}
         };
 
     int index;
