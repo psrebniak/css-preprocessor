@@ -6,6 +6,7 @@
 #define CSSPREPROCESSOR_AST_HPP
 
 #include "lib/ast/node/Node.hpp"
+#include "lib/ast/for/For.hpp"
 #include "lib/ast/modifier/Modifier.hpp"
 #include "lib/ast/property/Property.hpp"
 #include "lib/ast/separator/Separator.hpp"

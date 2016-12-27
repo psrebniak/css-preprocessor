@@ -111,6 +111,7 @@
 %type <CSSP::AST::Node*> globalInstruction;
 %type <CSSP::AST::Node*> instruction;
 %type <CSSP::AST::Block*> block;
+%type <CSSP::AST::For*> for;
 %type <CSSP::AST::Import*> import;
 %type <CSSP::AST::VariableSetter*> variableSetter;
 %type <CSSP::AST::Media*> media;
@@ -151,6 +152,9 @@ globalInstruction
     | variableSetter {
         $$ = $1;
     }
+    | for {
+        $$ = $1;
+    }
 
 // local instructions
 instructions
@@ -171,6 +175,9 @@ instruction
     }
     | variableSetter {
         $$ = $1;
+    }
+    | for {
+            $$ = $1;
     }
 
 // import
@@ -207,6 +214,11 @@ mediaList
 variableSetter
     : DOLLAR string COLON value SEMICOLON {
         $$ = new CSSP::AST::VariableSetter($2.toString(), $4);
+    }
+
+for
+    : FOR LPAREN string SEMICOLON value SEMICOLON value RPAREN LBRACE instructions RBRACE {
+        $$ = new CSSP::AST::For($3.toString(), $5, $7, $10);
     }
 
 // block

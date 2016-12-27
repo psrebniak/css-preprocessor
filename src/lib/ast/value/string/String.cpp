@@ -9,5 +9,9 @@ const std::string CSSP::AST::String::debugString() const {
 }
 
 const std::string CSSP::AST::String::generate(CSSP::Generator *generator) const {
-    return this->debugString();
+    return this->getName();
+}
+
+const std::string CSSP::AST::String::getName() const {
+    return this->value;
 }

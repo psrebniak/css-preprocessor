@@ -92,3 +92,7 @@ const std::string CSSP::Generator::getEol() const {
 const bool CSSP::Generator::isMinified() const {
     return this->minify;
 }
+
+bool CSSP::Generator::unsetVariable(const std::string name) {
+    return this->variableMap.erase(name) > 0;
+}

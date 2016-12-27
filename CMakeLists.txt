@@ -31,7 +31,7 @@ set(SOURCE_FILES
     src/lib/driver/Driver.cpp
     src/lib/logger/Logger.cpp
     src/lib/ast/node/Node.cpp
-    src/lib/ast/node/Node.hpp
+    src/lib/ast/for/For.cpp
     src/lib/ast/modifier/Modifier.cpp
     src/lib/ast/property/Property.cpp
     src/lib/ast/value/string/String.cpp

@@ -42,6 +42,12 @@ STRING   [a-zA-Z0-9\-\_]
     return token::MEDIA;
 }
 
+"@for" {
+    yylval->build <CSSP::Token>() = CSSP::Token(yytext, lexerWhitespaceFlag, token::FOR);
+    lexerWhitespaceFlag = false;
+    return token::FOR;
+}
+
 "//"+(.|"\\\n")*	;// ignore c-style comments
 \/\*+([^*]|[ \t\r\n]|(\*+([^\*\/]|[ \t\r\n])))*\*+\/ ; // ignore c++-style comments
 

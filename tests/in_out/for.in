@@ -1,0 +1,13 @@
+$loop: test;
+
+@for(loop; 1; 3) {
+    @for(loop2; 2; 1) {
+        .grid-${loop}-${loop2} {
+            test: test;
+        }
+    }
+}
+
+.test {
+    loop: ${loop};
+}
