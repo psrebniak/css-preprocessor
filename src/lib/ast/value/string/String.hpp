@@ -33,6 +33,8 @@ namespace CSSP {
              */
             virtual const std::string generate(Generator *generator) const override;
 
+            const std::string getName() const;
+
         protected:
             /**
              * string value

@@ -71,6 +71,13 @@ namespace CSSP {
         const CSSP::AST::Value *getVariable(std::string name);
 
         /**
+         * Unset variable if exist
+         * @param name
+         * @return
+         */
+        bool unsetVariable(const std::string name);
+
+        /**
          * Push selector list for current block
          * @param selectorList
          */
