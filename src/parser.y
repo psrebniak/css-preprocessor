@@ -5,6 +5,8 @@
 %define api.namespace {CSSP}
 %define parser_class_name {Parser}
 
+%expect 3
+
 %code requires {
    namespace CSSP {
       class Driver;
@@ -217,8 +219,8 @@ variableSetter
     }
 
 for
-    : FOR LPAREN string SEMICOLON value SEMICOLON value RPAREN LBRACE instructions RBRACE {
-        $$ = new CSSP::AST::For($3.toString(), $5, $7, $10);
+    : FOR LPAREN DOLLAR string SEMICOLON value SEMICOLON value RPAREN LBRACE instructions RBRACE {
+        $$ = new CSSP::AST::For($4.toString(), $6, $8, $11);
     }
 
 // block
