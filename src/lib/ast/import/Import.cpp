@@ -14,9 +14,12 @@ const std::string CSSP::AST::Import::generate(CSSP::Generator *generator) const 
         if (generator->isMinified()) {
             return std::string();
         }
-        return "// Import file: " + this->getFilename() + generator->getEol();
+
+        return generator->isMinified() ?
+               std::string() :
+               "// Import file: " + this->getFilename() + generator->getEol();
     }
 
-    generator->registerError("Cannot find file: " + this->getFilename());
-    return std::string();
+    generator->registerError("Cannot process file: " + this->getFilename() + ". Use Css @import fallback. ");
+    return "@import " + this->getFilename() + ";" + generator->getEol();
 }
