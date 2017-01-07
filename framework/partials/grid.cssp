@@ -1,0 +1,28 @@
+.container {
+    width: ${width};
+    padding-right: ${gutter};
+    padding-left: ${gutter};
+    margin-right: auto;
+    margin-left: auto;
+    &::before, &::after {
+        content: "";
+        position: relative;
+        clear: both;
+    }
+}
+
+.row {
+    margin-left: -${gutter};
+    margin-right: -${gutter};
+}
+
+@for($i; 1; ${grid}) {
+    .column-${i}-${grid} {
+         width: ((${i} / ${grid}) * 100%);
+         min-height: 1px;
+         padding-right: ${gutter};
+         padding-left: ${gutter};
+    }
+}
+
+
