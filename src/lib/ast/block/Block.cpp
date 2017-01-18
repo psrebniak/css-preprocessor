@@ -120,14 +120,18 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
 
 CSSP::AST::Block::~Block() {
     for(const auto instruction : (*this->instructionList)) {
-        if (instruction != nullptr) {
-            delete instruction;
-        }
+        delete instruction;
     }
+    this->instructionList->clear();
     delete this->instructionList;
 
     for (const auto selector : (*this->selectorList)) {
+        for (const auto element : *selector) {
+            delete element;
+        }
+        selector->clear();
         delete selector;
     }
+    this->selectorList->clear();
     delete this->selectorList;
 }

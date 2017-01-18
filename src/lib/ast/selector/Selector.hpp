@@ -86,12 +86,12 @@ namespace CSSP {
             /**
              * attribute value
              */
-            Value *value;
+            Value *value = nullptr;
 
             /**
              * Associated variable (used only with [data-tags]
              */
-            Variable *variable;
+            Variable *variable = nullptr;
 
             /**
              * SelectorType to String/Prefix map

@@ -9,12 +9,11 @@
 CSSP::Driver::~Driver() {
     for(const auto pair : this->fileToTreeMap) {
         for(const auto element : (*pair.second)) {
-            if (element != nullptr) {
-                delete element;
-            }
+            delete element;
         }
         delete pair.second;
     }
+    this->fileToTreeMap.clear();
 
     if (this->lexer) {
         delete this->lexer;
