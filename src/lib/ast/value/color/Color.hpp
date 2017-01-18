@@ -19,6 +19,8 @@ namespace CSSP {
                 : Value("Value/Color"),
                   value(color) {};
 
+            virtual ~Color() = default;
+
             /**
              * @inherit
              * @return

@@ -20,6 +20,8 @@ namespace CSSP {
                 : Value("Value/Variable"),
                   name(name) {};
 
+            virtual ~Variable() = default;
+
             /**
              * @inherit
              * @return

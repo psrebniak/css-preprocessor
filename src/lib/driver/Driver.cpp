@@ -7,9 +7,11 @@
 #include "lib/driver/Driver.hpp"
 
 CSSP::Driver::~Driver() {
+
     for(const auto pair : this->fileToTreeMap) {
-        for(const auto element : (*pair.second)) {
-            delete element;
+        while(!pair.second->empty()) {
+            delete pair.second->front();
+            pair.second->pop_front();
         }
         delete pair.second;
     }

@@ -22,7 +22,7 @@ namespace CSSP {
                   name(name),
                   value(value) {}
 
-            ~VariableSetter();
+            virtual ~VariableSetter();
 
             /**
              * @inherit

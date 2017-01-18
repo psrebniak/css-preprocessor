@@ -20,6 +20,8 @@ namespace CSSP {
             Value(std::string nodeType)
                 : Node(nodeType) {}
 
+            virtual ~Value() = default;
+
             /**
              * @inherit
              * @return

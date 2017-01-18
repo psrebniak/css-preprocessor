@@ -28,7 +28,7 @@ namespace CSSP {
                   valueList(valueList),
                   modifier(modifier) {}
 
-            ~Property();
+            virtual ~Property();
 
             /**
              * @inherit

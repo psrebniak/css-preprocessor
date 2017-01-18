@@ -119,19 +119,20 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
 }
 
 CSSP::AST::Block::~Block() {
-    for(const auto instruction : (*this->instructionList)) {
-        delete instruction;
+    while(!this->instructionList->empty()) {
+        delete this->instructionList->front();
+        this->instructionList->pop_front();
     }
-    this->instructionList->clear();
     delete this->instructionList;
 
-    for (const auto selector : (*this->selectorList)) {
-        for (const auto element : *selector) {
-            delete element;
+    while(!this->selectorList->empty()) {
+        NodeListType *list = this->selectorList->front();
+        while(!list->empty()) {
+            delete list->front();
+            list->pop_front();
         }
-        selector->clear();
-        delete selector;
+        delete list;
+        this->selectorList->pop_front();
     }
-    this->selectorList->clear();
     delete this->selectorList;
 }

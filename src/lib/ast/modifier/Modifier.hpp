@@ -25,6 +25,8 @@ namespace CSSP {
                 : Node("Modifier"),
                   modifier(modifier) {}
 
+            virtual ~Modifier() = default;
+
             /**
              * @inherit
              * @param generator

@@ -21,6 +21,8 @@ namespace CSSP {
                   path(path),
                   realpath(realpath) {};
 
+            virtual ~Import() = default;
+
             /**
              * @inherit
              * @return

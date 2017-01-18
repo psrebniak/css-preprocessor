@@ -43,10 +43,9 @@ const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) cons
 }
 
 CSSP::AST::Property::~Property() {
-    for(const auto value : (*this->valueList)) {
-        if (value != nullptr) {
-            delete value;
-        }
+    while(!this->valueList->empty()) {
+        delete this->valueList->front();
+        this->valueList->pop_front();
     }
     delete this->valueList;
 

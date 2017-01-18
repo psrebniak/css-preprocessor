@@ -16,6 +16,8 @@ namespace CSSP {
              */
             Number(std::string);
 
+            virtual ~Number() = default;
+
             /**
              * @inherit
              * @return

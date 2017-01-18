@@ -24,7 +24,7 @@ namespace CSSP {
                   selectorList(selectorList),
                   instructionList(instructionList) {}
 
-            ~Block();
+            virtual ~Block();
 
             /**
              * @inherit

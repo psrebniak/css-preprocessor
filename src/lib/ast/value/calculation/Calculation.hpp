@@ -26,7 +26,7 @@ namespace CSSP {
                   second(second),
                   operation(operation) {};
 
-            ~Calculation();
+            virtual ~Calculation();
 
             /**
              * @inherit

@@ -52,17 +52,15 @@ const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) const {
 }
 
 CSSP::AST::Media::~Media() {
-    for(const auto instruction : (*this->instructionList)) {
-        if (instruction != nullptr) {
-            delete instruction;
-        }
+    while(!this->instructionList->empty()) {
+        delete this->instructionList->front();
+        this->instructionList->pop_front();
     }
     delete this->instructionList;
 
-    for(const auto media : (*this->mediaList)) {
-        if (media != nullptr) {
-            delete media;
-        }
+    while(!this->mediaList->empty()) {
+        delete this->mediaList->front();
+        this->mediaList->pop_front();
     }
     delete this->mediaList;
 }

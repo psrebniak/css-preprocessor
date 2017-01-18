@@ -110,16 +110,17 @@ int CSSP::Main::run() {
     }
 
 //     create new driver with prepared logger
-    CSSP::Driver Driver(*loggerStream);
+    CSSP::Driver *driver = new CSSP::Driver(*loggerStream);
     if (this->readFile) {
-        Driver.parse(this->filename.c_str());
+        driver->parse(this->filename.c_str());
     } else {
-        Driver.parse(std::cin);
+        driver->parse(std::cin);
     }
     // return generator exit code
-    Generator *generator = Driver.getGenerator(this->minify);
+    Generator *generator = driver->getGenerator(this->minify);
     auto exitCode = generator->generateOutput(std::cout);
 
+    delete driver;
     delete generator;
 
     if (!this->verbose) {
