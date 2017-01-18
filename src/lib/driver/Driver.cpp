@@ -8,11 +8,20 @@
 
 CSSP::Driver::~Driver() {
     for(const auto pair : this->fileToTreeMap) {
+        for(const auto element : (*pair.second)) {
+            if (element != nullptr) {
+                delete element;
+            }
+        }
         delete pair.second;
     }
 
-    delete this->lexer;
-    delete this->parser;
+    if (this->lexer) {
+        delete this->lexer;
+    }
+    if (this->parser) {
+        delete this->parser;
+    }
 }
 
 int CSSP::Driver::parse(const char *const filename) {
@@ -27,6 +36,7 @@ int CSSP::Driver::parse(const char *const filename) {
     }
 
     std::string path = this->getRealPath(filename);
+
     std::string name = basename(path.c_str());
     std::string dir = path.substr(0, path.length() - name.length());
 
@@ -86,7 +96,9 @@ int CSSP::Driver::parsePartial(const std::string filename) {
 
 int CSSP::Driver::parseHelper(std::istream &stream) {
 
-    delete (lexer);
+    if (this->lexer != nullptr) {
+        delete this->lexer;
+    }
     try {
         lexer = new CSSP::Lexer(&stream);
     }
@@ -101,7 +113,9 @@ int CSSP::Driver::parseHelper(std::istream &stream) {
         exit(EXIT_FAILURE);
     }
 
-    delete (parser);
+    if (this->parser != nullptr) {
+        delete this->parser;
+    }
     try {
         parser = new CSSP::Parser((*lexer), (*this));
     }
@@ -231,7 +245,11 @@ std::string CSSP::Driver::getRealPath(std::string path) {
         return std::string();
     }
 
-    return std::string(realpath(path.c_str(), nullptr));
+    char *buffer = realpath(path.c_str(), nullptr);
+    std::string realPath = std::string(buffer);
+    delete buffer;
+
+    return realPath;
 }
 
 const FileToTreeMapType *CSSP::Driver::getFileToTreeMap() const {
