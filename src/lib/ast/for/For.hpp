@@ -27,7 +27,7 @@ namespace CSSP {
               to(to),
               instructionList(instructionList) {};
 
-            ~For();
+            virtual ~For();
 
             /**
              * @inherit

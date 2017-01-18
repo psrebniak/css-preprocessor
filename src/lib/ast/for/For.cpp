@@ -59,10 +59,9 @@ const std::string CSSP::AST::For::debugString() const {
 }
 
 CSSP::AST::For::~For() {
-    for(const auto instruction : (*this->instructionList)) {
-        if (instruction != nullptr) {
-            delete instruction;
-        }
+    while(!this->instructionList->empty()) {
+        delete this->instructionList->front();
+        this->instructionList->pop_front();
     }
     delete this->instructionList;
 

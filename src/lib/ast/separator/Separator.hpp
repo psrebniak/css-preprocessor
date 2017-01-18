@@ -17,6 +17,8 @@ namespace CSSP {
             Separator()
                 : Node("Separator") {};
 
+            virtual ~Separator() = default;
+
             /**
              * @inherit
              * @return

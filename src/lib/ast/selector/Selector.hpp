@@ -45,7 +45,7 @@ namespace CSSP {
                   value(value),
                   variable(variable) {};
 
-            ~Selector();
+            virtual ~Selector();
 
             /**
              * Return selector type as string

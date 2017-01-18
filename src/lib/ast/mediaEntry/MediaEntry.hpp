@@ -22,7 +22,7 @@ namespace CSSP {
                   name(name),
                   value(value) {};
 
-            ~MediaEntry();
+            virtual ~MediaEntry();
 
             /**
              * @inherit

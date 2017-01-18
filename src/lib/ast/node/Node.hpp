@@ -27,6 +27,8 @@ namespace CSSP {
             Node(std::string nodeType)
                 : nodeType(nodeType) {};
 
+            virtual ~Node() = default;
+
             /**
              * Generate denode debug string and return it
              * @return

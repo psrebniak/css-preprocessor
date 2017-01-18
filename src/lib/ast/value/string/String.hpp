@@ -20,6 +20,8 @@ namespace CSSP {
                 : Value("Value/String"),
                   value(value) {}
 
+            virtual ~String() = default;
+
             /**
              * @inherit
              * @return
