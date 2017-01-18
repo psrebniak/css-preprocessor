@@ -22,6 +22,8 @@ namespace CSSP {
                   name(name),
                   value(value) {};
 
+            ~MediaEntry();
+
             /**
              * @inherit
              * @return

@@ -96,3 +96,36 @@ const bool CSSP::Generator::isMinified() const {
 bool CSSP::Generator::unsetVariable(const std::string name) {
     return this->variableMap.erase(name) > 0;
 }
+
+CSSP::Generator::~Generator() {
+    while (!this->blockSelectors.empty()) {
+        delete this->blockSelectors.top();
+        this->blockSelectors.pop();
+    }
+
+    while (!this->stack.empty()) {
+        for (const auto element: (*this->stack.top().second)) {
+            delete element;
+        }
+        delete this->stack.top().second;
+        this->stack.pop();
+    }
+
+    for(const auto element : this->fileToTreeMap) {
+        for (const auto listElement : (*element.second)) {
+            if (listElement != nullptr) {
+                delete listElement;
+            }
+            delete element.second;
+        }
+    }
+    this->fileToTreeMap.clear();
+
+    for(const auto element : this->variableMap) {
+        if (element.second != nullptr) {
+            delete element.second;
+        }
+    }
+    this->variableMap.clear();
+
+}

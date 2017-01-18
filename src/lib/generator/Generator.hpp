@@ -34,6 +34,8 @@ namespace CSSP {
             this->pushFile(mainFile);
         }
 
+        ~Generator();
+
         /**
          * Generate output to given stream
          * @param ostream

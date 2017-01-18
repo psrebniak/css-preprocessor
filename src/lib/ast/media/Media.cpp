@@ -50,3 +50,19 @@ const std::string CSSP::AST::Media::generate(CSSP::Generator *generator) const {
 
     return stream.str();
 }
+
+CSSP::AST::Media::~Media() {
+    for(const auto instruction : (*this->instructionList)) {
+        if (instruction != nullptr) {
+            delete instruction;
+        }
+    }
+    delete this->instructionList;
+
+    for(const auto media : (*this->mediaList)) {
+        if (media != nullptr) {
+            delete media;
+        }
+    }
+    delete this->mediaList;
+}

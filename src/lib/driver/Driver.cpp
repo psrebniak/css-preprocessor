@@ -7,11 +7,12 @@
 #include "lib/driver/Driver.hpp"
 
 CSSP::Driver::~Driver() {
-    delete (lexer);
-    lexer = nullptr;
+    for(const auto pair : this->fileToTreeMap) {
+        delete pair.second;
+    }
 
-    delete (parser);
-    parser = nullptr;
+    delete this->lexer;
+    delete this->parser;
 }
 
 int CSSP::Driver::parse(const char *const filename) {
@@ -43,7 +44,6 @@ int CSSP::Driver::parse(const char *const filename) {
     this->pushFileToQueue(path);
 
     this->processQueue();
-    this->debugQueue();
 
     return 0;
 }
@@ -65,7 +65,6 @@ int CSSP::Driver::parse(std::istream &stream) {
     this->parseHelper(stream);
 
     this->processQueue();
-    this->debugQueue();
 
     return 0;
 }
@@ -232,7 +231,7 @@ std::string CSSP::Driver::getRealPath(std::string path) {
         return std::string();
     }
 
-    return realpath(path.c_str(), nullptr);
+    return std::string(realpath(path.c_str(), nullptr));
 }
 
 const FileToTreeMapType *CSSP::Driver::getFileToTreeMap() const {

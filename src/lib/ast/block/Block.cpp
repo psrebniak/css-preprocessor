@@ -113,3 +113,17 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
 
     return stream.str();
 }
+
+CSSP::AST::Block::~Block() {
+    for(const auto instruction : (*this->instructionList)) {
+        if (instruction != nullptr) {
+            delete instruction;
+        }
+    }
+    delete this->instructionList;
+
+    for (const auto selector : (*this->selectorList)) {
+        delete selector;
+    }
+    delete this->selectorList;
+}
