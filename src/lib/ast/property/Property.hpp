@@ -28,6 +28,8 @@ namespace CSSP {
                   valueList(valueList),
                   modifier(modifier) {}
 
+            ~Property();
+
             /**
              * @inherit
              * @param generator

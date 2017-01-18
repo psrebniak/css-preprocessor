@@ -122,3 +122,13 @@ const std::string CSSP::AST::Calculation::generate(CSSP::Generator *generator) c
 
     return ret;
 }
+
+CSSP::AST::Calculation::~Calculation() {
+    if (this->first != nullptr) {
+        delete this->first;
+    }
+
+    if (this->second != nullptr) {
+        delete this->second;
+    }
+}

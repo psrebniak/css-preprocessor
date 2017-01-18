@@ -57,3 +57,19 @@ const std::string CSSP::AST::For::debugString() const {
     stream << "END FOR" << std::endl;
     return stream.str();
 }
+
+CSSP::AST::For::~For() {
+    for(const auto instruction : (*this->instructionList)) {
+        if (instruction != nullptr) {
+            delete instruction;
+        }
+    }
+    delete this->instructionList;
+
+    if (this->from != nullptr) {
+        delete this->from;
+    }
+    if (this->to != nullptr) {
+        delete this->to;
+    }
+}

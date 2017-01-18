@@ -21,6 +21,7 @@ namespace CSSP {
                   mediaList(mediaList),
                   instructionList(instructionList) {};
 
+            ~Media();
 
             /**
              * @inherit

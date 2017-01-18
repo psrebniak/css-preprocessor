@@ -29,7 +29,7 @@ namespace CSSP {
             log(os, Logger::colorCyan),
             error(std::cerr, Logger::colorRed) {}
 
-        virtual ~Driver();
+        ~Driver();
 
         /**
          * parse - parse from a file

@@ -41,3 +41,20 @@ const std::string CSSP::AST::Property::generate(CSSP::Generator *generator) cons
 
     return stream.str();
 }
+
+CSSP::AST::Property::~Property() {
+    for(const auto value : (*this->valueList)) {
+        if (value != nullptr) {
+            delete value;
+        }
+    }
+    delete this->valueList;
+
+    if (this->modifier != nullptr) {
+        delete this->modifier;
+    }
+
+    if (this->name != nullptr) {
+        delete this->name;
+    }
+}

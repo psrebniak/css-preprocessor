@@ -96,6 +96,7 @@ int CSSP::Main::run() {
 
     // on verbose mode, use std::cerr as logger output
     if (this->verbose) {
+        delete loggerStream;
         loggerStream = &std::cerr;
     }
 
@@ -108,7 +109,7 @@ int CSSP::Main::run() {
         return 1;
     }
 
-    // create new driver with prepared logger
+//     create new driver with prepared logger
     CSSP::Driver Driver(*loggerStream);
     if (this->readFile) {
         Driver.parse(this->filename.c_str());
@@ -116,5 +117,11 @@ int CSSP::Main::run() {
         Driver.parse(std::cin);
     }
     // return generator exit code
-    return Driver.getGenerator(this->minify)->generateOutput(std::cout);
+    auto exitCode = Driver.getGenerator(this->minify)->generateOutput(std::cout);
+
+    if (!this->verbose) {
+        delete loggerStream;
+    }
+
+    return exitCode;
 }

@@ -24,6 +24,8 @@ namespace CSSP {
                   selectorList(selectorList),
                   instructionList(instructionList) {}
 
+            ~Block();
+
             /**
              * @inherit
              * @param generator

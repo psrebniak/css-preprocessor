@@ -26,6 +26,8 @@ namespace CSSP {
                   second(second),
                   operation(operation) {};
 
+            ~Calculation();
+
             /**
              * @inherit
              * @return

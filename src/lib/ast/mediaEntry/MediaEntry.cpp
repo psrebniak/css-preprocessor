@@ -11,3 +11,9 @@ const std::string CSSP::AST::MediaEntry::debugString() const {
 const std::string CSSP::AST::MediaEntry::generate(CSSP::Generator *generator) const {
     return "(" + this->name + ": " + this->value->generate(generator) + ") ";
 }
+
+CSSP::AST::MediaEntry::~MediaEntry() {
+    if (this->value != nullptr) {
+        delete this->value;
+    }
+}

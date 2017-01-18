@@ -48,3 +48,13 @@ std::string CSSP::AST::Selector::getSelectorType() const {
 std::string CSSP::AST::Selector::getSelectorPrefix() const {
     return (this->selectorToStringMap.at(this->type)).second;
 }
+
+CSSP::AST::Selector::~Selector() {
+    if (this->value != nullptr) {
+        delete this->value;
+    }
+
+    if (this->variable != nullptr) {
+        delete this->variable;
+    }
+}

@@ -21,3 +21,9 @@ const std::string CSSP::AST::VariableSetter::generate(CSSP::Generator *generator
     generator->setVariable(this->getName(), this->getValue());
     return Node::generate(generator);
 }
+
+CSSP::AST::VariableSetter::~VariableSetter() {
+    if (this->value != nullptr) {
+        delete this->value;
+    }
+}
