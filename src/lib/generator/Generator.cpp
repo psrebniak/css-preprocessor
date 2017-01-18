@@ -76,7 +76,7 @@ void CSSP::Generator::popBlockSelector() {
 
 std::list<std::string> *CSSP::Generator::getLatestBlockSelector() {
     if (this->blockSelectors.size() == 0) {
-        return NULL;
+        return nullptr;
     }
     return this->blockSelectors.top();
 }
@@ -111,15 +111,15 @@ CSSP::Generator::~Generator() {
         this->stack.pop();
     }
 
-    for(const auto element : this->fileToTreeMap) {
-        for (const auto listElement : (*element.second)) {
-            if (listElement != nullptr) {
-                delete listElement;
-            }
-            delete element.second;
-        }
-    }
-    this->fileToTreeMap.clear();
+//    for(const auto element : this->fileToTreeMap) {
+//        for (const auto listElement : (*element.second)) {
+//            if (listElement != nullptr) {
+//                delete listElement;
+//            }
+//            delete element.second;
+//        }
+//    }
+//    this->fileToTreeMap.clear();
 
     for(const auto element : this->variableMap) {
         if (element.second != nullptr) {

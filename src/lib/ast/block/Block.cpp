@@ -34,7 +34,7 @@ const std::string CSSP::AST::Block::joinStringList(std::list<std::string> *list)
     }
 
     std::ostringstream imploded;
-    const char *const delimiter = ", ";
+    const char *delimiter = ", ";
     std::copy(list->begin(), --list->end(), std::ostream_iterator<std::string>(imploded, delimiter));
 
     return imploded.str() + *(--list->end());
@@ -45,6 +45,7 @@ const std::string CSSP::AST::Block::trimString(std::string string) const {
 }
 
 const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
+
     std::stringstream stream;
     std::list<std::string> *latestSelectorList = generator->getLatestBlockSelector();
     bool fakeParentObject = false;
@@ -108,8 +109,11 @@ const std::string CSSP::AST::Block::generate(CSSP::Generator *generator) const {
 
     generator->popBlockSelector();
     if (fakeParentObject) {
+        latestSelectorList->clear();
         delete latestSelectorList;
     }
+
+    delete currentSelectorList;
 
     return stream.str();
 }

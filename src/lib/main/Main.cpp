@@ -117,7 +117,10 @@ int CSSP::Main::run() {
         Driver.parse(std::cin);
     }
     // return generator exit code
-    auto exitCode = Driver.getGenerator(this->minify)->generateOutput(std::cout);
+    Generator *generator = Driver.getGenerator(this->minify);
+    auto exitCode = generator->generateOutput(std::cout);
+
+    delete generator;
 
     if (!this->verbose) {
         delete loggerStream;
