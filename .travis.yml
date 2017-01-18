@@ -33,7 +33,7 @@ script:
   - cmake ..
   - cmake --build .
   - ctest --output-on-failure .
-  - valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./bin/cssp -f ../tests/simple/valgrind.simple
+  - valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./bin/cssp -f ../tests/simple/valgrind.simple > /dev/null
 
 notifications:
   email: false
