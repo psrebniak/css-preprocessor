@@ -68,8 +68,8 @@ int CSSP::Driver::parse(std::istream &stream) {
         return EXIT_FAILURE;
     }
 
-    char temp[256];
-    getcwd(temp, 256);
+    char temp[2048];
+    getcwd(temp, 2048);
     this->directory = std::string(temp);
     this->mainFileName = "STDIN";
     this->currentFileName = "STDIN";
@@ -246,11 +246,9 @@ std::string CSSP::Driver::getRealPath(std::string path) {
         return std::string();
     }
 
-    char *buffer = realpath(path.c_str(), nullptr);
-    std::string realPath = std::string(buffer);
-    delete buffer;
-
-    return realPath;
+    char buffer[2048];
+    realpath(path.c_str(), buffer);
+    return std::string(buffer);
 }
 
 const FileToTreeMapType *CSSP::Driver::getFileToTreeMap() const {
