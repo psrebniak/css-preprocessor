@@ -9,5 +9,5 @@ const std::string CSSP::AST::Separator::debugString() const {
 }
 
 const std::string CSSP::AST::Separator::generate(CSSP::Generator *generator) const {
-    return this->token.isWhitespacePrefixed() ? " " : std::string();
+    return this->token.toString() + (this->token.isWhitespacePrefixed() ? " " : std::string());
 }
