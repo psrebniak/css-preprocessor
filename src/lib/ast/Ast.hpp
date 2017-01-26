@@ -24,5 +24,6 @@
 #include "lib/ast/value/string/String.hpp"
 #include "lib/ast/value/variable/Variable.hpp"
 #include "lib/ast/value/calculation/Calculation.hpp"
+#include "lib/ast/value/functionCall/FunctionCall.hpp"
 
 #endif //CSSPREPROCESSOR_AST_HPP

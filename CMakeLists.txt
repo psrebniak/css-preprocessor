@@ -48,6 +48,7 @@ set(SOURCE_FILES
     src/lib/ast/variableSetter/VariableSetter.cpp
     src/lib/ast/media/Media.cpp
     src/lib/ast/mediaEntry/MediaEntry.cpp
+    src/lib/ast/value/functionCall/FunctionCall.cpp
     src/lib/generator/Generator.cpp
     src/lib/main/Main.cpp
     )

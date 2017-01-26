@@ -97,6 +97,7 @@
 %type <CSSP::AST::Value*> valueNumber;
 %type <CSSP::AST::Value*> valueCalculation;
 %type <CSSP::AST::Value*> valueColor;
+%type <CSSP::AST::Value*> functionCall;
 
 %type <std::list<CSSP::AST::Node*>*> valueList;
 %type <std::list<CSSP::AST::Node*>*> selector;
@@ -402,6 +403,14 @@ value
     | valueNumber {
         $$ = $1;
     }
+    | functionCall {
+        $$ = $1;
+    }
+
+functionCall
+    : STRING LPAREN valueList RPAREN {
+        $$ = (new CSSP::AST::FunctionCall($1.toString(), $3))->setToken($1);
+    }
 
 valueVariable
     : DOLLAR LBRACE string RBRACE {
@@ -462,17 +471,17 @@ valueNumber
     }
 
 valueCalculation
-    : LPAREN value PLUS value RPAREN {
-        $$ = (new CSSP::AST::Calculation($2, $4, token::PLUS))->setToken($1);
+    : AT LPAREN value PLUS value RPAREN {
+        $$ = (new CSSP::AST::Calculation($3, $5, token::PLUS))->setToken($1);
     }
-    | LPAREN value MINUS value RPAREN {
-        $$ = (new CSSP::AST::Calculation($2, $4, token::MINUS))->setToken($1);
+    | AT LPAREN value MINUS value RPAREN {
+        $$ = (new CSSP::AST::Calculation($3, $5, token::MINUS))->setToken($1);
     }
-    | LPAREN value ASTERISK value RPAREN {
-        $$ = (new CSSP::AST::Calculation($2, $4, token::ASTERISK))->setToken($1);
+    | AT LPAREN value ASTERISK value RPAREN {
+        $$ = (new CSSP::AST::Calculation($3, $5, token::ASTERISK))->setToken($1);
     }
-    | LPAREN value DIVIDE value RPAREN {
-        $$ = (new CSSP::AST::Calculation($2, $4, token::DIVIDE))->setToken($1);
+    | AT LPAREN value DIVIDE value RPAREN {
+        $$ = (new CSSP::AST::Calculation($3, $5, token::DIVIDE))->setToken($1);
     }
 
 valueColor

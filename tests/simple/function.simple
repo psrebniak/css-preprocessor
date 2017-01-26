@@ -1,0 +1,5 @@
+a {
+    color: rgba(0,0,0,0.5);
+    background-image: url('https://example.com') no-repeat;
+    test: before function(call without separators) after;
+}
