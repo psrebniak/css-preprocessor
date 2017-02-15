@@ -10,6 +10,9 @@ const std::string CSSP::AST::FunctionCall::generate(Generator *generator) const 
 
     stream << this->functionName << "(";
     for(const auto value : (*this->valueList)) {
+        if (value->getToken().isWhitespacePrefixed()) {
+            stream << " ";
+        }
         stream << value->generate(generator);
     }
     stream << ")";
