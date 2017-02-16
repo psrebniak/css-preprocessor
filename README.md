@@ -1,6 +1,4 @@
-# CSSP - CSS preprocessor library
-
-[![Build Status](https://travis-ci.com/psrebniak/css-preprocessor.svg?token=qij5pjXxGBUqQ2D9ycyK&branch=master)](https://travis-ci.com/psrebniak/css-preprocessor)
+# CSSP - CSS preprocessor library[![Build Status](https://travis-ci.com/psrebniak/css-preprocessor.svg?token=qij5pjXxGBUqQ2D9ycyK&branch=master)](https://travis-ci.com/psrebniak/css-preprocessor)
 
 **WARNING**<br/>
 **this library is abandoned**
@@ -14,8 +12,6 @@ CSS grammar has few traps, including significant white spaces and multiple rules
 For this reasons LALR(1) parser is not good choice to handle CSS grammar, 
 Main goal of this library was achieve high parsing speed, this justify parser choice. 
 
-This library can be an example how to build medium size application with flex and bison.
-
 ## Compilation
 ```
 $ mkdir build
@@ -28,7 +24,7 @@ $ ctest .
 ## Features
 
 * block nesting with parent operator and handling multiple selectors with comma separator
-* import files (output single file)
+* import files
 * variables
 * calculations
 * for loop
