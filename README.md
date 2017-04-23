@@ -1,4 +1,5 @@
-# CSSP - CSS preprocessor library[![Build Status](https://travis-ci.com/psrebniak/css-preprocessor.svg?token=qij5pjXxGBUqQ2D9ycyK&branch=master)](https://travis-ci.com/psrebniak/css-preprocessor)
+# CSSP - CSS preprocessor library
+[![Build Status](https://travis-ci.org/psrebniak/backbone-simple-directive.svg?branch=master)](https://travis-ci.org/psrebniak/backbone-simple-directive)
 
 **WARNING**<br/>
 **this library is abandoned**
